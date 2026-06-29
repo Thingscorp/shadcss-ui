@@ -14,3 +14,6 @@ Iteration 2: fix-input-padding-y — PASSED. Changed .input padding from `0 var(
 
 ## 2026-06-29T20:52:00Z
 Iteration 3: fix-toggle-padding-x — PASSED. Changed .toggle padding from `0` to `0 var(--space-2)` (8px horizontal). Gate: ALL GATES PASS. real_deviations dropped 2→1.
+
+## 2026-06-29T20:56:00Z
+Iteration 4: fix-progress-background — PASSED. Changed .progress and ::-webkit-progress-bar background from `color-mix(in oklab, var(--primary) 20%, transparent)` to `var(--primary)` to match shadcn bg-primary token. Gate: ALL GATES PASS. real_deviations dropped 1→0. **All fidelity deviations resolved.**

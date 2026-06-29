@@ -1887,7 +1887,7 @@
 
   .progress {
     appearance: none;
-    background: color-mix(in oklab, var(--primary) 20%, transparent);
+    background: var(--primary);
     border-radius: var(--radius-full);
     border: none;
     width: 100%;
@@ -1896,7 +1896,7 @@
   }
 
   .progress::-webkit-progress-bar {
-    background: color-mix(in oklab, var(--primary) 20%, transparent);
+    background: var(--primary);
     border-radius: var(--radius-full);
   }
 

@@ -48,7 +48,7 @@
     {
       "id": "fix-progress-background",
       "category": "fidelity-deviation",
-      "passes": false,
+      "passes": true,
       "blocked": false,
       "description": "Progress background uses primary color directly instead of mix:primary. shadcn uses primary for the track background.",
       "steps": [
