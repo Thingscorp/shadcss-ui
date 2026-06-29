@@ -3,7 +3,7 @@
     {
       "id": "fix-button-padding-y",
       "category": "fidelity-deviation",
-      "passes": false,
+      "passes": true,
       "blocked": false,
       "description": "Button paddingY matches shadcn (8px vertical padding). Currently 0px in shadcss per gaps.csv.",
       "steps": [
@@ -166,7 +166,9 @@
     }
   ],
   "runtime_contract": {
-    "verification_gates": ["bash scripts/check.sh"],
+    "verification_gates": [
+      "bash scripts/check.sh"
+    ],
     "require_one_item_per_iteration": true,
     "require_commit": true,
     "require_progress_append": true,
