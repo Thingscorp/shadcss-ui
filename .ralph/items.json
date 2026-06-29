@@ -33,7 +33,7 @@
     {
       "id": "fix-toggle-padding-x",
       "category": "fidelity-deviation",
-      "passes": false,
+      "passes": true,
       "blocked": false,
       "description": "Toggle paddingX matches shadcn (8px horizontal padding). Currently 0px in shadcss per gaps.csv.",
       "steps": [

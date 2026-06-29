@@ -11,3 +11,6 @@ Iteration 1: fix-button-padding-y — PASSED. Changed .btn padding from `0 var(-
 
 ## 2026-06-29T20:48:00Z
 Iteration 2: fix-input-padding-y — PASSED. Changed .input padding from `0 var(--space-3)` to `var(--space-1) var(--space-3)` (4px vertical). Gate: ALL GATES PASS. real_deviations dropped 3→2.
+
+## 2026-06-29T20:52:00Z
+Iteration 3: fix-toggle-padding-x — PASSED. Changed .toggle padding from `0` to `0 var(--space-2)` (8px horizontal). Gate: ALL GATES PASS. real_deviations dropped 2→1.
