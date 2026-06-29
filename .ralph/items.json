@@ -1,0 +1,72 @@
+{
+  "items": [
+    {
+      "id": "button-padding-y",
+      "category": "fidelity",
+      "passes": false,
+      "blocked": false,
+      "description": "Button paddingY matches shadcn (8px vertical padding). Currently 0px in shadcss.",
+      "steps": [
+        "Read packages/shadcss/src/components/button.css",
+        "Identify the padding declaration on the .button selector",
+        "Add or adjust vertical padding to 8px (0.5rem) to match shadcn canon",
+        "Run npm run build to rebuild dist",
+        "Run bash scripts/check.sh to verify all gates pass"
+      ],
+      "regression_notes": "Ensure button height/line-height doesn't break existing showcase layout in apps/www/index.html. Check that button variants (default, destructive, outline, secondary, ghost, link) all inherit the padding correctly."
+    },
+    {
+      "id": "input-padding-y",
+      "category": "fidelity",
+      "passes": false,
+      "blocked": false,
+      "description": "Input paddingY matches shadcn (4px vertical padding). Currently 0px in shadcss.",
+      "steps": [
+        "Read packages/shadcss/src/components/input.css",
+        "Identify the padding declaration on the .input selector",
+        "Add or adjust vertical padding to 4px (0.25rem) to match shadcn canon",
+        "Run npm run build to rebuild dist",
+        "Run bash scripts/check.sh to verify all gates pass"
+      ],
+      "regression_notes": "Ensure input height doesn't break form layouts in the showcase. Check that textarea.css (if it shares padding) remains consistent. Verify field-group spacing still looks correct."
+    },
+    {
+      "id": "toggle-padding-x",
+      "category": "fidelity",
+      "passes": false,
+      "blocked": false,
+      "description": "Toggle paddingX matches shadcn (8px horizontal padding). Currently 0px in shadcss.",
+      "steps": [
+        "Read packages/shadcss/src/components/toggle.css",
+        "Identify the padding declaration on the .toggle selector",
+        "Add or adjust horizontal padding to 8px (0.5rem) to match shadcn canon",
+        "Run npm run build to rebuild dist",
+        "Run bash scripts/check.sh to verify all gates pass"
+      ],
+      "regression_notes": "Ensure toggle group layouts still work. Check that toggle variants (default, outline) inherit padding correctly. Verify the showcase toggle examples don't overflow."
+    },
+    {
+      "id": "progress-background",
+      "category": "fidelity",
+      "passes": false,
+      "blocked": false,
+      "description": "Progress background uses primary color directly instead of mix:primary. shadcn uses primary for the track background.",
+      "steps": [
+        "Read packages/shadcss/src/components/progress.css",
+        "Identify the background declaration on the .progress selector",
+        "Change from mix:primary to primary to match shadcn canon",
+        "Run npm run build to rebuild dist",
+        "Run bash scripts/check.sh to verify all gates pass"
+      ],
+      "regression_notes": "Ensure the progress bar still renders correctly in both light and dark modes. Check that the progress-indicator (inner bar) contrast against the track remains sufficient. Verify showcase progress examples still look right."
+    }
+  ],
+  "runtime_contract": {
+    "verification_gates": ["bash scripts/check.sh"],
+    "require_one_item_per_iteration": true,
+    "require_commit": true,
+    "require_progress_append": true,
+    "branch": "ralph/fidelity-gaps",
+    "never_push_without_owner_ok": true
+  }
+}
