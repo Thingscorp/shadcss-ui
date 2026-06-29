@@ -63,7 +63,7 @@
     {
       "id": "audit-notification-components",
       "category": "component-audit",
-      "passes": false,
+      "passes": true,
       "blocked": false,
       "description": "Audit notification components (sonner, toast, alert) against shadcn spec for missing styles, variants, or slots. Ensure CSS-only fidelity for all notification patterns.",
       "steps": [

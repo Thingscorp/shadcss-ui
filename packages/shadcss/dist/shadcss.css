@@ -1535,6 +1535,7 @@
   }
 
   .alert-title {
+    letter-spacing: -.011em;
     margin-bottom: .125rem;
     font-weight: 500;
     line-height: 1;
@@ -1542,7 +1543,9 @@
 
   .alert-description {
     color: var(--muted-foreground);
+    gap: var(--space-1);
     line-height: 1.5;
+    display: grid;
   }
 
   .alert-default {

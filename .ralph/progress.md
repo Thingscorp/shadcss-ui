@@ -17,3 +17,6 @@ Iteration 3: fix-toggle-padding-x — PASSED. Changed .toggle padding from `0` t
 
 ## 2026-06-29T20:56:00Z
 Iteration 4: fix-progress-background — PASSED. Changed .progress and ::-webkit-progress-bar background from `color-mix(in oklab, var(--primary) 20%, transparent)` to `var(--primary)` to match shadcn bg-primary token. Gate: ALL GATES PASS. real_deviations dropped 1→0. **All fidelity deviations resolved.**
+
+## 2026-06-29T21:00:00Z
+Iteration 5: audit-notification-components — PASSED. Audited sonner, toast, alert against shadcn spec. Sonner and toast have no extractable spec metrics (JS-heavy components). Alert: added `letter-spacing: -0.011em` (tracking-tight) to .alert-title and `display: grid; gap: var(--space-1)` to .alert-description to match shadcn. Gate: ALL GATES PASS. real_deviations=0.

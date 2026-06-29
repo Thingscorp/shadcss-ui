@@ -26,11 +26,14 @@
   .alert-title {
     font-weight: 500;
     line-height: 1;
+    letter-spacing: -0.011em;
     margin-bottom: 0.125rem;
   }
   .alert-description {
     color: var(--muted-foreground);
     line-height: 1.5;
+    display: grid;
+    gap: var(--space-1);
   }
 
   /* Variants — color shifts via :where() so children stay readable */
