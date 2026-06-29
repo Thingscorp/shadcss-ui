@@ -1,64 +1,168 @@
 {
   "items": [
     {
-      "id": "button-padding-y",
-      "category": "fidelity",
+      "id": "fix-button-padding-y",
+      "category": "fidelity-deviation",
       "passes": false,
       "blocked": false,
-      "description": "Button paddingY matches shadcn (8px vertical padding). Currently 0px in shadcss.",
+      "description": "Button paddingY matches shadcn (8px vertical padding). Currently 0px in shadcss per gaps.csv.",
       "steps": [
         "Read packages/shadcss/src/components/button.css",
-        "Identify the padding declaration on the .button selector",
+        "Identify the padding declaration on the .btn selector",
         "Add or adjust vertical padding to 8px (0.5rem) to match shadcn canon",
         "Run npm run build to rebuild dist",
-        "Run bash scripts/check.sh to verify all gates pass"
+        "Run bash scripts/check.sh to verify all gates pass and fidelity comparator shows one fewer deviation"
       ],
-      "regression_notes": "Ensure button height/line-height doesn't break existing showcase layout in apps/www/index.html. Check that button variants (default, destructive, outline, secondary, ghost, link) all inherit the padding correctly."
+      "regression_notes": "Ensure button height/line-height doesn't break existing showcase layout in apps/www/index.html. Check that button variants (default, destructive, outline, secondary, ghost, link) all inherit the padding correctly. Verify the fidelity comparator real_deviations count decreases by 1."
     },
     {
-      "id": "input-padding-y",
-      "category": "fidelity",
+      "id": "fix-input-padding-y",
+      "category": "fidelity-deviation",
       "passes": false,
       "blocked": false,
-      "description": "Input paddingY matches shadcn (4px vertical padding). Currently 0px in shadcss.",
+      "description": "Input paddingY matches shadcn (4px vertical padding). Currently 0px in shadcss per gaps.csv.",
       "steps": [
         "Read packages/shadcss/src/components/input.css",
         "Identify the padding declaration on the .input selector",
         "Add or adjust vertical padding to 4px (0.25rem) to match shadcn canon",
         "Run npm run build to rebuild dist",
-        "Run bash scripts/check.sh to verify all gates pass"
+        "Run bash scripts/check.sh to verify all gates pass and fidelity comparator shows one fewer deviation"
       ],
-      "regression_notes": "Ensure input height doesn't break form layouts in the showcase. Check that textarea.css (if it shares padding) remains consistent. Verify field-group spacing still looks correct."
+      "regression_notes": "Ensure input height doesn't break form layouts in the showcase. Check that textarea.css (if it shares padding) remains consistent. Verify field-group spacing still looks correct. Verify the fidelity comparator real_deviations count decreases by 1."
     },
     {
-      "id": "toggle-padding-x",
-      "category": "fidelity",
+      "id": "fix-toggle-padding-x",
+      "category": "fidelity-deviation",
       "passes": false,
       "blocked": false,
-      "description": "Toggle paddingX matches shadcn (8px horizontal padding). Currently 0px in shadcss.",
+      "description": "Toggle paddingX matches shadcn (8px horizontal padding). Currently 0px in shadcss per gaps.csv.",
       "steps": [
         "Read packages/shadcss/src/components/toggle.css",
         "Identify the padding declaration on the .toggle selector",
         "Add or adjust horizontal padding to 8px (0.5rem) to match shadcn canon",
         "Run npm run build to rebuild dist",
-        "Run bash scripts/check.sh to verify all gates pass"
+        "Run bash scripts/check.sh to verify all gates pass and fidelity comparator shows one fewer deviation"
       ],
-      "regression_notes": "Ensure toggle group layouts still work. Check that toggle variants (default, outline) inherit padding correctly. Verify the showcase toggle examples don't overflow."
+      "regression_notes": "Ensure toggle group layouts still work. Check that toggle variants (default, outline) inherit padding correctly. Verify the showcase toggle examples don't overflow. Verify the fidelity comparator real_deviations count decreases by 1."
     },
     {
-      "id": "progress-background",
-      "category": "fidelity",
+      "id": "fix-progress-background",
+      "category": "fidelity-deviation",
       "passes": false,
       "blocked": false,
       "description": "Progress background uses primary color directly instead of mix:primary. shadcn uses primary for the track background.",
       "steps": [
         "Read packages/shadcss/src/components/progress.css",
         "Identify the background declaration on the .progress selector",
-        "Change from mix:primary to primary to match shadcn canon",
+        "Change from color-mix primary to direct primary to match shadcn canon",
         "Run npm run build to rebuild dist",
-        "Run bash scripts/check.sh to verify all gates pass"
+        "Run bash scripts/check.sh to verify all gates pass and fidelity comparator shows 0 real deviations"
       ],
-      "regression_notes": "Ensure the progress bar still renders correctly in both light and dark modes. Check that the progress-indicator (inner bar) contrast against the track remains sufficient. Verify showcase progress examples still look right."
+      "regression_notes": "Ensure the progress bar still renders correctly in both light and dark modes. Check that the progress-indicator (inner bar) contrast against the track remains sufficient. Verify showcase progress examples still look right. Verify the fidelity comparator real_deviations count reaches 0."
+    },
+    {
+      "id": "audit-notification-components",
+      "category": "component-audit",
+      "passes": false,
+      "blocked": false,
+      "description": "Audit notification components (sonner, toast, alert) against shadcn spec for missing styles, variants, or slots. Ensure CSS-only fidelity for all notification patterns.",
+      "steps": [
+        "Read qa/fidelity/shadcn-spec.json entries for sonner, toast, and alert",
+        "Compare each against the corresponding shadcss source CSS (sonner.css, toast.css, alert.css)",
+        "Check for missing: variants, color tokens, spacing, border-radius, shadow, animation timing",
+        "Fix any discrepancies found in the source CSS",
+        "Run npm run build && bash scripts/check.sh to verify"
+      ],
+      "regression_notes": "Ensure toast/sonner animations still work. Verify alert variants (default, info, success, warning, destructive) still render correctly. Check that the showcase notification examples still look right."
+    },
+    {
+      "id": "audit-menu-components",
+      "category": "component-audit",
+      "passes": false,
+      "blocked": false,
+      "description": "Audit menu components (dropdown, menubar, context-menu, navigation-menu) against shadcn spec for missing styles, variants, or slots. Ensure CSS-only fidelity for all menu patterns.",
+      "steps": [
+        "Read qa/fidelity/shadcn-spec.json entries for dropdown-menu, menubar, context-menu, navigation-menu",
+        "Compare each against the corresponding shadcss source CSS (dropdown.css, menubar.css, context-menu.css, navigation-menu.css)",
+        "Check for missing: item styles, separator, label, shortcut, sub-trigger, checkbox-item, radio-item, destructive variant",
+        "Fix any discrepancies found in the source CSS",
+        "Run npm run build && bash scripts/check.sh to verify"
+      ],
+      "regression_notes": "Ensure dropdown still opens via popovertarget. Verify menubar horizontal layout still works. Check that context-menu right-click still functions. Verify navigation-menu hover/focus reveal still works."
+    },
+    {
+      "id": "audit-overlay-components",
+      "category": "component-audit",
+      "passes": false,
+      "blocked": false,
+      "description": "Audit overlay components (dialog, alert-dialog, sheet, drawer, popover, hover-card, tooltip) against shadcn spec for missing styles, variants, or slots. Ensure CSS-only fidelity for all overlay patterns.",
+      "steps": [
+        "Read qa/fidelity/shadcn-spec.json entries for dialog, alert-dialog, sheet, drawer, popover, hover-card, tooltip",
+        "Compare each against the corresponding shadcss source CSS",
+        "Check for missing: header/footer/body styles, title/description styles, close button, overlay/backdrop, animation, side variants",
+        "Fix any discrepancies found in the source CSS",
+        "Run npm run build && bash scripts/check.sh to verify"
+      ],
+      "regression_notes": "Ensure dialog showModal() still works. Verify sheet/drawer side variants (left/right/top/bottom) still render correctly. Check that tooltip positioning still works. Verify hover-card hover/focus reveal still works."
+    },
+    {
+      "id": "audit-form-components",
+      "category": "component-audit",
+      "passes": false,
+      "blocked": false,
+      "description": "Audit form components (input, textarea, select, checkbox, radio, radio-group, switch, slider, toggle, toggle-group, label, field, input-otp) against shadcn spec for missing styles, variants, or slots.",
+      "steps": [
+        "Read qa/fidelity/shadcn-spec.json entries for all form components",
+        "Compare each against the corresponding shadcss source CSS",
+        "Check for missing: size variants (sm/lg), error/invalid states, focus ring, disabled styles, placeholder styles",
+        "Fix any discrepancies found in the source CSS",
+        "Run npm run build && bash scripts/check.sh to verify"
+      ],
+      "regression_notes": "Ensure form layouts in the showcase still work. Verify field wrapper (label + input + description + error) still renders correctly. Check that toggle-group item selection states still work via :has(:checked)."
+    },
+    {
+      "id": "audit-data-display-components",
+      "category": "component-audit",
+      "passes": false,
+      "blocked": false,
+      "description": "Audit data display components (table, card, avatar, badge, skeleton, progress, separator, accordion, tabs, collapsible) against shadcn spec for missing styles, variants, or slots.",
+      "steps": [
+        "Read qa/fidelity/shadcn-spec.json entries for all data display components",
+        "Compare each against the corresponding shadcss source CSS",
+        "Check for missing: table header/body/footer/caption styles, card header/content/footer styles, badge variants, accordion item/trigger/content styles, tabs list/trigger/content styles",
+        "Fix any discrepancies found in the source CSS",
+        "Run npm run build && bash scripts/check.sh to verify"
+      ],
+      "regression_notes": "Ensure table layouts still work. Verify card header/content/footer zones still render correctly. Check that accordion expand/collapse via details still works. Verify tabs active state via :has() still works."
+    },
+    {
+      "id": "improve-comparator-slot-mapping",
+      "category": "tooling",
+      "passes": false,
+      "blocked": false,
+      "description": "Improve the fidelity comparator (scripts/fidelity/compare.mjs) to handle shadcss's alternative slot naming patterns, reducing the 99 'not comparable' slots to only genuinely missing ones.",
+      "steps": [
+        "Read scripts/fidelity/compare.mjs and understand the MAP and compareSlot function",
+        "Read qa/fidelity/gaps.csv and identify the 'not found' slots that are actually present but named differently (e.g. shadcn uses 'dropdown-menu-content' but shadcss uses 'dropdown-menu')",
+        "Add alias mappings or selector patterns to the comparator for these slots",
+        "Re-run the comparator and verify the 'not comparable' count drops significantly",
+        "Run bash scripts/check.sh to verify all gates still pass"
+      ],
+      "regression_notes": "Ensure the comparator still correctly identifies real deviations. Do not suppress genuine gaps by over-mapping. Verify the real_deviations count doesn't change (should still be whatever it was before this item)."
+    },
+    {
+      "id": "promote-fidelity-to-hard-gate",
+      "category": "tooling",
+      "passes": false,
+      "blocked": true,
+      "description": "Once all fidelity deviations are resolved (real_deviations=0), update scripts/check.sh to make the fidelity comparator a hard gate that fails on any real deviation. This ensures the loop catches regressions.",
+      "steps": [
+        "Verify that node scripts/fidelity/compare.mjs reports real_deviations=0",
+        "Edit scripts/check.sh: change the fidelity WARNING block to exit 1 if REAL_DEVIATIONS > 0",
+        "Run bash scripts/check.sh to verify it still passes (ALL GATES PASS)",
+        "Commit the change"
+      ],
+      "regression_notes": "This item is blocked until all fix-* and audit-* items pass. Ensure the hard gate doesn't break on comparator parsing edge cases. Verify that the gate still passes after the change."
     }
   ],
   "runtime_contract": {
