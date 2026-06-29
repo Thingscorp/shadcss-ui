@@ -18,7 +18,7 @@
     {
       "id": "fix-input-padding-y",
       "category": "fidelity-deviation",
-      "passes": false,
+      "passes": true,
       "blocked": false,
       "description": "Input paddingY matches shadcn (4px vertical padding). Currently 0px in shadcss per gaps.csv.",
       "steps": [

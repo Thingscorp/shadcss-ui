@@ -604,7 +604,7 @@
   .input {
     width: 100%;
     height: 2.25rem;
-    padding: 0 var(--space-3);
+    padding: var(--space-1) var(--space-3);
     font-size: var(--text-base);
     color: var(--foreground);
     border: 1px solid var(--input);
