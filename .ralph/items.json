@@ -138,7 +138,7 @@
     {
       "id": "improve-comparator-slot-mapping",
       "category": "tooling",
-      "passes": false,
+      "passes": true,
       "blocked": false,
       "description": "Improve the fidelity comparator (scripts/fidelity/compare.mjs) to handle shadcss's alternative slot naming patterns, reducing the 99 'not comparable' slots to only genuinely missing ones.",
       "steps": [

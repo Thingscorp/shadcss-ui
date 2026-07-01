@@ -26,8 +26,8 @@ fi
 echo "Fidelity: ${REAL_DEVIATIONS} real deviation(s)"
 
 if [ "$REAL_DEVIATIONS" -gt 0 ]; then
-  echo "WARNING: ${REAL_DEVIATIONS} fidelity deviations remain — see qa/fidelity/gaps.csv"
-  echo "Gate passes but deviations must be resolved by Ralph items."
+  echo "FAIL: ${REAL_DEVIATIONS} fidelity deviations remain — see qa/fidelity/gaps.csv"
+  exit 1
 fi
 
 echo "ALL GATES PASS"
