@@ -1,6 +1,4 @@
 "component","slot","metric","shadcn","shadcss","note"
-"button","(root)","paddingY","8px","0px",""
-"input","(root)","paddingY","4px","0px",""
 "switch","switch-thumb","—","","(selector .switch-thumb not found)","skip"
 "checkbox","checkbox-indicator","—","","(selector .checkbox-indicator not found)","skip"
 "radio-group","radio-group-item","—","","(selector .radio-group-item not found)","skip"
@@ -77,7 +75,6 @@
 "slider","slider-track","—","","(selector .slider-track not found)","skip"
 "slider","slider-range","—","","(selector .slider-range not found)","skip"
 "slider","slider-thumb","—","","(selector .slider-thumb not found)","skip"
-"toggle","(root)","paddingX","8px","0px",""
 "accordion","accordion-item","—","","(selector .accordion-item not found)","skip"
 "accordion","accordion-trigger","—","","(selector .accordion-trigger not found)","skip"
 "tabs","tabs-content","—","","(selector .tabs-content not found)","skip"
@@ -100,11 +97,9 @@
 "field","field-legend","—","","(selector .field-legend not found)","skip"
 "field","field-content","—","","(selector .field-content not found)","skip"
 "field","field-separator","—","","(selector .field-separator not found)","skip"
-"navigation-menu","navigation-menu-indicator","—","","(selector .navigation-menu-indicator not found)","skip"
 
 "LINE-HEIGHT DEVIATIONS"
 "component","slot","shadcn canon","shadcss","note"
 
 "COLOR/TOKEN DEVIATIONS"
 "component","slot","metric","shadcn","shadcss"
-"progress","(root)","background","primary","mix:primary"

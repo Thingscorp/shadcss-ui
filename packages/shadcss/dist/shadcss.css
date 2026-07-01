@@ -3031,15 +3031,15 @@
     align-items: center;
     gap: var(--space-2);
     width: 100%;
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-1\.5) var(--space-2);
     font-size: var(--text-sm);
+    line-height: var(--leading-sm);
     color: var(--popover-foreground);
-    border-radius: calc(var(--radius-md) - 2px);
+    border-radius: var(--radius-sm);
     cursor: pointer;
     text-align: start;
     transition: background var(--duration-fast) var(--ease-out),
       color var(--duration-fast) var(--ease-out);
-    line-height: 1;
     display: flex;
   }
 
@@ -3066,8 +3066,8 @@
   }
 
   .dropdown-label {
-    padding: var(--space-2) var(--space-3);
-    font-size: var(--text-xs);
+    padding: var(--space-1\.5) var(--space-2);
+    font-size: var(--text-sm);
     color: var(--muted-foreground);
     text-transform: none;
     font-weight: 500;
@@ -3125,9 +3125,9 @@
     align-items: center;
     gap: var(--space-2);
     width: 100%;
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-1\.5) var(--space-2);
     font-size: var(--text-sm);
-    border-radius: calc(var(--radius-md) - 2px);
+    border-radius: var(--radius-sm);
     cursor: pointer;
     display: flex;
   }
@@ -3144,7 +3144,7 @@
     color: var(--popover-foreground);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
   }
 
   .menubar {
@@ -3304,11 +3304,12 @@
     top: calc(100% + var(--space-2));
     min-width: min(20rem, 100vw - 2rem);
     padding: var(--space-2);
+    padding-right: var(--space-2-5, .625rem);
     background: var(--popover);
     color: var(--popover-foreground);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
     width: max-content;
     animation: shadcss-nav-in var(--duration-base) var(--ease-out);
     margin: 0;
@@ -3348,7 +3349,7 @@
     align-items: flex-start;
     gap: var(--space-1);
     padding: var(--space-2);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     color: var(--popover-foreground);
     transition: background var(--duration-fast) var(--ease-out);
     text-decoration: none;
@@ -3395,8 +3396,21 @@
   }
 
   .navigation-menu-viewport {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--popover);
     width: 100%;
+    color: var(--popover-foreground);
+    box-shadow: var(--shadow-sm);
     position: relative;
+  }
+
+  .navigation-menu-indicator {
+    justify-content: center;
+    align-items: flex-end;
+    height: .375rem;
+    display: flex;
+    overflow: hidden;
   }
 
   .context-menu {
@@ -3422,6 +3436,10 @@
       opacity: 1;
       transform: scale(1);
     }
+  }
+
+  .context-menu .dropdown-label {
+    color: var(--foreground);
   }
 
   .context-menu .dropdown-item > svg {

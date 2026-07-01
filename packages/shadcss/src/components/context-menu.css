@@ -31,6 +31,11 @@
     /* All inherit from dropdown.css */
   }
 
+  /* shadcn spec: context-menu-label uses foreground, not muted-foreground */
+  .context-menu .dropdown-label {
+    color: var(--foreground);
+  }
+
   .context-menu .dropdown-item > svg { width: 1rem; height: 1rem; }
 
   /* Checkbox-style items inside context menu */
