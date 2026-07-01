@@ -93,7 +93,7 @@
     {
       "id": "audit-overlay-components",
       "category": "component-audit",
-      "passes": false,
+      "passes": true,
       "blocked": false,
       "description": "Audit overlay components (dialog, alert-dialog, sheet, drawer, popover, hover-card, tooltip) against shadcn spec for missing styles, variants, or slots. Ensure CSS-only fidelity for all overlay patterns.",
       "steps": [

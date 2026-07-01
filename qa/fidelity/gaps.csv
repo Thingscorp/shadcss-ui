@@ -92,10 +92,6 @@
 "sidebar","sidebar-group-content","—","","(selector .sidebar-group-content not found)","skip"
 "sidebar","sidebar-menu-skeleton","—","","(selector .sidebar-menu-skeleton not found)","skip"
 "sidebar","sidebar-menu-sub-item","—","","(selector .sidebar-menu-sub-item not found)","skip"
-"field","field-set","—","","(selector .field-set not found)","skip"
-"field","field-legend","—","","(selector .field-legend not found)","skip"
-"field","field-content","—","","(selector .field-content not found)","skip"
-"field","field-separator","—","","(selector .field-separator not found)","skip"
 
 "LINE-HEIGHT DEVIATIONS"
 "component","slot","shadcn canon","shadcss","note"

@@ -56,7 +56,7 @@
     gap: var(--space-1);
     font-size: var(--text-sm);
     color: var(--destructive);
-    line-height: 1.5;
+    line-height: var(--leading-sm);
   }
   .field-error > svg { width: 0.875rem; height: 0.875rem; }
 
@@ -112,4 +112,9 @@
   .field[data-invalid="true"] .textarea,
   .field:has([aria-invalid="true"]) .textarea { border-color: var(--destructive); }
   .field-group { display: flex; flex-direction: column; gap: var(--space-7); }
+
+  .field-set { display: flex; gap: var(--space-6); }
+  .field-legend { font-weight: 500; }
+  .field-content { display: flex; gap: var(--space-1\.5); line-height: 1.375; }
+  .field-separator { height: 1.25rem; font-size: var(--text-sm); line-height: var(--leading-sm); }
 }

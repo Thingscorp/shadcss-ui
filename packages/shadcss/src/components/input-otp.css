@@ -18,16 +18,17 @@
   }
 
   .otp-input {
-    width: 2.5rem;
-    height: 3rem;
+    width: 2.25rem;
+    height: 2.25rem;
     text-align: center;
-    font-size: var(--text-lg);
-    font-weight: 500;
+    font-size: var(--text-sm);
+    line-height: var(--leading-sm);
     font-family: var(--font-mono);
     color: var(--foreground);
     background: var(--background);
     border: 1px solid var(--input);
     border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
     transition:
       border-color var(--duration-base) var(--ease-out),
       box-shadow var(--duration-base) var(--ease-out);

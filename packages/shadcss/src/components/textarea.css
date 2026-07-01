@@ -9,7 +9,7 @@
     min-height: 4rem;
     padding: var(--space-2) var(--space-3);
     font-size: var(--text-base);
-    line-height: 1.5;
+    line-height: var(--leading-base);
     color: var(--foreground);
     background: transparent;
     border: 1px solid var(--input);

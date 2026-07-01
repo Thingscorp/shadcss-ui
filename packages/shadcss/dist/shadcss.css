@@ -606,6 +606,7 @@
     height: 2.25rem;
     padding: var(--space-1) var(--space-3);
     font-size: var(--text-base);
+    line-height: var(--leading-base);
     color: var(--foreground);
     border: 1px solid var(--input);
     border-radius: var(--radius-md);
@@ -613,7 +614,6 @@
     transition: border-color var(--duration-base) var(--ease-out),
       box-shadow var(--duration-base) var(--ease-out);
     background: none;
-    line-height: 1;
     display: flex;
   }
 
@@ -743,6 +743,7 @@
     min-height: 4rem;
     padding: var(--space-2) var(--space-3);
     font-size: var(--text-base);
+    line-height: var(--leading-base);
     color: var(--foreground);
     border: 1px solid var(--input);
     border-radius: var(--radius-md);
@@ -751,7 +752,6 @@
     transition: border-color var(--duration-base) var(--ease-out),
       box-shadow var(--duration-base) var(--ease-out);
     background: none;
-    line-height: 1.5;
     display: block;
   }
 
@@ -814,7 +814,7 @@
     user-select: none;
     font-weight: 500;
     line-height: 1;
-    display: inline-flex;
+    display: flex;
   }
 
   .label:has(:disabled, [aria-disabled="true"]) {
@@ -853,23 +853,21 @@
     align-items: center;
     gap: var(--space-2);
     width: 100%;
-    height: 2.5rem;
-    padding: 0 var(--space-3);
+    height: 2.25rem;
+    padding: var(--space-2) var(--space-3);
     font-size: var(--text-sm);
+    line-height: var(--leading-sm);
     color: var(--foreground);
-    background: var(--background);
     border: 1px solid var(--input);
     border-radius: var(--radius-md);
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat;
     background-position: right var(--space-3) center;
     cursor: pointer;
     transition: border-color var(--duration-base) var(--ease-out),
       box-shadow var(--duration-base) var(--ease-out);
     background-size: 1rem;
     padding-inline-end: 2.25rem;
-    line-height: 1;
     display: inline-flex;
   }
 
@@ -879,7 +877,7 @@
 
   .select:focus-visible {
     border-color: var(--ring);
-    box-shadow: 0 0 0 2px color-mix(in oklab, var(--ring) 25%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
     outline: none;
   }
 
@@ -911,7 +909,7 @@
 
   .checkbox {
     appearance: none;
-    border: 1px solid var(--border);
+    border: 1px solid var(--input);
     background: var(--background);
     width: 1rem;
     height: 1rem;
@@ -1036,7 +1034,7 @@
   }
 
   .radio-group {
-    gap: var(--space-2);
+    gap: var(--space-3);
     display: grid;
   }
 
@@ -1223,13 +1221,13 @@
 
   .slider::-webkit-slider-runnable-track {
     border-radius: var(--radius-full);
-    background: var(--secondary);
+    background: var(--muted);
     height: .375rem;
   }
 
   .slider::-moz-range-track {
     border-radius: var(--radius-full);
-    background: var(--secondary);
+    background: var(--muted);
     height: .375rem;
   }
 
@@ -1255,15 +1253,15 @@
   .slider::-webkit-slider-thumb {
     appearance: none;
     border-radius: var(--radius-full);
-    background: var(--background);
     border: 1px solid var(--primary);
-    width: 1.125rem;
-    height: 1.125rem;
+    width: 1rem;
+    height: 1rem;
     box-shadow: var(--shadow-sm);
     cursor: grab;
     transition: transform var(--duration-fast) var(--ease-out),
       box-shadow var(--duration-fast) var(--ease-out);
-    margin-top: -.375rem;
+    background: #fff;
+    margin-top: -.3125rem;
   }
 
   .slider::-webkit-slider-thumb:hover {
@@ -1283,13 +1281,13 @@
 
   .slider::-moz-range-thumb {
     border-radius: var(--radius-full);
-    background: var(--background);
     border: 1px solid var(--primary);
-    width: 1.125rem;
-    height: 1.125rem;
+    width: 1rem;
+    height: 1rem;
     box-shadow: var(--shadow-sm);
     cursor: grab;
     transition: transform var(--duration-fast) var(--ease-out);
+    background: #fff;
   }
 
   .slider::-moz-range-thumb:hover {
@@ -1350,8 +1348,8 @@
     background: linear-gradient(to top,
       var(--primary) 0%,
       var(--primary) var(--slider-fill, 50%),
-      var(--secondary) var(--slider-fill, 50%),
-      var(--secondary) 100%);
+      var(--muted) var(--slider-fill, 50%),
+      var(--muted) 100%);
     direction: rtl;
     width: .375rem;
     height: 8rem;
@@ -5120,8 +5118,8 @@
     gap: var(--space-1);
     font-size: var(--text-sm);
     color: var(--destructive);
+    line-height: var(--leading-sm);
     grid-area: error;
-    line-height: 1.5;
     display: none;
   }
 
@@ -5181,6 +5179,27 @@
     display: flex;
   }
 
+  .field-set {
+    gap: var(--space-6);
+    display: flex;
+  }
+
+  .field-legend {
+    font-weight: 500;
+  }
+
+  .field-content {
+    gap: var(--space-1\.5);
+    line-height: 1.375;
+    display: flex;
+  }
+
+  .field-separator {
+    height: 1.25rem;
+    font-size: var(--text-sm);
+    line-height: var(--leading-sm);
+  }
+
   .otp {
     align-items: center;
     gap: var(--space-2);
@@ -5191,15 +5210,16 @@
 
   .otp-input {
     text-align: center;
-    width: 2.5rem;
-    height: 3rem;
-    font-size: var(--text-lg);
-    font-weight: 500;
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: var(--text-sm);
+    line-height: var(--leading-sm);
     font-family: var(--font-mono);
     color: var(--foreground);
     background: var(--background);
     border: 1px solid var(--input);
     border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
     transition: border-color var(--duration-base) var(--ease-out),
       box-shadow var(--duration-base) var(--ease-out);
   }
@@ -5339,6 +5359,7 @@
     justify-content: center;
     align-items: center;
     gap: var(--space-2);
+    min-width: 0;
     padding: 0 var(--space-3);
     height: 2rem;
     font-size: var(--text-sm);
