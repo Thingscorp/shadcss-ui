@@ -153,8 +153,8 @@
     {
       "id": "promote-fidelity-to-hard-gate",
       "category": "tooling",
-      "passes": false,
-      "blocked": true,
+      "passes": true,
+      "blocked": false,
       "description": "Once all fidelity deviations are resolved (real_deviations=0), update scripts/check.sh to make the fidelity comparator a hard gate that fails on any real deviation. This ensures the loop catches regressions.",
       "steps": [
         "Verify that node scripts/fidelity/compare.mjs reports real_deviations=0",
