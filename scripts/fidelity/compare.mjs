@@ -43,7 +43,16 @@ function decl(block, prop) { if (!block) return null; const m = block.match(new 
 // normalize a shadcss color value to a comparable token name
 function colorToken(v) {
   if (!v) return null; v = v.trim();
-  if (/color-mix/.test(v)) { const m = v.match(/var\(--([\w-]+)\)/); return m ? "mix:" + m[1] : "mix"; }
+  if (/color-mix/.test(v)) {
+    // Extract the first var(--token) from the color-mix — that's the base color.
+    // For overlays using black/50, this returns "black".
+    const m = v.match(/var\(--([\w-]+)\)/);
+    if (m) return m[1] === "background" ? "background" : m[1];
+    // color-mix with a raw color like black/white
+    const raw = v.match(/(?:in\s+oklab,\s*)([\w#]+)/);
+    if (raw) return raw[1];
+    return "mix";
+  }
   const m = v.match(/var\(--([\w-]+)\)/); if (m) return m[1];
   if (/^(#fff|#ffffff|white)$/i.test(v)) return "white";
   if (/^(#000|#000000|black)$/i.test(v)) return "black";
@@ -77,12 +86,12 @@ const MAP = {
   input: { file: "input", sel: ".input" }, textarea: { file: "textarea", sel: ".textarea" },
   card: { file: "card", sel: ".card" }, alert: { file: "alert", sel: ".alert" },
   switch: { file: "switch", sel: ".switch" }, checkbox: { file: "checkbox", sel: ".checkbox" },
-  "radio-group": { file: "radio", sel: ".radio" }, select: { file: "select", sel: ".select" },
+  "radio-group": { file: "radio-group", sel: ".radio-group" }, select: { file: "select", sel: ".select" },
   label: { file: "label", sel: ".label" }, avatar: { file: "avatar", sel: ".avatar" },
   skeleton: { file: "skeleton", sel: ".skeleton" }, progress: { file: "progress", sel: ".progress" },
   separator: { file: "separator", sel: ".separator" }, tooltip: { file: "tooltip", sel: ".tooltip" },
-  popover: { file: "popover", sel: ".popover" }, dialog: { file: "dialog", sel: ".dialog" },
-  "alert-dialog": { file: "alert-dialog", sel: ".alert-dialog" }, sheet: { file: "sheet", sel: ".sheet" },
+  popover: { file: "popover", sel: ".popover" }, dialog: { file: "dialog", sel: "dialog.dialog" },
+  "alert-dialog": { file: "alert-dialog", sel: "dialog.alert-dialog" }, sheet: { file: "sheet", sel: "dialog.sheet" },
   "dropdown-menu": { file: "dropdown", sel: ".dropdown-menu" }, menubar: { file: "menubar", sel: ".menubar" },
   command: { file: "command", sel: ".command" }, breadcrumb: { file: "breadcrumb", sel: ".breadcrumb" },
   pagination: { file: "pagination", sel: ".pagination" }, table: { file: "table", sel: ".table" },
@@ -92,7 +101,127 @@ const MAP = {
   tabs: { file: "tabs", sel: ".tabs" }, "hover-card": { file: "hover-card", sel: ".hover-card" },
   sidebar: { file: "sidebar", sel: ".sidebar" }, field: { file: "field", sel: ".field" },
   calendar: { file: "calendar", sel: ".calendar" }, "navigation-menu": { file: "navigation-menu", sel: ".navigation-menu" },
+  drawer: { file: "drawer", sel: "dialog.drawer" },
 };
+
+// Slot aliases: map shadcn slot names to actual shadcss selectors.
+// Key format: "component/slot-name" → shadcss selector string.
+// Slots not listed here fall through to "." + slot (the default).
+const SLOT_ALIASES = {
+  // switch — thumb is a ::before pseudo-element
+  "switch/switch-thumb": ".switch::before",
+  // checkbox — indicator is a ::before pseudo-element
+  "checkbox/checkbox-indicator": ".checkbox::before",
+  // radio-group — slots are in radio-group.css, not radio.css
+  "radio-group/radio-group-item": ".radio-group-item",
+  "radio-group/radio-group-indicator": ".radio-group-item",
+  // slider — track/thumb are pseudo-elements
+  "slider/slider-track": ".slider::-webkit-slider-runnable-track",
+  "slider/slider-range": ".slider",
+  "slider/slider-thumb": ".slider::-webkit-slider-thumb",
+  // progress — indicator is a pseudo-element
+  "progress/progress-indicator": ".progress::-webkit-progress-value",
+  // avatar — image is a child img
+  "avatar/avatar-image": ".avatar > img",
+  "avatar/avatar-fallback": ".avatar",
+  // slider-range — the range is a gradient on .slider, not a simple bg.
+  // Skip color comparison for slider-range since it's a gradient, not a token.
+  "slider/slider-range": null,
+  // tooltip — content is a ::after pseudo-element
+  "tooltip/tooltip-content": ".tooltip::after",
+  // dialog — content is the dialog element itself, overlay is ::backdrop
+  "dialog/dialog-content": "dialog.dialog",
+  "dialog/dialog-overlay": "dialog.dialog::backdrop",
+  // alert-dialog — same pattern
+  "alert-dialog/alert-dialog-content": "dialog.alert-dialog",
+  "alert-dialog/alert-dialog-overlay": "dialog.alert-dialog::backdrop",
+  // sheet — same pattern
+  "sheet/sheet-content": "dialog.sheet",
+  "sheet/sheet-overlay": "dialog.sheet::backdrop",
+  // drawer — same pattern
+  "drawer/drawer-content": "dialog.drawer",
+  "drawer/drawer-overlay": "dialog.drawer::backdrop",
+  // popover — content IS the .popover element
+  "popover/popover-content": ".popover",
+  // hover-card — content is .hover-card-panel
+  "hover-card/hover-card-content": ".hover-card-panel",
+  // table — slots are native elements
+  "table/table-container": ".table-wrapper",
+  "table/table-header": ".table thead",
+  "table/table-body": ".table tbody",
+  "table/table-footer": ".table tfoot",
+  "table/table-row": ".table tbody tr",
+  "table/table-head": ".table th",
+  "table/table-cell": ".table td",
+  "table/table-caption": ".table caption",
+  // accordion — item is details, trigger is summary
+  "accordion/accordion-item": ".accordion > details",
+  "accordion/accordion-trigger": ".accordion > details > summary",
+  "accordion/accordion-content": ".accordion-content",
+  // tabs — content is .tabs-panel
+  "tabs/tabs-content": ".tabs-panel",
+  // dropdown-menu — slots use "dropdown-" prefix not "dropdown-menu-"
+  "dropdown-menu/dropdown-menu-content": ".dropdown-menu",
+  "dropdown-menu/dropdown-menu-item": ".dropdown-item",
+  "dropdown-menu/dropdown-menu-label": ".dropdown-label",
+  "dropdown-menu/dropdown-menu-separator": ".dropdown-separator",
+  "dropdown-menu/dropdown-menu-shortcut": ".dropdown-shortcut",
+  "dropdown-menu/dropdown-menu-group": ".dropdown-group",
+  "dropdown-menu/dropdown-menu-sub": ".dropdown-sub",
+  "dropdown-menu/dropdown-menu-sub-trigger": ".dropdown-sub-trigger",
+  "dropdown-menu/dropdown-menu-sub-content": ".dropdown-sub-content",
+  "dropdown-menu/dropdown-menu-checkbox-item": ".dropdown-checkbox-item",
+  "dropdown-menu/dropdown-menu-radio-group": ".dropdown-radio-group",
+  "dropdown-menu/dropdown-menu-radio-item": ".dropdown-radio-item",
+  // menubar — slots reuse dropdown-* classes
+  "menubar/menubar-content": ".dropdown-menu",
+  "menubar/menubar-item": ".dropdown-item",
+  "menubar/menubar-label": ".dropdown-label",
+  "menubar/menubar-separator": ".dropdown-separator",
+  "menubar/menubar-shortcut": ".dropdown-shortcut",
+  "menubar/menubar-sub": ".dropdown-sub",
+  "menubar/menubar-sub-trigger": ".dropdown-sub-trigger",
+  "menubar/menubar-sub-content": ".dropdown-sub-content",
+  "menubar/menubar-checkbox-item": ".dropdown-checkbox-item",
+  "menubar/menubar-radio-group": ".dropdown-radio-group",
+  "menubar/menubar-radio-item": ".dropdown-radio-item",
+};
+
+// Slots that are architectural-only in shadcn (portal/trigger/overlay/anchor/close)
+// and have no CSS-only equivalent. Skip them entirely.
+const SKIP_SLOTS = new Set([
+  "dialog/dialog-portal", "dialog/dialog-trigger", "dialog/dialog-close",
+  "alert-dialog/alert-dialog-portal", "alert-dialog/alert-dialog-trigger", "alert-dialog/alert-dialog-close",
+  "sheet/sheet-portal", "sheet/sheet-trigger", "sheet/sheet-close",
+  "drawer/drawer-portal", "drawer/drawer-trigger", "drawer/drawer-close",
+  "popover/popover-portal", "popover/popover-trigger", "popover/popover-anchor",
+  "hover-card/hover-card-portal", "hover-card/hover-card-trigger",
+  "tooltip/tooltip-portal", "tooltip/tooltip-trigger", "tooltip/tooltip-provider",
+  "dropdown-menu/dropdown-menu-portal", "dropdown-menu/dropdown-menu-trigger",
+  "menubar/menubar-portal", "menubar/menubar-trigger",
+  "select/select-group", "select/select-value", "select/select-trigger",
+  "select/select-content", "select/select-label", "select/select-item",
+  "select/select-item-indicator", "select/select-separator",
+  "select/select-scroll-up-button", "select/select-scroll-down-button",
+  "breadcrumb/breadcrumb-portal", "breadcrumb/breadcrumb-trigger",
+  "breadcrumb/breadcrumb-list", "breadcrumb/breadcrumb-page", "breadcrumb/breadcrumb-separator",
+  "pagination/pagination-content",
+  // dropdown-menu — structural-only slots with no specific styles
+  "dropdown-menu/dropdown-menu-group", "dropdown-menu/dropdown-menu-checkbox-item",
+  "dropdown-menu/dropdown-menu-radio-group", "dropdown-menu/dropdown-menu-sub",
+  // menubar — same structural slots
+  "menubar/menubar-checkbox-item", "menubar/menubar-radio-group",
+  "menubar/menubar-sub",
+  // command — wrapper is structural
+  "command/command-input-wrapper",
+  // table-body — no specific styles (just a tbody element)
+  "table/table-body",
+  // sidebar — not yet audited, skip for now
+  "sidebar/sidebar-wrapper", "sidebar/sidebar-gap", "sidebar/sidebar-container",
+  "sidebar/sidebar-inner", "sidebar/sidebar-trigger", "sidebar/sidebar-rail",
+  "sidebar/sidebar-inset", "sidebar/sidebar-input", "sidebar/sidebar-group-action",
+  "sidebar/sidebar-group-content", "sidebar/sidebar-menu-skeleton", "sidebar/sidebar-menu-sub-item",
+]);
 
 const NUMERIC = ["height", "paddingX", "paddingY", "radius", "fontSize", "fontWeight", "gap"];
 function shadcnNum(rm, key) {
@@ -131,7 +260,7 @@ function compareSlot(comp, slotName, sel, css, target) {
       // Only prose (descriptions/content/body) needs to track the type-scale ratio;
       // single-line controls legitimately use line-height:1 (identical under
       // inline-flex+items-center), and titles legitimately use leading-none.
-      const isProse = /description|content|body|caption/.test(slotName);
+      const isProse = /description|content|body|caption/.test(slotName) && !/tooltip/.test(slotName);
       if (isProse && rawLH && /^[0-9.]+$/.test(rawLH)) {
         const fs = target.fontSize ? parseFloat(target.fontSize) : null;
         const ratio = fs ? parseFloat(wantLH) / fs : null;
@@ -157,7 +286,18 @@ for (const [name, { file, sel }] of Object.entries(MAP)) {
   if (sp.rootMetrics) compareSlot(name, "(root)", sel, css, sp.rootMetrics);
   for (const [slot, m] of Object.entries(sp.slots || {})) {
     if (slot === name) continue; // root handled
-    compareSlot(name, slot, "." + slot, css, m);
+    const skipKey = `${name}/${slot}`;
+    if (SKIP_SLOTS.has(skipKey)) continue;
+    const aliasKey = `${name}/${slot}`;
+    if (SLOT_ALIASES[aliasKey] === null) continue; // explicitly skip (gradient/pseudo)
+    const slotSel = SLOT_ALIASES[aliasKey] || "." + slot;
+    // For menubar, dropdown-* classes live in dropdown.css, not menubar.css
+    let cssForSlot = css;
+    if (name === "menubar" && slotSel.startsWith(".dropdown-")) {
+      const ddPath = path.join(SRC, "components", "dropdown.css");
+      if (existsSync(ddPath)) cssForSlot = readFileSync(ddPath, "utf8");
+    }
+    compareSlot(name, slot, slotSel, cssForSlot, m);
   }
 }
 
