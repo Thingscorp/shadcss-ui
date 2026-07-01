@@ -14,13 +14,15 @@
     width: 100%;
     border-collapse: collapse;
     font-size: var(--text-sm);
+    line-height: var(--leading-sm);
     caption-side: bottom;
   }
 
   .table caption {
     margin-top: var(--space-2);
     color: var(--muted-foreground);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
+    line-height: var(--leading-sm);
   }
 
   .table thead {
@@ -29,27 +31,31 @@
 
   .table th {
     height: 2.5rem;
-    padding: 0 var(--space-4);
+    padding: 0 var(--space-2);
     text-align: start;
     font-weight: 500;
-    color: var(--muted-foreground);
-    font-size: var(--text-xs);
+    color: var(--foreground);
+    font-size: var(--text-sm);
     text-transform: none;
     white-space: nowrap;
     border-bottom: 1px solid var(--border);
   }
 
   .table td {
-    height: 3rem;
-    padding: 0 var(--space-4);
+    padding: var(--space-2);
     color: var(--foreground);
     border-bottom: 1px solid var(--border);
     vertical-align: middle;
   }
 
-  .table tbody tr:last-child td { border-bottom: none; }
+  .table tfoot {
+    border-top: 1px solid var(--border);
+    background: color-mix(in oklab, var(--muted) 50%, transparent);
+    font-weight: 500;
+  }
 
   .table tbody tr {
+    border-bottom: 1px solid var(--border);
     transition: background var(--duration-fast) var(--ease-out);
   }
   .table tbody tr:hover {

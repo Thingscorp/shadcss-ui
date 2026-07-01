@@ -24,7 +24,7 @@
   .tabs {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-2);
   }
 
   /* Hide the radios — labels are the visible triggers */
@@ -51,11 +51,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: var(--space-1\.5);
     padding: var(--space-1) var(--space-2);
     font-size: var(--text-sm);
     font-weight: 500;
-    line-height: 1;
+    line-height: var(--leading-sm);
     color: var(--foreground);
+    opacity: 0.6;
+    border: 1px solid transparent;
     border-radius: calc(var(--radius-md) - 2px);
     cursor: pointer;
     white-space: nowrap;
@@ -63,7 +66,7 @@
       color var(--duration-base) var(--ease-out),
       background var(--duration-base) var(--ease-out);
   }
-  .tabs-trigger:hover { color: var(--foreground); }
+  .tabs-trigger:hover { color: var(--foreground); opacity: 1; }
 
   /* When the paired radio is checked, highlight the matching trigger
      via :has() on the tabs-list. We pair by `for` attribute → input `id`. */
@@ -75,6 +78,7 @@
   .tabs-list > input[type="radio"]:checked + .tabs-trigger {
     background: var(--background);
     color: var(--foreground);
+    opacity: 1;
     box-shadow: var(--shadow-sm);
   }
 

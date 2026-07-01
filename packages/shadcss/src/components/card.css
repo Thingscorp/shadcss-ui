@@ -6,19 +6,20 @@
   .card {
     display: flex;
     flex-direction: column;
+    gap: var(--space-6);
     background: var(--card);
     color: var(--card-foreground);
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-sm);
+    padding-block: var(--space-6);
     overflow: hidden;
   }
 
   .card-header {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: var(--space-2);
-    padding: var(--space-6);
+    padding-inline: var(--space-6);
   }
   .card-title {
     font-size: var(--text-lg);
@@ -29,7 +30,7 @@
   .card-description {
     font-size: var(--text-sm);
     color: var(--muted-foreground);
-    line-height: 1.5;
+    line-height: var(--leading-sm);
   }
 
   /* Action slot — a control pinned to the top-right of the header (shadcn's
@@ -47,14 +48,14 @@
     justify-self: end;
   }
 
-  .card-content { padding: var(--space-6); padding-top: 0; }
+  .card-content { padding-inline: var(--space-6); padding-top: 0; }
   .card-content:has(+ .card-footer) { padding-bottom: var(--space-4); }
 
   .card-footer {
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--space-6);
+    padding-inline: var(--space-6);
     padding-top: 0;
   }
   .card-footer:where([data-justify="end"]) { justify-content: flex-end; }

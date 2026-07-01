@@ -108,7 +108,7 @@
     {
       "id": "audit-form-components",
       "category": "component-audit",
-      "passes": false,
+      "passes": true,
       "blocked": false,
       "description": "Audit form components (input, textarea, select, checkbox, radio, radio-group, switch, slider, toggle, toggle-group, label, field, input-otp) against shadcn spec for missing styles, variants, or slots.",
       "steps": [
