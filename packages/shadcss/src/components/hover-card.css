@@ -15,12 +15,12 @@
 
   .hover-card-panel {
     display: none;
-    width: min(20rem, calc(100vw - 2rem));
+    width: min(16rem, calc(100vw - 2rem));
     padding: var(--space-4);
     background: var(--popover);
     color: var(--popover-foreground);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
     margin: 0;
     inset: auto auto auto 0;

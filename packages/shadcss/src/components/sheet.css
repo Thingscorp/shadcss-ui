@@ -12,7 +12,7 @@
     border: none;
     background: var(--background);
     color: var(--foreground);
-    box-shadow: var(--shadow-2xl);
+    box-shadow: var(--shadow-lg);
     width: 100%;
     max-width: 32rem;
     height: 100vh;
@@ -20,6 +20,7 @@
     overflow: auto;
     display: flex;
     flex-direction: column;
+    gap: var(--space-4);
   }
 
   /* A closed <dialog> must stay hidden: the base rule sets display:flex,
@@ -27,7 +28,7 @@
   dialog.sheet:not([open]) { display: none; }
 
   dialog.sheet::backdrop {
-    background: color-mix(in oklab, var(--background) 70%, transparent);
+    background: color-mix(in oklab, black 50%, transparent);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
@@ -104,7 +105,7 @@
   .sheet-description {
     font-size: var(--text-sm);
     color: var(--muted-foreground);
-    line-height: 1.5;
+    line-height: var(--leading-sm);
   }
 
   .sheet-body {

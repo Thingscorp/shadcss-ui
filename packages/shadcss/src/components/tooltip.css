@@ -25,7 +25,7 @@
     background: var(--foreground);
     color: var(--background);
     font-size: var(--text-xs);
-    line-height: 1.2;
+    line-height: 1;
     white-space: nowrap;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);

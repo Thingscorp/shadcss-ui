@@ -10,7 +10,7 @@
 @layer components {
   dialog.alert-dialog {
     margin: auto;
-    padding: 0;
+    padding: var(--space-6);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     background: var(--background);
@@ -21,11 +21,13 @@
     height: fit-content;
     max-height: 85vh;
     overflow: hidden;
+    display: grid;
+    gap: var(--space-4);
     animation: shadcss-alert-in var(--duration-base) var(--ease-out);
   }
 
   dialog.alert-dialog::backdrop {
-    background: color-mix(in oklab, var(--background) 80%, transparent);
+    background: color-mix(in oklab, black 50%, transparent);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
@@ -37,27 +39,23 @@
   }
 
   .alert-dialog-header {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: var(--space-1\.5);
-    padding: var(--space-6);
-    padding-bottom: var(--space-3);
     text-align: center;
   }
   .alert-dialog-title {
     font-size: var(--text-lg);
     font-weight: 600;
     letter-spacing: -0.025em;
-    line-height: 1;
+    line-height: var(--leading-lg, 1.75rem);
   }
   .alert-dialog-description {
     font-size: var(--text-sm);
     color: var(--muted-foreground);
-    line-height: 1.5;
+    line-height: var(--leading-sm);
   }
 
   .alert-dialog-body {
-    padding: 0 var(--space-6);
     font-size: var(--text-sm);
     line-height: 1.6;
     max-height: 60vh;
@@ -67,14 +65,23 @@
   .alert-dialog-footer {
     display: flex;
     gap: var(--space-2);
-    padding: var(--space-6);
-    padding-top: var(--space-4);
   }
   .alert-dialog-footer[data-justify="center"] {
     justify-content: center;
   }
   .alert-dialog-footer[data-justify="between"] {
     justify-content: space-between;
+  }
+
+  .alert-dialog-media {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--radius-md);
+    background: var(--muted);
+    margin-inline: auto;
   }
 }
 

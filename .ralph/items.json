@@ -78,7 +78,7 @@
     {
       "id": "audit-menu-components",
       "category": "component-audit",
-      "passes": false,
+      "passes": true,
       "blocked": false,
       "description": "Audit menu components (dropdown, menubar, context-menu, navigation-menu) against shadcn spec for missing styles, variants, or slots. Ensure CSS-only fidelity for all menu patterns.",
       "steps": [

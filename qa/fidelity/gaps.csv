@@ -29,7 +29,6 @@
 "alert-dialog","alert-dialog-portal","—","","(selector .alert-dialog-portal not found)","skip"
 "alert-dialog","alert-dialog-overlay","—","","(selector .alert-dialog-overlay not found)","skip"
 "alert-dialog","alert-dialog-content","—","","(selector .alert-dialog-content not found)","skip"
-"alert-dialog","alert-dialog-media","—","","(selector .alert-dialog-media not found)","skip"
 "sheet","sheet-trigger","—","","(selector .sheet-trigger not found)","skip"
 "sheet","sheet-close","—","","(selector .sheet-close not found)","skip"
 "sheet","sheet-portal","—","","(selector .sheet-portal not found)","skip"

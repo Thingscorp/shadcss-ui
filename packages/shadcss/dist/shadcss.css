@@ -1616,25 +1616,27 @@
   }
 
   dialog.alert-dialog {
+    padding: var(--space-6);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     background: var(--background);
     color: var(--foreground);
     box-shadow: var(--shadow-lg);
+    gap: var(--space-4);
     width: 100%;
     max-width: min(28rem, 90vw);
     height: fit-content;
     max-height: 85vh;
     animation: shadcss-alert-in var(--duration-base) var(--ease-out);
     margin: auto;
-    padding: 0;
+    display: grid;
     overflow: hidden;
   }
 
   dialog.alert-dialog::backdrop {
-    background: color-mix(in oklab, var(--background) 80%, transparent);
     -webkit-backdrop-filter: blur(4px);
     animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    background: oklab(0% none none / .5);
   }
 
   @keyframes shadcss-alert-in {
@@ -1651,28 +1653,24 @@
 
   .alert-dialog-header {
     gap: var(--space-1\.5);
-    padding: var(--space-6);
-    padding-bottom: var(--space-3);
     text-align: center;
-    flex-direction: column;
-    display: flex;
+    display: grid;
   }
 
   .alert-dialog-title {
     font-size: var(--text-lg);
     letter-spacing: -.025em;
     font-weight: 600;
-    line-height: 1;
+    line-height: var(--leading-lg, 1.75rem);
   }
 
   .alert-dialog-description {
     font-size: var(--text-sm);
     color: var(--muted-foreground);
-    line-height: 1.5;
+    line-height: var(--leading-sm);
   }
 
   .alert-dialog-body {
-    padding: 0 var(--space-6);
     font-size: var(--text-sm);
     max-height: 60vh;
     line-height: 1.6;
@@ -1681,8 +1679,6 @@
 
   .alert-dialog-footer {
     gap: var(--space-2);
-    padding: var(--space-6);
-    padding-top: var(--space-4);
     display: flex;
   }
 
@@ -1692,6 +1688,17 @@
 
   .alert-dialog-footer[data-justify="between"] {
     justify-content: space-between;
+  }
+
+  .alert-dialog-media {
+    border-radius: var(--radius-md);
+    background: var(--muted);
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    margin-inline: auto;
+    display: inline-flex;
   }
 
   .alert-dialog-footer {
@@ -1973,7 +1980,7 @@
       transform var(--duration-fast) var(--ease-out);
     z-index: var(--z-overlay);
     padding: .375rem .75rem;
-    line-height: 1.2;
+    line-height: 1;
     position: absolute;
     inset-inline-start: 50%;
     transform: translateX(-50%) translateY(4px);
@@ -2064,12 +2071,12 @@
   }
 
   .popover {
-    width: min(20rem, 100vw - 2rem);
+    width: min(18rem, 100vw - 2rem);
     padding: var(--space-4);
     background: var(--popover);
     color: var(--popover-foreground);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
     margin: 0;
     margin-top: var(--space-2);
@@ -2126,6 +2133,8 @@
 
   .popover-header {
     gap: var(--space-1);
+    font-size: var(--text-sm);
+    line-height: var(--leading-sm);
     margin-bottom: var(--space-3);
     flex-direction: column;
     display: flex;
@@ -2162,12 +2171,12 @@
   }
 
   .hover-card-panel {
-    width: min(20rem, 100vw - 2rem);
+    width: min(16rem, 100vw - 2rem);
     padding: var(--space-4);
     background: var(--popover);
     color: var(--popover-foreground);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
     animation: shadcss-hover-in var(--duration-base) var(--ease-out);
     margin: 0;
@@ -2567,25 +2576,27 @@
   }
 
   dialog.dialog {
+    padding: var(--space-6);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     background: var(--background);
     color: var(--foreground);
     box-shadow: var(--shadow-lg);
+    gap: var(--space-4);
     width: 100%;
     max-width: min(32rem, 90vw);
     height: fit-content;
     max-height: 85vh;
     animation: shadcss-dialog-in var(--duration-base) var(--ease-out);
     margin: auto;
-    padding: 0;
+    display: grid;
     overflow: auto;
   }
 
   dialog.dialog::backdrop {
-    background: color-mix(in oklab, var(--background) 70%, transparent);
     -webkit-backdrop-filter: blur(4px);
     animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    background: oklab(0% none none / .5);
   }
 
   @keyframes shadcss-dialog-in {
@@ -2612,8 +2623,7 @@
 
   .dialog-header {
     gap: var(--space-2);
-    padding: var(--space-6);
-    padding-bottom: var(--space-3);
+    text-align: center;
     flex-direction: column;
     display: flex;
   }
@@ -2628,11 +2638,10 @@
   .dialog-description {
     font-size: var(--text-sm);
     color: var(--muted-foreground);
-    line-height: 1.5;
+    line-height: var(--leading-sm);
   }
 
   .dialog-body {
-    padding: var(--space-3) var(--space-6);
     font-size: var(--text-sm);
     line-height: 1.6;
   }
@@ -2640,8 +2649,6 @@
   .dialog-footer {
     justify-content: flex-end;
     gap: var(--space-2);
-    padding: var(--space-3) var(--space-6);
-    padding-top: var(--space-4);
     display: flex;
   }
 
@@ -2673,7 +2680,8 @@
   dialog.sheet {
     background: var(--background);
     color: var(--foreground);
-    box-shadow: var(--shadow-2xl);
+    box-shadow: var(--shadow-lg);
+    gap: var(--space-4);
     border: none;
     flex-direction: column;
     width: 100%;
@@ -2691,9 +2699,9 @@
   }
 
   dialog.sheet::backdrop {
-    background: color-mix(in oklab, var(--background) 70%, transparent);
     -webkit-backdrop-filter: blur(4px);
     animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    background: oklab(0% none none / .5);
   }
 
   dialog.sheet[data-side="right"], dialog.sheet:not([data-side]) {
@@ -2798,7 +2806,7 @@
   .sheet-description {
     font-size: var(--text-sm);
     color: var(--muted-foreground);
-    line-height: 1.5;
+    line-height: var(--leading-sm);
   }
 
   .sheet-body {
@@ -2844,9 +2852,9 @@
   }
 
   dialog.drawer::backdrop {
-    background: color-mix(in oklab, var(--background) 70%, transparent);
     -webkit-backdrop-filter: blur(2px);
     animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    background: oklab(0% none none / .5);
   }
 
   dialog.drawer[data-side="right"], dialog.drawer:not([data-side]) {
@@ -2933,10 +2941,9 @@
   }
 
   .drawer-header {
-    gap: var(--space-1);
-    padding: var(--space-6);
-    padding-bottom: var(--space-3);
+    padding: var(--space-4);
     flex-direction: column;
+    gap: .125rem;
     display: flex;
   }
 
@@ -2950,11 +2957,11 @@
   .drawer-description {
     font-size: var(--text-sm);
     color: var(--muted-foreground);
-    line-height: 1.5;
+    line-height: var(--leading-sm);
   }
 
   .drawer-body {
-    padding: var(--space-3) var(--space-6);
+    padding: 0 var(--space-4);
     font-size: var(--text-sm);
     flex: 1;
     line-height: 1.6;
@@ -2962,8 +2969,7 @@
 
   .drawer-footer {
     gap: var(--space-2);
-    padding: var(--space-6);
-    padding-top: var(--space-4);
+    padding: var(--space-4);
     display: flex;
   }
 

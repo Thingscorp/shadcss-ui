@@ -12,7 +12,7 @@
 @layer components {
   dialog.dialog {
     margin: auto;
-    padding: 0;
+    padding: var(--space-6);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     background: var(--background);
@@ -21,15 +21,15 @@
     max-width: min(32rem, 90vw);
     max-height: 85vh;
     width: 100%;
-    /* Hug content: the modal's UA inset:0 + width:100% otherwise stretches the
-       dialog to fill the viewport (minus auto margins) instead of fitting. */
     height: fit-content;
     overflow: auto;
+    display: grid;
+    gap: var(--space-4);
     animation: shadcss-dialog-in var(--duration-base) var(--ease-out);
   }
 
   dialog.dialog::backdrop {
-    background: color-mix(in oklab, var(--background) 70%, transparent);
+    background: color-mix(in oklab, black 50%, transparent);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
@@ -48,8 +48,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-    padding: var(--space-6);
-    padding-bottom: var(--space-3);
+    text-align: center;
   }
   .dialog-title {
     font-size: var(--text-lg);
@@ -60,11 +59,10 @@
   .dialog-description {
     font-size: var(--text-sm);
     color: var(--muted-foreground);
-    line-height: 1.5;
+    line-height: var(--leading-sm);
   }
 
   .dialog-body {
-    padding: var(--space-3) var(--space-6);
     font-size: var(--text-sm);
     line-height: 1.6;
   }
@@ -73,8 +71,6 @@
     display: flex;
     justify-content: flex-end;
     gap: var(--space-2);
-    padding: var(--space-3) var(--space-6);
-    padding-top: var(--space-4);
   }
 
   /* Close button. This is styling only — it has no close behavior on its
