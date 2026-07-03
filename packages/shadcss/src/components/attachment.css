@@ -1,0 +1,163 @@
+/* ==========================================================================
+   shadcss · components/attachment.css
+   A file/attachment chip: media thumbnail (icon or image), title +
+   description, and a trailing actions slot. Mirrors shadcn's Attachment
+   (horizontal/vertical orientation, idle/uploading/error states). Pure CSS
+   via :has() and data-attrs; zero JS.
+   ========================================================================== */
+
+@layer components {
+  .attachment {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: var(--card);
+    color: var(--card-foreground);
+    transition: background var(--duration-base) var(--ease-out);
+  }
+  /* Interactive (a/button child) chips lift on hover. */
+  .attachment:has(> a, > button):hover { background: color-mix(in oklab, var(--muted) 50%, transparent); }
+  .attachment:focus-within { box-shadow: 0 0 0 1px color-mix(in oklab, var(--ring) 50%, transparent); }
+
+  /* States: idle (dashed dropzone look), error (destructive tint). */
+  .attachment[data-state="idle"] { border-style: dashed; }
+  .attachment[data-state="error"] { border-color: color-mix(in oklab, var(--destructive) 30%, transparent); }
+
+  /* Sizes */
+  .attachment[data-size="sm"] { gap: 0.625rem; font-size: var(--text-xs); padding: var(--space-1); }
+  .attachment[data-size="xs"] { gap: 0.375rem; font-size: var(--text-xs); border-radius: var(--radius-lg); padding: 0.25rem; }
+
+  /* Vertical orientation: narrow column, media full-width on top. */
+  .attachment[data-orientation="vertical"] {
+    flex-direction: column;
+    width: 6rem;
+  }
+  .attachment[data-orientation="vertical"] .attachment-content { padding-inline: var(--space-1); }
+
+  /* ---- Media slot (icon or image) ---- */
+  .attachment-media {
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--muted);
+    color: var(--foreground);
+  }
+  .attachment[data-size="sm"] .attachment-media { width: 2rem; }
+  .attachment[data-size="xs"] .attachment-media { width: 1.75rem; border-radius: var(--radius-md); }
+  .attachment[data-orientation="vertical"] .attachment-media { width: 100%; }
+  .attachment[data-state="error"] .attachment-media {
+    background: color-mix(in oklab, var(--destructive) 10%, transparent);
+    color: var(--destructive);
+  }
+  .attachment-media[data-variant="image"] img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Pending states dim the media until 'done'. */
+  .attachment[data-state="uploading"] .attachment-media[data-variant="image"],
+  .attachment[data-state="processing"] .attachment-media[data-variant="image"] { opacity: 0.6; }
+
+  /* ---- Content (title + description) ---- */
+  .attachment-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    min-width: 0;
+    line-height: 1.25;
+  }
+  .attachment-title {
+    display: block;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .attachment-description {
+    display: block;
+    margin-block-start: 0.125rem;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--text-xs);
+    color: var(--muted-foreground);
+  }
+  .attachment[data-state="error"] .attachment-description {
+    color: color-mix(in oklab, var(--destructive) 80%, transparent);
+  }
+
+  /* ---- Actions slot (trailing) ---- */
+  .attachment-actions {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--space-1);
+  }
+  .attachment[data-orientation="vertical"] .attachment-actions {
+    position: absolute;
+    inset-block-start: 0.75rem;
+    inset-inline-end: 0.75rem;
+  }
+  .attachment-actions .btn {
+    height: auto;
+    padding: 0.25rem;
+    background: transparent;
+    color: var(--foreground);
+    box-shadow: none;
+  }
+  .attachment-actions .btn:hover:not(:disabled) {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  /* ---- Optional trigger: an <a>/<button> stretched over the whole chip ---- */
+  .attachment-trigger {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .attachment-trigger:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--ring) 50%, transparent);
+    border-radius: var(--radius-xl);
+  }
+
+  /* ---- Group: horizontally scrollable row of chips ---- */
+  .attachment-group {
+    display: flex;
+    gap: var(--space-3);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-block: var(--space-1);
+  }
+  .attachment-group > .attachment { flex: 0 0 auto; }
+}
+
+/* --- parity: auto-size inline icons in the media slot --- */
+@layer components {
+  .attachment-media > svg { width: 1rem; height: 1rem; flex-shrink: 0; pointer-events: none; }
+  .attachment[data-size="xs"] .attachment-media > svg { width: 0.875rem; height: 0.875rem; }
+  .attachment[data-orientation="vertical"] .attachment-media > svg { width: 1.5rem; height: 1.5rem; }
+}

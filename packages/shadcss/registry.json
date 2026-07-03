@@ -104,6 +104,32 @@
       "a11y": "Decorative wrapper; alt text on media"
     },
     {
+      "name": "attachment",
+      "file": "src/components/attachment.css",
+      "deps": [
+        "base/tokens",
+        "base/theme",
+        "components/button"
+      ],
+      "description": "File/attachment chip with a media thumbnail (icon or image), title + description, trailing actions, and an optional stretched trigger. Horizontal or vertical; idle/uploading/error states.",
+      "markup": "<div class=\"attachment\" data-state=\"done\"><div class=\"attachment-media\" data-variant=\"icon\"><svg aria-hidden=\"true\">\u2026</svg></div><div class=\"attachment-content\"><span class=\"attachment-title\">invoice.pdf</span><span class=\"attachment-description\">240 KB</span></div><div class=\"attachment-actions\"><button class=\"btn\" aria-label=\"Remove\">\u00d7</button></div></div>",
+      "classes": [
+        "attachment",
+        "attachment-media",
+        "attachment-content",
+        "attachment-title",
+        "attachment-description",
+        "attachment-actions",
+        "attachment-trigger",
+        "attachment-group"
+      ],
+      "notes": "data-state=\"idle|uploading|processing|error|done\", data-size=\"default|sm|xs\", data-orientation=\"horizontal|vertical\". attachment-media takes data-variant=\"icon|image\". Pure CSS, zero JS.",
+      "status": "stable",
+      "js": "none",
+      "support": "baseline",
+      "a11y": "Use a real <button> for each action with aria-label; decorative media icons get aria-hidden=\"true\"; the optional trigger is an <a>/<button> stretched over the chip"
+    },
+    {
       "name": "avatar",
       "file": "src/components/avatar.css",
       "deps": [

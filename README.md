@@ -1,13 +1,13 @@
 # shadcss/ui
 
 > **Zero-runtime UI with the shadcn aesthetic — no React, no Tailwind, no Radix, no hydration.**
-> 55 HTML/CSS components and patterns for server-rendered, static, HTMX, Astro, and AI-generated apps. ~16.2 KB gzipped, zero dependencies, zero JS runtime. Complex widgets are clearly marked.
+> 56 HTML/CSS components and patterns for server-rendered, static, HTMX, Astro, and AI-generated apps. ~16.7 KB gzipped, zero dependencies, zero JS runtime. Complex widgets are clearly marked.
 
 [![live demo](https://img.shields.io/badge/demo-shadcss.vercel.app-black)](https://shadcss.vercel.app)
 [![npm](https://img.shields.io/npm/v/@russfranky/shadcss)](https://www.npmjs.com/package/@russfranky/shadcss)
-[![gzip size](https://img.shields.io/badge/gzipped-16.2%20KB-success)](./packages/shadcss/dist/shadcss.min.css)
+[![gzip size](https://img.shields.io/badge/gzipped-16.7%20KB-success)](./packages/shadcss/dist/shadcss.min.css)
 [![no js framework](https://img.shields.io/badge/JS-no%20framework-black)](#)
-[![components](https://img.shields.io/badge/components-55-blue)](./packages/shadcss#components-55)
+[![components](https://img.shields.io/badge/components-56-blue)](./packages/shadcss#components-56)
 [![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE.md)
 
 **▶ Live demo: [shadcss.vercel.app](https://shadcss.vercel.app)** · **📖 Docs: [/docs](https://shadcss.vercel.app/docs/)** · **🤖 [/llms.txt](https://shadcss.vercel.app/llms.txt)**
@@ -51,7 +51,7 @@ npm install @russfranky/shadcss
 npx @russfranky/shadcss-cli add button card dialog   # copy components (+ deps) into ./shadcss
 npx @russfranky/shadcss-cli diff button              # see what changed upstream vs your copy
 npx @russfranky/shadcss-cli check ./index.html       # lint HTML for a11y/markup foot-guns
-npx @russfranky/shadcss-cli list                     # all 55 components
+npx @russfranky/shadcss-cli list                     # all 56 components
 ```
 
 `add` gives you shadcn-style ownership (the CSS lives in your repo); `diff` answers shadcn's #1 complaint by showing exactly what changed upstream so fixes don't silently pass you by. Zero dependencies, fetches from the CDN. See [`packages/cli`](./packages/cli).
@@ -94,7 +94,7 @@ shadcss-ui/
 │   └── www/              ← live component showcase + docs
 └── packages/
     └── shadcss/          ← the framework (published to npm as `shadcss`)
-        ├── src/          ← source CSS (base + 55 components)
+        ├── src/          ← source CSS (base + 56 components)
         ├── dist/         ← built bundles
         ├── registry.json ← machine-readable component spec
         └── AI_GUIDE.md   ← patterns for AI code generation

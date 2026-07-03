@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 55 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 56 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -35,6 +35,12 @@ Lock an element to a width/height ratio.
 Classes: aspect-ratio aspect-square aspect-video aspect-photo aspect-portrait aspect-cinema aspect-wide aspect-ultra
 A11y: Decorative wrapper; alt text on media
 Markup: <div class="aspect-ratio"><img src="…" alt="…"></div>
+
+### attachment — status:stable · js:none · support:baseline
+File/attachment chip with a media thumbnail (icon or image), title + description, trailing actions, and an optional stretched trigger. Horizontal or vertical; idle/uploading/error states.
+Classes: attachment attachment-media attachment-content attachment-title attachment-description attachment-actions attachment-trigger attachment-group
+A11y: Use a real <button> for each action with aria-label; decorative media icons get aria-hidden="true"; the optional trigger is an <a>/<button> stretched over the chip
+Markup: <div class="attachment" data-state="done"><div class="attachment-media" data-variant="icon"><svg aria-hidden="true">…</svg></div><div class="attachment-content"><span class="attachment-title">invoice.pdf</span><span class="attachment-description">240 KB</span></div><div class="attachment-actions"><button class="btn" aria-label="Remove">×</button></div></div>
 
 ### avatar — status:stable · js:none · support:baseline
 Image with text fallback. Sizes, ring, square, group.

@@ -64,6 +64,7 @@
 @import "./components/calendar.css";
 @import "./components/carousel.css";
 @import "./components/aspect-ratio.css";
+@import "./components/attachment.css";
 @import "./components/scroll-area.css";
 @import "./components/resizable.css";
 @import "./components/sidebar.css";
