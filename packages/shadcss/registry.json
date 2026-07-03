@@ -341,6 +341,33 @@
       "a11y": "Scroll-snap works with no JS; arrows/dots need JS; viewport is keyboard-focusable"
     },
     {
+      "name": "chart",
+      "file": "src/components/chart.css",
+      "deps": [
+        "base/tokens",
+        "base/theme"
+      ],
+      "description": "Library-agnostic CSS shell for charts: a container frame (aspect-video, xs axis text), a tooltip card (indicator + label + value), and a legend row. Drop in any SVG/Canvas chart lib; the drawing needs JS.",
+      "markup": "<div class=\"chart-container\" style=\"--color-desktop: var(--chart-1)\"><svg aria-hidden=\"true\">\u2026</svg></div>",
+      "classes": [
+        "chart-container",
+        "chart-tooltip",
+        "chart-tooltip-label",
+        "chart-tooltip-item",
+        "chart-tooltip-item-label",
+        "chart-tooltip-value",
+        "chart-indicator",
+        "chart-legend",
+        "chart-legend-item",
+        "chart-legend-dot"
+      ],
+      "notes": "Visual layer only \u2014 the chart drawing needs a JS chart library. Colour convention mirrors shadcn: define --color-{key} on .chart-container (e.g. var(--chart-1)) and reference it; .chart-indicator reads --color-bg/--color-border. data-indicator=\"dot|line|dashed\" on .chart-indicator; data-valign=\"top|bottom\" on .chart-legend.",
+      "status": "visual-only",
+      "js": "consumer",
+      "support": "baseline",
+      "a11y": "Give the SVG a <title>/<desc> or aria-label summarizing the data; provide a non-graph fallback table where the data matters"
+    },
+    {
       "name": "checkbox",
       "file": "src/components/checkbox.css",
       "deps": [

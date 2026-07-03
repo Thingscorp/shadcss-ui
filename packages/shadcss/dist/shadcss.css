@@ -5335,6 +5335,131 @@
     flex-direction: column;
   }
 
+  .chart-container {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    font-size: var(--text-xs);
+    color: var(--muted-foreground);
+    justify-content: center;
+    display: flex;
+  }
+
+  .chart-container > svg, .chart-container > canvas {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .chart-tooltip {
+    gap: var(--space-1);
+    min-width: 8rem;
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid color-mix(in oklab, var(--border) 50%, transparent);
+    border-radius: var(--radius-lg);
+    background: var(--background);
+    color: var(--foreground);
+    box-shadow: var(--shadow-xl);
+    font-size: var(--text-xs);
+    line-height: 1;
+    display: grid;
+  }
+
+  .chart-tooltip-label {
+    font-weight: 500;
+  }
+
+  .chart-tooltip-item {
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+    flex: 1;
+    line-height: 1;
+    display: flex;
+  }
+
+  .chart-tooltip-item-label {
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--muted-foreground);
+    display: flex;
+  }
+
+  .chart-tooltip-value {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+    font-weight: 500;
+  }
+
+  .chart-indicator {
+    background: var(--color-bg, var(--muted-foreground));
+    border-color: var(--color-border, transparent);
+    border-radius: 2px;
+    flex: none;
+  }
+
+  .chart-indicator[data-indicator="dot"] {
+    width: .625rem;
+    height: .625rem;
+  }
+
+  .chart-indicator[data-indicator="line"] {
+    width: .25rem;
+    height: 1rem;
+  }
+
+  .chart-indicator[data-indicator="dashed"] {
+    border-block: 1.5px dashed var(--color-border, var(--muted-foreground));
+    background: none;
+    width: 0;
+    height: 1rem;
+  }
+
+  .chart-legend {
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4);
+    font-size: var(--text-xs);
+    flex-wrap: wrap;
+    display: flex;
+  }
+
+  .chart-legend[data-valign="top"] {
+    padding-block-end: var(--space-3);
+  }
+
+  .chart-legend[data-valign="bottom"] {
+    padding-block-start: var(--space-3);
+  }
+
+  .chart-legend-item {
+    align-items: center;
+    gap: .375rem;
+    display: flex;
+  }
+
+  .chart-legend-dot {
+    background: var(--color-bg, var(--muted-foreground));
+    border-radius: 2px;
+    flex: none;
+    width: .5rem;
+    height: .5rem;
+  }
+
+  .chart-tooltip-item-label > svg {
+    pointer-events: none;
+    flex-shrink: 0;
+    width: .625rem;
+    height: .625rem;
+  }
+
+  .chart-legend-item > svg {
+    pointer-events: none;
+    flex-shrink: 0;
+    width: .75rem;
+    height: .75rem;
+  }
+
   .aspect-ratio {
     aspect-ratio: 16 / 9;
     border-radius: var(--radius-md);

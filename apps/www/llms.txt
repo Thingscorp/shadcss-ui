@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 61 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 62 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -95,6 +95,12 @@ Scroll-snap carousel with optional dots.
 Classes: carousel carousel-viewport carousel-track carousel-item carousel-controls carousel-btn carousel-dots carousel-dot
 A11y: Scroll-snap works with no JS; arrows/dots need JS; viewport is keyboard-focusable
 Markup: <div class="carousel"><div class="carousel-viewport"><div class="carousel-track"><div class="carousel-item">…</div></div></div><div class="carousel-controls"><button class="carousel-btn">‹</button><div class="carousel-dots"><button class="carousel-dot"></button></div><button class="carousel-btn">›</button></div></div>
+
+### chart — status:visual-only · js:consumer · support:baseline
+Library-agnostic CSS shell for charts: a container frame (aspect-video, xs axis text), a tooltip card (indicator + label + value), and a legend row. Drop in any SVG/Canvas chart lib; the drawing needs JS.
+Classes: chart-container chart-tooltip chart-tooltip-label chart-tooltip-item chart-tooltip-item-label chart-tooltip-value chart-indicator chart-legend chart-legend-item chart-legend-dot
+A11y: Give the SVG a <title>/<desc> or aria-label summarizing the data; provide a non-graph fallback table where the data matters
+Markup: <div class="chart-container" style="--color-desktop: var(--chart-1)"><svg aria-hidden="true">…</svg></div>
 
 ### checkbox — status:stable · js:none · support:baseline
 Native checkbox styled to match shadcn. Supports indeterminate.
