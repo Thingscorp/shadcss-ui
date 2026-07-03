@@ -51,6 +51,7 @@
 @import "./components/drawer.css";
 @import "./components/dropdown.css";
 @import "./components/menubar.css";
+@import "./components/message.css";
 @import "./components/navigation-menu.css";
 @import "./components/context-menu.css";
 @import "./components/command.css";
@@ -60,6 +61,7 @@
 @import "./components/container.css";
 @import "./components/kbd.css";
 @import "./components/breadcrumb.css";
+@import "./components/bubble.css";
 @import "./components/pagination.css";
 @import "./components/calendar.css";
 @import "./components/carousel.css";

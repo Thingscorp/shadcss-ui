@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 57 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 59 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -59,6 +59,12 @@ Hierarchical navigation trail.
 Classes: breadcrumb breadcrumb-item breadcrumb-link breadcrumb-current breadcrumb-ellipsis
 A11y: nav landmark + aria-label; aria-current=page on the current item
 Markup: <nav class="breadcrumb"><span class="breadcrumb-item"><a class="breadcrumb-link" href="#">A</a></span><span class="breadcrumb-item"><span class="breadcrumb-current">B</span></span></nav>
+
+### bubble — status:stable · js:none · support:baseline
+Chat speech bubble: align start/end, colour variants (default, secondary, muted, tinted, outline, ghost, destructive), with an optional floated reactions badge.
+Classes: bubble-group bubble bubble-content bubble-reactions
+A11y: Interactive bubbles should be a real <button>/<a>; reactions buttons need aria-labels
+Markup: <div class="bubble-group"><div class="bubble" data-variant="default"><div class="bubble-content">Hello there 👋</div></div><div class="bubble" data-variant="secondary" data-align="end"><div class="bubble-content">Hi!</div><div class="bubble-reactions" data-side="bottom" data-align="end">👍 2</div></div></div>
 
 ### button — status:stable · js:none · support:baseline
 The primary action trigger. 6 variants, 4 sizes, loading + icon + group modes.
@@ -197,6 +203,12 @@ Horizontal menu bar with dropdown submenus.
 Classes: menubar menubar-trigger menubar-menu
 A11y: Opens via popovertarget. For arrow-key roving focus + menubar roles add @russfranky/shadcss-js/menu and data-sc-menu
 Markup: <div class="menubar" role="menubar"><div class="menubar-menu-item"><button class="menubar-trigger" popovertarget="X" aria-haspopup="menu">File</button><div class="menubar-menu" popover id="X" role="menu">…</div></div></div>
+
+### message — status:stable · js:none · support:baseline
+Chat message wrapper: avatar + a content column (header, body, footer) aligned start or end. Hosts a .bubble as the body.
+Classes: message-group message message-avatar message-content message-header message-footer
+A11y: Give the avatar img an empty alt if decorative, or a name; keep a real heading/label for the sender in the header
+Markup: <div class="message-group"><div class="message" data-align="start"><div class="message-avatar"><img src="…" alt=""></div><div class="message-content"><div class="message-header">Ada · 09:41</div><div class="bubble" data-variant="default"><div class="bubble-content">Hi!</div></div></div></div></div>
 
 ### native-select — status:stable · js:none · support:baseline
 shadcn naming alias for .select — a styled native <select> with a chevron and an optional wrapper.

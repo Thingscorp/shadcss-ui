@@ -196,6 +196,27 @@
       "a11y": "nav landmark + aria-label; aria-current=page on the current item"
     },
     {
+      "name": "bubble",
+      "file": "src/components/bubble.css",
+      "deps": [
+        "base/tokens",
+        "base/theme"
+      ],
+      "description": "Chat speech bubble: align start/end, colour variants (default, secondary, muted, tinted, outline, ghost, destructive), with an optional floated reactions badge.",
+      "markup": "<div class=\"bubble-group\"><div class=\"bubble\" data-variant=\"default\"><div class=\"bubble-content\">Hello there \ud83d\udc4b</div></div><div class=\"bubble\" data-variant=\"secondary\" data-align=\"end\"><div class=\"bubble-content\">Hi!</div><div class=\"bubble-reactions\" data-side=\"bottom\" data-align=\"end\">\ud83d\udc4d 2</div></div></div>",
+      "classes": [
+        "bubble-group",
+        "bubble",
+        "bubble-content",
+        "bubble-reactions"
+      ],
+      "notes": "data-variant=\"default|secondary|muted|tinted|outline|ghost|destructive\" on .bubble; data-align=\"start|end\". .bubble-reactions takes data-side=\"top|bottom\" and data-align=\"start|end\". Pure CSS, zero JS.",
+      "status": "stable",
+      "js": "none",
+      "support": "baseline",
+      "a11y": "Interactive bubbles should be a real <button>/<a>; reactions buttons need aria-labels"
+    },
+    {
       "name": "button",
       "file": "src/components/button.css",
       "deps": [
@@ -713,6 +734,30 @@
       "js": "trigger",
       "support": "popover-api",
       "a11y": "Opens via popovertarget. For arrow-key roving focus + menubar roles add @russfranky/shadcss-js/menu and data-sc-menu"
+    },
+    {
+      "name": "message",
+      "file": "src/components/message.css",
+      "deps": [
+        "base/tokens",
+        "base/theme",
+        "components/bubble"
+      ],
+      "description": "Chat message wrapper: avatar + a content column (header, body, footer) aligned start or end. Hosts a .bubble as the body.",
+      "markup": "<div class=\"message-group\"><div class=\"message\" data-align=\"start\"><div class=\"message-avatar\"><img src=\"\u2026\" alt=\"\"></div><div class=\"message-content\"><div class=\"message-header\">Ada \u00b7 09:41</div><div class=\"bubble\" data-variant=\"default\"><div class=\"bubble-content\">Hi!</div></div></div></div></div>",
+      "classes": [
+        "message-group",
+        "message",
+        "message-avatar",
+        "message-content",
+        "message-header",
+        "message-footer"
+      ],
+      "notes": "data-align=\"start|end\" on .message. The body is typically a .bubble (see bubble.css). Pure CSS, zero JS.",
+      "status": "stable",
+      "js": "none",
+      "support": "baseline",
+      "a11y": "Give the avatar img an empty alt if decorative, or a name; keep a real heading/label for the sender in the header"
     },
     {
       "name": "native-select",
