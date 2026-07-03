@@ -633,6 +633,33 @@
       "a11y": "Visual boxes; auto-advance needs JS; per-input aria-label + group label"
     },
     {
+      "name": "item",
+      "file": "src/components/item.css",
+      "deps": [
+        "base/tokens",
+        "base/theme"
+      ],
+      "description": "Generic list/settings row: optional media (icon or image), a content zone (title + description), trailing actions, and optional header/footer bands. Group with separators.",
+      "markup": "<div class=\"item-group\" role=\"list\"><div class=\"item\" role=\"listitem\"><div class=\"item-media\" data-variant=\"icon\"><svg aria-hidden=\"true\">\u2026</svg></div><div class=\"item-content\"><div class=\"item-title\">Account</div><p class=\"item-description\">Manage your profile</p></div><div class=\"item-actions\"><button class=\"btn btn-ghost btn-sm\">Open</button></div></div><hr class=\"item-separator\"></div>",
+      "classes": [
+        "item-group",
+        "item",
+        "item-media",
+        "item-content",
+        "item-title",
+        "item-description",
+        "item-actions",
+        "item-header",
+        "item-footer",
+        "item-separator"
+      ],
+      "notes": "data-variant=\"default|outline|muted\" on .item; data-size=\"default|sm\"; data-variant=\"icon|image\" on .item-media. An <a class=\"item\"> gains hover. Pure CSS, zero JS.",
+      "status": "stable",
+      "js": "none",
+      "support": "baseline",
+      "a11y": "Use role=\"list\"/\"listitem\" on the group/items (or real <ul>/<li>); keep a real <button>/<a> in the actions slot"
+    },
+    {
       "name": "kbd",
       "file": "src/components/kbd.css",
       "deps": [

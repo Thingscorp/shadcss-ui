@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 56 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 57 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -173,6 +173,12 @@ One-time-password input boxes.
 Classes: otp otp-input otp-separator otp-sm otp-lg
 A11y: Visual boxes; auto-advance needs JS; per-input aria-label + group label
 Markup: <div class="otp"><input class="otp-input" maxlength="1" pattern="[0-9]">…</div>
+
+### item — status:stable · js:none · support:baseline
+Generic list/settings row: optional media (icon or image), a content zone (title + description), trailing actions, and optional header/footer bands. Group with separators.
+Classes: item-group item item-media item-content item-title item-description item-actions item-header item-footer item-separator
+A11y: Use role="list"/"listitem" on the group/items (or real <ul>/<li>); keep a real <button>/<a> in the actions slot
+Markup: <div class="item-group" role="list"><div class="item" role="listitem"><div class="item-media" data-variant="icon"><svg aria-hidden="true">…</svg></div><div class="item-content"><div class="item-title">Account</div><p class="item-description">Manage your profile</p></div><div class="item-actions"><button class="btn btn-ghost btn-sm">Open</button></div></div><hr class="item-separator"></div>
 
 ### kbd — status:stable · js:none · support:baseline
 Keyboard shortcut indicator.

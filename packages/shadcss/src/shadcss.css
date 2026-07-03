@@ -71,6 +71,7 @@
 @import "./components/empty.css";
 @import "./components/field.css";
 @import "./components/input-otp.css";
+@import "./components/item.css";
 @import "./components/toggle.css";
 @import "./components/toggle-group.css";
 @import "./components/typography.css";
