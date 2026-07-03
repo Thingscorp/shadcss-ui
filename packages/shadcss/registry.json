@@ -379,6 +379,37 @@
       "a11y": "Native <details>; must be a <details> element"
     },
     {
+      "name": "combobox",
+      "file": "src/components/combobox.css",
+      "deps": [
+        "base/tokens",
+        "base/theme",
+        "components/popover"
+      ],
+      "description": "A combobox: a trigger button (showing the selected value + chevron) that opens a popup list of options, each with a check indicator when selected. Includes a multi-select chips-input variant.",
+      "markup": "<button class=\"combobox-trigger\" data-empty=\"true\" popovertarget=\"cb\">Pick a fruit\u2026</button>\n<div class=\"combobox-content\" popover id=\"cb\">\n  <div class=\"combobox-list\">\n    <div class=\"combobox-item\" role=\"option\" aria-selected=\"true\">Apple<span class=\"combobox-item-indicator\"><svg aria-hidden=\"true\">\u2026</svg></span></div>\n    <div class=\"combobox-item\" role=\"option\">Banana</div>\n  </div>\n  <div class=\"combobox-empty\">No results.</div>\n</div>",
+      "classes": [
+        "combobox-trigger",
+        "combobox-content",
+        "combobox-list",
+        "combobox-item",
+        "combobox-item-indicator",
+        "combobox-group",
+        "combobox-label",
+        "combobox-separator",
+        "combobox-empty",
+        "combobox-chips",
+        "combobox-chip",
+        "combobox-chip-remove",
+        "combobox-chips-input"
+      ],
+      "notes": "Visual layer only. Filtering, keyboard nav, and open/close state need JS \u2014 use the Popover API (popovertarget + [popover]) or a small script. data-empty on the trigger mutes unselected text; data-highlighted drives the active item; aria-selected shows the check. Add role=\"option\"/aria-selected to items yourself.",
+      "status": "partial",
+      "js": "consumer",
+      "support": "baseline",
+      "a11y": "Trigger is a real <button> (aria-haspopup=\"listbox\"); items use role=\"option\" + aria-selected; roving tabindex/keyboard arrows need JS"
+    },
+    {
       "name": "command",
       "file": "src/components/command.css",
       "deps": [

@@ -56,6 +56,7 @@
 @import "./components/navigation-menu.css";
 @import "./components/context-menu.css";
 @import "./components/command.css";
+@import "./components/combobox.css";
 @import "./components/toast.css";
 @import "./components/sonner.css";
 @import "./components/table.css";

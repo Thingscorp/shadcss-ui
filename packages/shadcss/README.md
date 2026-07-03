@@ -1,11 +1,11 @@
 # shadcss
 
 > **Zero-runtime UI with the shadcn aesthetic — no React, no Tailwind, no Radix, no hydration.**
-> 60 HTML/CSS components and patterns for server-rendered, static, HTMX, Astro, and AI-generated apps. ~17.6 KB gzipped, zero dependencies, zero JS runtime. Complex widgets are clearly marked.
+> 61 HTML/CSS components and patterns for server-rendered, static, HTMX, Astro, and AI-generated apps. ~18.1 KB gzipped, zero dependencies, zero JS runtime. Complex widgets are clearly marked.
 
-[![gzip size](https://img.shields.io/badge/gzipped-17.6%20KB-success)](./dist/shadcss.min.css)
+[![gzip size](https://img.shields.io/badge/gzipped-18.1%20KB-success)](./dist/shadcss.min.css)
 [![no js framework](https://img.shields.io/badge/JS-no%20framework-black)](#)
-[![components](https://img.shields.io/badge/components-60-blue)](#components-60)
+[![components](https://img.shields.io/badge/components-61-blue)](#components-61)
 [![deps](https://img.shields.io/badge/dependencies-0-blue)](#)
 [![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![AI-ready](https://img.shields.io/badge/AI--ready-registry%20%2B%20guide-orange)](./AI_GUIDE.md)
@@ -46,7 +46,7 @@ which changes the theming contract:
 
 ### Import only what you use (tree-shaking)
 
-The full bundle `dist/shadcss.min.css` is ~17.6 KB gz. To ship less, import the
+The full bundle `dist/shadcss.min.css` is ~18.1 KB gz. To ship less, import the
 base layer once plus only the components you use:
 
 ```html
@@ -87,9 +87,9 @@ framework lock-in. The cost of HTML + CSS is — nothing.
 
 ---
 
-## Components (60)
+## Components (61)
 
-shadcss covers the shadcn component set as CSS — 60 components and patterns; complex widgets are marked with their `js`/`support` needs (see [llms.txt](./llms.txt) or `shadcss info`):
+shadcss covers the shadcn component set as CSS — 61 components and patterns; complex widgets are marked with their `js`/`support` needs (see [llms.txt](./llms.txt) or `shadcss info`):
 
 | Component | File | Status |
 | --- | --- | --- |
@@ -333,7 +333,7 @@ packages/shadcss/
 │   └── shadcss.css          ← main entry, @imports all
 ├── dist/
 │   ├── shadcss.css          ← bundled (165 KB)
-│   └── shadcss.min.css      ← minified (101 KB, 17.6 KB gzipped)
+│   └── shadcss.min.css      ← minified (101 KB, 18.1 KB gzipped)
 ├── scripts/
 │   └── build.mjs            ← Lightning CSS bundler
 ├── registry.json            ← machine-readable component registry

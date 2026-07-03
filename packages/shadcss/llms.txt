@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 60 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 61 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -107,6 +107,19 @@ Standalone collapsible (like accordion but unstyled).
 Classes: collapsible collapsible-trigger collapsible-content
 A11y: Native <details>; must be a <details> element
 Markup: <details class="collapsible"><summary class="collapsible-trigger">T</summary><div class="collapsible-content">…</div></details>
+
+### combobox — status:partial · js:consumer · support:baseline
+A combobox: a trigger button (showing the selected value + chevron) that opens a popup list of options, each with a check indicator when selected. Includes a multi-select chips-input variant.
+Classes: combobox-trigger combobox-content combobox-list combobox-item combobox-item-indicator combobox-group combobox-label combobox-separator combobox-empty combobox-chips combobox-chip combobox-chip-remove combobox-chips-input
+A11y: Trigger is a real <button> (aria-haspopup="listbox"); items use role="option" + aria-selected; roving tabindex/keyboard arrows need JS
+Markup: <button class="combobox-trigger" data-empty="true" popovertarget="cb">Pick a fruit…</button>
+<div class="combobox-content" popover id="cb">
+  <div class="combobox-list">
+    <div class="combobox-item" role="option" aria-selected="true">Apple<span class="combobox-item-indicator"><svg aria-hidden="true">…</svg></span></div>
+    <div class="combobox-item" role="option">Banana</div>
+  </div>
+  <div class="combobox-empty">No results.</div>
+</div>
 
 ### command — status:visual-only · js:consumer · support:popover-api
 Command palette UI shell. Pair with Popover API for ⌘K.
