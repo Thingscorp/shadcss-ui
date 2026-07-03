@@ -774,6 +774,160 @@
     caret-color: var(--foreground);
   }
 
+  .input-group {
+    border: 1px solid var(--input);
+    border-radius: var(--radius-md);
+    width: 100%;
+    min-width: 0;
+    height: 2.25rem;
+    box-shadow: var(--shadow-xs);
+    transition: border-color var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+    background: none;
+    align-items: center;
+    display: flex;
+    position: relative;
+  }
+
+  :is(.input-group:has( > .input-group-addon[data-align="block-start"]), .input-group:has( > .input-group-addon[data-align="block-end"])) {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+  }
+
+  :is(.input-group:has( > .input:focus-visible), .input-group:has( > .input-group-control:focus-visible)) {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  :is(.input-group:has( > .input[aria-invalid="true"]), .input-group:has( > .input-group-control[aria-invalid="true"])) {
+    border-color: var(--destructive);
+  }
+
+  :is(.input-group:has( > .input[aria-invalid="true"]:focus-visible), .input-group:has( > .input-group-control[aria-invalid="true"]:focus-visible)) {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent);
+  }
+
+  .input-group .input, .input-group .textarea, .input-group-control {
+    min-width: 0;
+    box-shadow: none;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    flex: 1;
+  }
+
+  .input-group .input:focus, .input-group .input:focus-visible, .input-group .textarea:focus, .input-group .textarea:focus-visible, .input-group-control:focus, .input-group-control:focus-visible {
+    box-shadow: none;
+    border-color: #0000;
+    outline: none;
+  }
+
+  .input-group .input, .input-group-control[type] {
+    padding-inline-start: var(--space-3);
+    padding-inline-end: var(--space-3);
+  }
+
+  .input-group .textarea, textarea.input-group-control {
+    resize: none;
+    padding-block: var(--space-3);
+  }
+
+  .input-group-addon {
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    padding-block: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+    -webkit-user-select: none;
+    user-select: none;
+    font-weight: 500;
+    display: flex;
+  }
+
+  .input-group-addon[data-align="inline-start"] {
+    order: -1;
+    padding-inline-start: var(--space-3);
+  }
+
+  .input-group-addon[data-align="inline-end"] {
+    order: 1;
+    padding-inline-end: var(--space-3);
+  }
+
+  .input-group-addon[data-align="inline-start"]:has( > button) {
+    margin-inline-start: -.45rem;
+  }
+
+  .input-group-addon[data-align="inline-end"]:has( > button) {
+    margin-inline-end: -.45rem;
+  }
+
+  .input-group-addon[data-align="block-start"] {
+    width: 100%;
+    padding-inline: var(--space-3);
+    order: -1;
+    justify-content: flex-start;
+    padding-block-start: var(--space-3);
+  }
+
+  .input-group-addon[data-align="block-end"] {
+    width: 100%;
+    padding-inline: var(--space-3);
+    order: 1;
+    justify-content: flex-start;
+    padding-block-end: var(--space-3);
+  }
+
+  :is(.input-group:has( > .input-group-addon[data-align="block-start"]) .input, .input-group:has( > .input-group-addon[data-align="block-start"]) .input-group-control) {
+    padding-block-start: var(--space-1);
+  }
+
+  :is(.input-group:has( > .input-group-addon[data-align="block-end"]) .input, .input-group:has( > .input-group-addon[data-align="block-end"]) .input-group-control) {
+    padding-block-end: var(--space-1);
+  }
+
+  .input-group-text {
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--muted-foreground);
+    font-size: var(--text-sm);
+    display: flex;
+  }
+
+  .input-group-addon .btn {
+    height: auto;
+    padding-inline: var(--space-2);
+    color: var(--foreground);
+    box-shadow: none;
+    background: none;
+  }
+
+  .input-group-addon .btn:hover:not(:disabled) {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  .input-group .input:-webkit-autofill {
+    -webkit-text-fill-color: var(--foreground);
+    box-shadow: 0 0 0 1000px var(--background) inset;
+    caret-color: var(--foreground);
+  }
+
+  .input-group-control:-webkit-autofill {
+    -webkit-text-fill-color: var(--foreground);
+    box-shadow: 0 0 0 1000px var(--background) inset;
+    caret-color: var(--foreground);
+  }
+
+  .input-group-addon > svg, .input-group-text > svg {
+    pointer-events: none;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+  }
+
   .textarea {
     width: 100%;
     min-height: 4rem;

@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 54 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 55 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -155,6 +155,12 @@ Single-line text input. Leading/trailing icon support.
 Classes: input input-sm input-lg input-wrap
 A11y: Native input; pair with a <label>; aria-invalid for error
 Markup: <input class="input" type="email" placeholder="…">
+
+### input-group — status:stable · js:none · support:baseline
+Bordered input shell hosting leading/trailing (or stacked) addons — icon, text, kbd, or button — around a borderless .input or .textarea. Wrapper owns the border + focus/error ring.
+Classes: input-group input-group-addon input-group-text input-group-control
+A11y: Pair the control with a <label>; addons are presentational (aria-hidden on decorative icons)
+Markup: <div class="input-group"><span class="input-group-addon" data-align="inline-start"><svg aria-hidden="true">…</svg></span><input class="input-group-control" placeholder="Search"><span class="input-group-addon" data-align="inline-end"><kbd class="kbd">⌘K</kbd></span></div>
 
 ### input-otp — status:partial · js:consumer · support:baseline
 One-time-password input boxes.

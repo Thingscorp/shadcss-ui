@@ -565,6 +565,28 @@
       "a11y": "Native input; pair with a <label>; aria-invalid for error"
     },
     {
+      "name": "input-group",
+      "file": "src/components/input-group.css",
+      "deps": [
+        "base/tokens",
+        "base/theme",
+        "components/input"
+      ],
+      "description": "Bordered input shell hosting leading/trailing (or stacked) addons \u2014 icon, text, kbd, or button \u2014 around a borderless .input or .textarea. Wrapper owns the border + focus/error ring.",
+      "markup": "<div class=\"input-group\"><span class=\"input-group-addon\" data-align=\"inline-start\"><svg aria-hidden=\"true\">\u2026</svg></span><input class=\"input-group-control\" placeholder=\"Search\"><span class=\"input-group-addon\" data-align=\"inline-end\"><kbd class=\"kbd\">\u2318K</kbd></span></div>",
+      "classes": [
+        "input-group",
+        "input-group-addon",
+        "input-group-text",
+        "input-group-control"
+      ],
+      "notes": "Addons use data-align=\"inline-start|inline-end|block-start|block-end\". The inner control may use either .input-group-control or a bare .input/.textarea; both shed their own border/ring so the wrapper draws it. :has()-based, no JS.",
+      "status": "stable",
+      "js": "none",
+      "support": "baseline",
+      "a11y": "Pair the control with a <label>; addons are presentational (aria-hidden on decorative icons)"
+    },
+    {
       "name": "input-otp",
       "file": "src/components/input-otp.css",
       "deps": [

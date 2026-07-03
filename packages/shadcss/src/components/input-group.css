@@ -1,0 +1,167 @@
+/* ==========================================================================
+   shadcss · components/input-group.css
+   A bordered input shell that hosts leading/trailing addons (icon, text,
+   kbd, button) around a bare .input or .textarea. Mirrors shadcn's
+   InputGroup: the wrapper owns the border + focus/error ring, while the
+   inner control contributes no border/shadow of its own. Pure CSS via
+   :has(); zero JS.
+   ========================================================================== */
+
+@layer components {
+  .input-group {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    min-width: 0;
+    height: 2.25rem;
+    border: 1px solid var(--input);
+    border-radius: var(--radius-md);
+    background: transparent;
+    box-shadow: var(--shadow-xs);
+    transition:
+      border-color var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+
+  /* Block (stacked) addons flip the shell to a column and drop the fixed height. */
+  .input-group:has(> .input-group-addon[data-align="block-start"]),
+  .input-group:has(> .input-group-addon[data-align="block-end"]) {
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Focus ring is driven by the inner control's focus-visible. */
+  .input-group:has(> .input:focus-visible),
+  .input-group:has(> .input-group-control:focus-visible) {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  /* Error state — mirrors .input[aria-invalid] across the wrapper. */
+  .input-group:has(> .input[aria-invalid="true"]),
+  .input-group:has(> .input-group-control[aria-invalid="true"]) {
+    border-color: var(--destructive);
+  }
+  .input-group:has(> .input[aria-invalid="true"]:focus-visible),
+  .input-group:has(> .input-group-control[aria-invalid="true"]:focus-visible) {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent);
+  }
+
+  /* The inner control: borderless, no own focus ring (the wrapper draws it). */
+  .input-group .input,
+  .input-group .textarea,
+  .input-group-control {
+    flex: 1 1 0%;
+    min-width: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .input-group .input:focus,
+  .input-group .input:focus-visible,
+  .input-group .textarea:focus,
+  .input-group .textarea:focus-visible,
+  .input-group-control:focus,
+  .input-group-control:focus-visible {
+    outline: none;
+    border-color: transparent;
+    box-shadow: none;
+  }
+  .input-group .input,
+  .input-group-control[type] {
+    padding-inline-start: var(--space-3);
+    padding-inline-end: var(--space-3);
+  }
+  .input-group .textarea,
+  textarea.input-group-control {
+    resize: none;
+    padding-block: var(--space-3);
+  }
+
+  /* ---- Addon slot ---- */
+  .input-group-addon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding-block: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--muted-foreground);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .input-group-addon[data-align="inline-start"] {
+    order: -1;
+    padding-inline-start: var(--space-3);
+  }
+  .input-group-addon[data-align="inline-end"] {
+    order: 1;
+    padding-inline-end: var(--space-3);
+  }
+  /* Pull a nested button slightly out of the addon padding so it hugs the edge. */
+  .input-group-addon[data-align="inline-start"]:has(> button) { margin-inline-start: -0.45rem; }
+  .input-group-addon[data-align="inline-end"]:has(> button) { margin-inline-end: -0.45rem; }
+
+  .input-group-addon[data-align="block-start"] {
+    order: -1;
+    width: 100%;
+    justify-content: flex-start;
+    padding-inline: var(--space-3);
+    padding-block-start: var(--space-3);
+  }
+  .input-group-addon[data-align="block-end"] {
+    order: 1;
+    width: 100%;
+    justify-content: flex-start;
+    padding-inline: var(--space-3);
+    padding-block-end: var(--space-3);
+  }
+  /* When stacked, tighten the control's padding toward the addon. */
+  .input-group:has(> .input-group-addon[data-align="block-start"]) .input,
+  .input-group:has(> .input-group-addon[data-align="block-start"]) .input-group-control {
+    padding-block-start: var(--space-1);
+  }
+  .input-group:has(> .input-group-addon[data-align="block-end"]) .input,
+  .input-group:has(> .input-group-addon[data-align="block-end"]) .input-group-control {
+    padding-block-end: var(--space-1);
+  }
+
+  /* ---- Addon text + buttons ---- */
+  .input-group-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--muted-foreground);
+    font-size: var(--text-sm);
+  }
+  /* A button in an addon renders flat (ghost-like) so it sits inside the shell. */
+  .input-group-addon .btn {
+    height: auto;
+    padding-inline: var(--space-2);
+    background: transparent;
+    color: var(--foreground);
+    box-shadow: none;
+  }
+  .input-group-addon .btn:hover:not(:disabled) {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  /* Autofill on the inner control should still pick up the themed background. */
+  .input-group .input:-webkit-autofill,
+  .input-group-control:-webkit-autofill {
+    -webkit-text-fill-color: var(--foreground);
+    box-shadow: 0 0 0 1000px var(--background) inset;
+    caret-color: var(--foreground);
+  }
+}
+
+/* --- parity: auto-size inline icons in the addon --- */
+@layer components {
+  .input-group-addon > svg,
+  .input-group-text > svg { width: 1rem; height: 1rem; flex-shrink: 0; pointer-events: none; }
+}
