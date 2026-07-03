@@ -1,0 +1,86 @@
+/* ==========================================================================
+   shadcss · components/button-group.css
+   Visually joined group of .btn elements. Mirrors shadcn's ButtonGroup plus
+   the ButtonGroupText (label/separator) slot. Pure CSS. Depends on button.css
+   for the .btn element styles.
+   ========================================================================== */
+
+@layer components {
+  .btn-group {
+    display: inline-flex;
+    border-radius: var(--radius-md);
+    isolation: isolate;
+  }
+  .btn-group .btn {
+    border-radius: 0;
+    border-inline-end-width: 0;
+  }
+  /* Middle items square all corners (defensive against variant radius) */
+  .btn-group .btn:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+  .btn-group .btn:first-child {
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
+  }
+  .btn-group .btn:last-child {
+    border-top-right-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+    border-inline-end-width: 1px;
+  }
+
+  /* Vertical orientation — collapse top/bottom borders instead of inline */
+  .btn-group[data-orientation="vertical"] {
+    flex-direction: column;
+  }
+  .btn-group[data-orientation="vertical"] .btn {
+    border-radius: 0;
+    border-inline-end-width: 1px;
+    border-bottom-width: 0;
+  }
+  .btn-group[data-orientation="vertical"] .btn:first-child {
+    border-top-left-radius: var(--radius-md);
+    border-top-right-radius: var(--radius-md);
+    border-bottom-left-radius: 0;
+  }
+  .btn-group[data-orientation="vertical"] .btn:last-child {
+    border-bottom-left-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+    border-top-right-radius: 0;
+    border-bottom-width: 1px;
+  }
+
+  /* ButtonGroupText — a labelled/segmented slot inside a group, mirroring
+     shadcn's bordered muted "Text" panel used between buttons. */
+  .btn-group-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0 var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+  /* When placed inside a group, drop the overlapping radius/border like .btn. */
+  .btn-group .btn-group-text {
+    border-radius: 0;
+    border-inline-end-width: 0;
+  }
+  .btn-group .btn-group-text:first-child {
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
+  }
+  .btn-group .btn-group-text:last-child {
+    border-top-right-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+    border-inline-end-width: 1px;
+  }
+}
+
+/* --- parity: auto-size inline icons in the text slot --- */
+@layer components {
+  .btn-group-text > svg { width: 1rem; height: 1rem; flex-shrink: 0; pointer-events: none; }
+}

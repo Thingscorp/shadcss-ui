@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 52 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 54 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -59,6 +59,12 @@ The primary action trigger. 6 variants, 4 sizes, loading + icon + group modes.
 Classes: btn btn-secondary btn-outline btn-ghost btn-destructive btn-link btn-sm btn-lg btn-icon btn-group btn-primary btn-danger btn-error
 A11y: Use <button>; aria-busy=true for loading; disabled for inert
 Markup: <button class="btn">Default</button>
+
+### button-group — status:stable · js:none · support:baseline
+Visually joined group of buttons; horizontal or vertical. Includes a labelled text/separator slot.
+Classes: btn-group btn-group-text
+A11y: Use role="group" with an aria-label; each .btn keeps its own focus and name
+Markup: <div class="btn-group" role="group"><button class="btn">Prev</button><div class="btn-group-text">1 / 3</div><button class="btn">Next</button></div>
 
 ### calendar — status:visual-only · js:consumer · support:baseline
 Pure-CSS month calendar. Day cells with today/selected/disabled states.
@@ -173,6 +179,12 @@ Horizontal menu bar with dropdown submenus.
 Classes: menubar menubar-trigger menubar-menu
 A11y: Opens via popovertarget. For arrow-key roving focus + menubar roles add @russfranky/shadcss-js/menu and data-sc-menu
 Markup: <div class="menubar" role="menubar"><div class="menubar-menu-item"><button class="menubar-trigger" popovertarget="X" aria-haspopup="menu">File</button><div class="menubar-menu" popover id="X" role="menu">…</div></div></div>
+
+### native-select — status:stable · js:none · support:baseline
+shadcn naming alias for .select — a styled native <select> with a chevron and an optional wrapper.
+Classes: native-select native-select-wrap native-select-sm
+A11y: Native <select> — full keyboard + screen-reader support for free; pair with a <label>
+Markup: <div class="native-select-wrap"><select class="native-select"><option>One</option><option>Two</option></select></div>
 
 ### navigation-menu — status:stable · js:none · support:baseline
 Horizontal nav with dropdown panels of links.

@@ -202,6 +202,25 @@
       "a11y": "Use <button>; aria-busy=true for loading; disabled for inert"
     },
     {
+      "name": "button-group",
+      "file": "src/components/button-group.css",
+      "deps": [
+        "base/tokens",
+        "components/button"
+      ],
+      "description": "Visually joined group of buttons; horizontal or vertical. Includes a labelled text/separator slot.",
+      "markup": "<div class=\"btn-group\" role=\"group\"><button class=\"btn\">Prev</button><div class=\"btn-group-text\">1 / 3</div><button class=\"btn\">Next</button></div>",
+      "classes": [
+        "btn-group",
+        "btn-group-text"
+      ],
+      "notes": "Add role=\"group\" (and aria-label) on the container. Vertical mode via data-orientation=\"vertical\". Depends on button.css for .btn.",
+      "status": "stable",
+      "js": "none",
+      "support": "baseline",
+      "a11y": "Use role=\"group\" with an aria-label; each .btn keeps its own focus and name"
+    },
+    {
       "name": "calendar",
       "file": "src/components/calendar.css",
       "deps": [
@@ -619,6 +638,26 @@
       "js": "trigger",
       "support": "popover-api",
       "a11y": "Opens via popovertarget. For arrow-key roving focus + menubar roles add @russfranky/shadcss-js/menu and data-sc-menu"
+    },
+    {
+      "name": "native-select",
+      "file": "src/components/native-select.css",
+      "deps": [
+        "base/tokens",
+        "base/theme"
+      ],
+      "description": "shadcn naming alias for .select \u2014 a styled native <select> with a chevron and an optional wrapper.",
+      "markup": "<div class=\"native-select-wrap\"><select class=\"native-select\"><option>One</option><option>Two</option></select></div>",
+      "classes": [
+        "native-select",
+        "native-select-wrap",
+        "native-select-sm"
+      ],
+      "notes": "Behaviourally identical to .select; provided so shadcn-style markup compiles unchanged.",
+      "status": "stable",
+      "js": "none",
+      "support": "baseline",
+      "a11y": "Native <select> \u2014 full keyboard + screen-reader support for free; pair with a <label>"
     },
     {
       "name": "navigation-menu",
