@@ -83,3 +83,6 @@
 @import "./components/toggle.css";
 @import "./components/toggle-group.css";
 @import "./components/typography.css";
+
+/* Blocks — full-page section layouts that compose the components. */
+@import "./blocks.css";

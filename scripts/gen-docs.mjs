@@ -55,14 +55,24 @@ function sidebar(components, current) {
   const links = components
     .map((c) => `<a href="./${c.name}.html"${c.name === current ? ' aria-current="page"' : ""}>${esc(c.name)}</a>`)
     .join("\n");
+  const blockLinks = BLOCKS
+    .map((b) => `<a href="./block-${b.name}.html"${`block-${b.name}` === current ? ' aria-current="page"' : ""}>${esc(b.name)}</a>`)
+    .join("\n");
   return `<aside class="docs-sidebar">
   <div class="docs-brand"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <a href="../index.html" style="color:inherit;text-decoration:none">shadcss</a></div>
   <div class="docs-nav-label">Getting started</div>
-  <nav class="docs-nav"><a href="./index.html"${current === "__index" ? ' aria-current="page"' : ""}>Overview</a><a href="./retrofit.html"${current === "__retrofit" ? ' aria-current="page"' : ""}>Retrofit an existing app</a><a href="./support.html"${current === "__support" ? ' aria-current="page"' : ""}>Browser support &amp; limits</a><a href="../index.html">Live demo</a></nav>
+  <nav class="docs-nav"><a href="./index.html"${current === "__index" ? ' aria-current="page"' : ""}>Overview</a><a href="./retrofit.html"${current === "__retrofit" ? ' aria-current="page"' : ""}>Retrofit an existing app</a><a href="./support.html"${current === "__support" ? ' aria-current="page"' : ""}>Browser support &amp; limits</a><a href="./blocks.html"${current === "__blocks" ? ' aria-current="page"' : ""}>Blocks</a><a href="../index.html">Live demo</a></nav>
   <div class="docs-nav-label">Components</div>
-  <nav class="docs-nav">${links}</nav>
+  <nav class="docs-nav">${links}</nav>${BLOCKS.length ? `
+  <div class="docs-nav-label">Blocks</div>
+  <nav class="docs-nav">${blockLinks}</nav>` : ""}
 </aside>`;
 }
+
+// Module-level registry state (set by genDocs) so per-page functions don't
+// each need to thread the full registry through their signatures.
+let COMPONENTS = [];
+let BLOCKS = [];
 
 const themeToggle = `<div class="docs-toolbar"><button class="btn btn-ghost btn-sm" aria-pressed="false" onclick="const d=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=d;this.setAttribute('aria-pressed',d==='dark')">Toggle theme</button></div>`;
 
@@ -219,8 +229,46 @@ function retrofitPage(reg) {
   return shell("Retrofit an existing app", body, reg.components, "__retrofit");
 }
 
+function blockPage(b) {
+  const meta = [`<span class="badge badge-secondary">family: ${esc(b.family)}</span>`, ...(b.deps || []).map((d) => `<span class="badge badge-outline">${esc(d)}</span>`)].join(" ");
+  const body = `
+<div class="docs-breadcrumb"><a href="./blocks.html">Blocks</a> / ${esc(b.name)}</div>
+<h1 class="docs-h1">${esc(b.name)}</h1>
+<p class="docs-lead">${esc(b.description || "")}</p>
+<div class="docs-meta">${meta}</div>
+
+<div class="docs-section"><h2>Preview</h2>
+<div class="docs-preview" style="padding:0;background:hsl(var(--muted));overflow:hidden;max-height:32rem">${b.markup || ""}</div></div>
+
+<div class="docs-section"><h2>Markup</h2><pre class="docs-code"><code>${esc(b.markup || "")}</code></pre></div>
+
+<div class="docs-section"><h2>Dependencies</h2><div class="docs-classes">${(b.deps || []).map((d) => `<span class="badge badge-outline">${esc(d)}</span>`).join(" ") || '<span class="badge badge-outline">none</span>'}</div></div>
+`;
+  return shell(b.name, body, COMPONENTS, `block-${b.name}`);
+}
+
+function blocksIndex(reg) {
+  const families = {};
+  for (const b of reg.blocks || []) (families[b.family] ??= []).push(b);
+  const sections = Object.entries(families).map(([fam, items]) => `
+<div class="docs-section"><h2>${esc(fam)} (${items.length})</h2>
+<div class="demo-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(18rem,100%),1fr));gap:var(--space-4)">${items.map((b) => `
+  <a class="card card-interactive" href="./block-${b.name}.html" style="text-decoration:none;color:inherit;padding:var(--space-4);min-width:0">
+    <div class="card-title" style="font-size:var(--text-base)">${esc(b.name)}</div>
+    <div class="card-description">${esc(b.description || "")}</div>
+  </a>`).join("\n")}</div></div>`).join("\n");
+  const body = `
+<div class="docs-breadcrumb">Documentation</div>
+<h1 class="docs-h1">Blocks</h1>
+<p class="docs-lead">${(reg.blocks || []).length} full-page section layouts composed from the components — copy-paste HTML templates. Mirrors shadcn's blocks.</p>
+${sections}`;
+  return shell("Blocks", body, reg.components, "__blocks");
+}
+
 export function genDocs(repoRoot) {
   const reg = JSON.parse(readFileSync(path.join(repoRoot, "packages/shadcss/registry.json"), "utf8"));
+  BLOCKS = reg.blocks || [];
+  COMPONENTS = reg.components;
   const out = path.join(repoRoot, "apps/www/docs");
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
@@ -228,6 +276,10 @@ export function genDocs(repoRoot) {
   writeFileSync(path.join(out, "support.html"), supportPage(reg));
   writeFileSync(path.join(out, "retrofit.html"), retrofitPage(reg));
   for (const c of reg.components) writeFileSync(path.join(out, `${c.name}.html`), componentPage(c, reg.components));
+  if (reg.blocks && reg.blocks.length) {
+    writeFileSync(path.join(out, "blocks.html"), blocksIndex(reg));
+    for (const b of reg.blocks) writeFileSync(path.join(out, `block-${b.name}.html`), blockPage(b));
+  }
   return reg.components.length;
 }
 

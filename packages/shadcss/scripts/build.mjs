@@ -83,6 +83,15 @@ async function genLlms() {
     if (c.a11y) L.push(`A11y: ${c.a11y}`);
     if (c.markup) L.push("Markup: " + c.markup);
   }
+  if (reg.blocks && reg.blocks.length) {
+    L.push("", "## Blocks", `Full-page section layouts composed from the components (${reg.blocks.length}). Copy the markup; layout glue lives in src/blocks.css (the \"blocks\" dep).`);
+    for (const b of reg.blocks) {
+      L.push("", `### ${b.name} — family:${b.family}`);
+      if (b.description) L.push(b.description);
+      L.push(`Deps: ${(b.deps || []).join(", ")}`);
+      if (b.markup) L.push("Markup: " + b.markup);
+    }
+  }
   L.push("");
   await fs.writeFile(llmsOut, L.join("\n"));
   try { await fs.access(path.dirname(wwwLlms)); await fs.writeFile(wwwLlms, L.join("\n")); } catch {}

@@ -116,5 +116,30 @@
   .field-set { display: flex; gap: var(--space-6); }
   .field-legend { font-weight: 500; }
   .field-content { display: flex; gap: var(--space-1\.5); line-height: 1.375; }
-  .field-separator { height: 1.25rem; font-size: var(--text-sm); line-height: var(--leading-sm); }
+  /* FieldSeparator: a horizontal line with centered, background-masked text
+     ("—— Or continue with ——"). Mirrors shadcn's absolute Separator + bg-bg span. */
+  .field-separator {
+    position: relative;
+    height: 1.25rem;
+    margin-block: -0.5rem;
+    font-size: var(--text-sm);
+    line-height: var(--leading-sm);
+  }
+  .field-separator::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline: 0;
+    height: 1px;
+    background: var(--border);
+  }
+  .field-separator-content {
+    position: relative;
+    display: block;
+    width: fit-content;
+    margin-inline: auto;
+    padding-inline: var(--space-2);
+    background: var(--background);
+    color: var(--muted-foreground);
+  }
 }

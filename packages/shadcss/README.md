@@ -1,9 +1,9 @@
 # shadcss
 
 > **Zero-runtime UI with the shadcn aesthetic — no React, no Tailwind, no Radix, no hydration.**
-> 65 HTML/CSS components and patterns for server-rendered, static, HTMX, Astro, and AI-generated apps. ~19.0 KB gzipped, zero dependencies, zero JS runtime. Complex widgets are clearly marked.
+> 65 HTML/CSS components and patterns for server-rendered, static, HTMX, Astro, and AI-generated apps. ~19.4 KB gzipped, zero dependencies, zero JS runtime. Complex widgets are clearly marked.
 
-[![gzip size](https://img.shields.io/badge/gzipped-19.0%20KB-success)](./dist/shadcss.min.css)
+[![gzip size](https://img.shields.io/badge/gzipped-19.4%20KB-success)](./dist/shadcss.min.css)
 [![no js framework](https://img.shields.io/badge/JS-no%20framework-black)](#)
 [![components](https://img.shields.io/badge/components-65-blue)](#components-65)
 [![deps](https://img.shields.io/badge/dependencies-0-blue)](#)
@@ -46,7 +46,7 @@ which changes the theming contract:
 
 ### Import only what you use (tree-shaking)
 
-The full bundle `dist/shadcss.min.css` is ~19.0 KB gz. To ship less, import the
+The full bundle `dist/shadcss.min.css` is ~19.4 KB gz. To ship less, import the
 base layer once plus only the components you use:
 
 ```html
@@ -333,7 +333,7 @@ packages/shadcss/
 │   └── shadcss.css          ← main entry, @imports all
 ├── dist/
 │   ├── shadcss.css          ← bundled (165 KB)
-│   └── shadcss.min.css      ← minified (101 KB, 19.0 KB gzipped)
+│   └── shadcss.min.css      ← minified (101 KB, 19.4 KB gzipped)
 ├── scripts/
 │   └── build.mjs            ← Lightning CSS bundler
 ├── registry.json            ← machine-readable component registry

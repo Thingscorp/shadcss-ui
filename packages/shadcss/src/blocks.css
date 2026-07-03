@@ -1,0 +1,142 @@
+/* ==========================================================================
+   shadcss · blocks.css
+   Page-layout glue for the shadcn "blocks" (login/signup/sidebar/dashboard).
+   These are NOT components — they're full-page section layouts that compose
+   the components. Kept separate so a consumer copy-pasting a single block's
+   markup pulls only the few layout classes it needs.
+
+   Conventions:
+   - `.blk-*` is the namespace for block layout primitives.
+   - Each block ships its own snippet (see registry.json → blocks[].markup);
+     these classes are the shared scaffolding beneath them.
+   ========================================================================== */
+
+@layer components {
+  /* ---- Full-viewport page shells (login/signup families) ---- */
+
+  /* Centered single-column page (login-01/05, signup-01/05). */
+  .blk-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    min-height: 100svh;
+    padding: var(--space-6);
+  }
+  @media (min-width: 48rem) {
+    .blk-page { padding: var(--space-10); }
+  }
+  .blk-page--muted { background: var(--muted); }
+  .blk-page--bg { background: var(--background); }
+  .blk-page__inner { width: 100%; max-width: 24rem; }
+  .blk-page__inner--wide { max-width: 56rem; }
+
+  /* Two-column split: form + image (login-02, signup-02). */
+  .blk-split {
+    display: grid;
+    min-height: 100svh;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 64rem) {
+    .blk-split { grid-template-columns: 2fr; }
+  }
+  .blk-split__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    justify-content: center;
+  }
+  @media (min-width: 48rem) {
+    .blk-split__form { padding: var(--space-10); }
+  }
+  .blk-split__form-body {
+    display: flex;
+    flex: 1 1 0%;
+    align-items: center;
+    justify-content: center;
+  }
+  .blk-split__image {
+    position: relative;
+    display: none;
+    background: var(--muted);
+  }
+  @media (min-width: 64rem) {
+    .blk-split__image { display: block; }
+  }
+  .blk-split__image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ---- Brand lockup (logo + wordmark) used across auth blocks ---- */
+  .blk-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 500;
+    text-decoration: none;
+    color: inherit;
+  }
+  .blk-brand__logo {
+    display: flex;
+    width: 1.5rem;
+    height: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  .blk-brand__logo > svg { width: 1rem; height: 1rem; }
+  .blk-brand--center { align-self: center; }
+
+  /* ---- Centered heading + subtext block (the no-card auth variant) ---- */
+  .blk-headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    text-align: center;
+  }
+  .blk-headline h1 {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .blk-headline--lg h1 { font-size: var(--text-2xl); }
+  .blk-headline p {
+    margin: 0;
+    color: var(--muted-foreground);
+    text-wrap: balance;
+  }
+
+  /* ---- Inline form-row helpers (label + trailing link) ---- */
+  .blk-field-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+  .blk-link {
+    margin-inline-start: auto;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .blk-link:hover { color: var(--foreground); }
+  .blk-help {
+    margin: 0;
+    padding-inline: var(--space-6);
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+  .blk-help a { text-decoration: underline; text-underline-offset: 4px; }
+}
