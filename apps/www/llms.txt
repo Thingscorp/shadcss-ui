@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 62 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 63 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -234,6 +234,21 @@ Chat message wrapper: avatar + a content column (header, body, footer) aligned s
 Classes: message-group message message-avatar message-content message-header message-footer
 A11y: Give the avatar img an empty alt if decorative, or a name; keep a real heading/label for the sender in the header
 Markup: <div class="message-group"><div class="message" data-align="start"><div class="message-avatar"><img src="…" alt=""></div><div class="message-content"><div class="message-header">Ada · 09:41</div><div class="bubble" data-variant="default"><div class="bubble-content">Hi!</div></div></div></div></div>
+
+### message-scroller — status:partial · js:consumer · support:baseline
+Scrollable message transcript: a viewport with thin scrollbars + overscroll containment, a vertical content column, content-visibility items for long logs, and a floating scroll-to-end button that shows/hides via data-active.
+Classes: message-scroller message-scroller-viewport message-scroller-content message-scroller-item message-scroller-button
+A11y: The scroll button is a real <button> with aria-label; viewport is a normal scroll region — keyboard-focusable children scroll into view
+Markup: <div class="message-scroller">
+  <div class="message-scroller-viewport">
+    <div class="message-scroller-content">
+      <div class="message-scroller-item">
+        <div class="message" data-align="start">…</div>
+      </div>
+    </div>
+  </div>
+  <button class="message-scroller-button" data-direction="end" data-active="false" aria-label="Scroll to latest"><svg aria-hidden="true">…</svg></button>
+</div>
 
 ### native-select — status:stable · js:none · support:baseline
 shadcn naming alias for .select — a styled native <select> with a chevron and an optional wrapper.

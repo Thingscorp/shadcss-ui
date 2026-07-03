@@ -53,6 +53,7 @@
 @import "./components/menubar.css";
 @import "./components/marker.css";
 @import "./components/message.css";
+@import "./components/message-scroller.css";
 @import "./components/navigation-menu.css";
 @import "./components/context-menu.css";
 @import "./components/command.css";

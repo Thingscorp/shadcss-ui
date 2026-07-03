@@ -838,6 +838,30 @@
       "a11y": "Give the avatar img an empty alt if decorative, or a name; keep a real heading/label for the sender in the header"
     },
     {
+      "name": "message-scroller",
+      "file": "src/components/message-scroller.css",
+      "deps": [
+        "base/tokens",
+        "base/theme",
+        "components/button",
+        "components/message"
+      ],
+      "description": "Scrollable message transcript: a viewport with thin scrollbars + overscroll containment, a vertical content column, content-visibility items for long logs, and a floating scroll-to-end button that shows/hides via data-active.",
+      "markup": "<div class=\"message-scroller\">\n  <div class=\"message-scroller-viewport\">\n    <div class=\"message-scroller-content\">\n      <div class=\"message-scroller-item\">\n        <div class=\"message\" data-align=\"start\">\u2026</div>\n      </div>\n    </div>\n  </div>\n  <button class=\"message-scroller-button\" data-direction=\"end\" data-active=\"false\" aria-label=\"Scroll to latest\"><svg aria-hidden=\"true\">\u2026</svg></button>\n</div>",
+      "classes": [
+        "message-scroller",
+        "message-scroller-viewport",
+        "message-scroller-content",
+        "message-scroller-item",
+        "message-scroller-button"
+      ],
+      "notes": "Visual layer only \u2014 auto-scroll-to-bottom and toggling the button's data-active as the user scrolls need a few lines of JS. data-direction=\"start|end\" and data-active=\"true|false\" drive the button; data-autoscrolling on the viewport hides the scrollbar. Pairs with message.css + bubble.css for the rows.",
+      "status": "partial",
+      "js": "consumer",
+      "support": "baseline",
+      "a11y": "The scroll button is a real <button> with aria-label; viewport is a normal scroll region \u2014 keyboard-focusable children scroll into view"
+    },
+    {
       "name": "native-select",
       "file": "src/components/native-select.css",
       "deps": [
