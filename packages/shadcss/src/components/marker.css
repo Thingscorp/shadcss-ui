@@ -1,0 +1,58 @@
+/* ==========================================================================
+   shadcss · components/marker.css
+   A small inline annotation/highlight row: an optional icon and a content
+   span, with separator or border variants for fitting into a wider layout.
+   Mirrors shadcn's Marker family. Pure CSS, zero JS.
+   ========================================================================== */
+
+@layer components {
+  .marker {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 1rem;
+    align-items: center;
+    gap: var(--space-2);
+    text-align: start;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+
+  .marker[data-variant="separator"]::before,
+  .marker[data-variant="separator"]::after {
+    content: "";
+    height: 1px;
+    min-width: 0;
+    flex: 1 1 0%;
+    background: var(--border);
+  }
+  .marker[data-variant="separator"]::before { margin-inline-end: var(--space-1); }
+  .marker[data-variant="separator"]::after { margin-inline-start: var(--space-1); }
+  /* In the separator variant the content is non-shrinking and centered. */
+  .marker[data-variant="separator"] .marker-content { flex: 0 0 auto; text-align: center; }
+
+  .marker[data-variant="border"] {
+    border-bottom: 1px solid var(--border);
+    padding-block-end: var(--space-2);
+  }
+
+  .marker-icon {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .marker-content {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .marker-content a { text-decoration: underline; text-underline-offset: 3px; }
+  .marker-content a:hover { color: var(--foreground); }
+}
+
+/* --- parity: auto-size inline icons --- */
+@layer components {
+  .marker-icon > svg { width: 1rem; height: 1rem; flex-shrink: 0; pointer-events: none; }
+}

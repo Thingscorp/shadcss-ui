@@ -717,6 +717,26 @@
       "a11y": "Native <label for>"
     },
     {
+      "name": "marker",
+      "file": "src/components/marker.css",
+      "deps": [
+        "base/tokens",
+        "base/theme"
+      ],
+      "description": "Inline annotation/highlight row: optional icon + content, with separator (rule lines either side) and border (underline) variants for slotting into a wider layout.",
+      "markup": "<div class=\"marker\"><span class=\"marker-icon\"><svg aria-hidden=\"true\">\u2026</svg></span><span class=\"marker-content\">3 items</span></div>",
+      "classes": [
+        "marker",
+        "marker-icon",
+        "marker-content"
+      ],
+      "notes": "data-variant=\"default|separator|border\" on .marker. Pure CSS, zero JS.",
+      "status": "stable",
+      "js": "none",
+      "support": "baseline",
+      "a11y": "Decorative icons get aria-hidden=\"true\"; links inside content stay real <a> elements"
+    },
+    {
       "name": "menubar",
       "file": "src/components/menubar.css",
       "deps": [

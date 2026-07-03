@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 59 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 60 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -197,6 +197,12 @@ Form label with required, muted variants.
 Classes: label label-required label-muted form-field
 A11y: Native <label for>
 Markup: <label class="label label-required" for="X">L</label>
+
+### marker — status:stable · js:none · support:baseline
+Inline annotation/highlight row: optional icon + content, with separator (rule lines either side) and border (underline) variants for slotting into a wider layout.
+Classes: marker marker-icon marker-content
+A11y: Decorative icons get aria-hidden="true"; links inside content stay real <a> elements
+Markup: <div class="marker"><span class="marker-icon"><svg aria-hidden="true">…</svg></span><span class="marker-content">3 items</span></div>
 
 ### menubar — status:stable · js:trigger · support:popover-api
 Horizontal menu bar with dropdown submenus.

@@ -3541,6 +3541,73 @@
     color: var(--accent-foreground);
   }
 
+  .marker {
+    align-items: center;
+    gap: var(--space-2);
+    text-align: start;
+    width: 100%;
+    min-height: 1rem;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+    display: flex;
+    position: relative;
+  }
+
+  .marker[data-variant="separator"]:before, .marker[data-variant="separator"]:after {
+    content: "";
+    background: var(--border);
+    flex: 1;
+    min-width: 0;
+    height: 1px;
+  }
+
+  .marker[data-variant="separator"]:before {
+    margin-inline-end: var(--space-1);
+  }
+
+  .marker[data-variant="separator"]:after {
+    margin-inline-start: var(--space-1);
+  }
+
+  .marker[data-variant="separator"] .marker-content {
+    text-align: center;
+    flex: none;
+  }
+
+  .marker[data-variant="border"] {
+    border-bottom: 1px solid var(--border);
+    padding-block-end: var(--space-2);
+  }
+
+  .marker-icon {
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+  }
+
+  .marker-content {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    min-width: 0;
+  }
+
+  .marker-content a {
+    text-underline-offset: 3px;
+    text-decoration: underline;
+  }
+
+  .marker-content a:hover {
+    color: var(--foreground);
+  }
+
+  .marker-icon > svg {
+    pointer-events: none;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+  }
+
   .message-group {
     gap: var(--space-2);
     flex-direction: column;
