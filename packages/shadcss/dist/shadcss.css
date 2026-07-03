@@ -2970,6 +2970,56 @@
     outline: none;
   }
 
+  .direction-toggle {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--muted);
+    isolation: isolate;
+    align-items: center;
+    gap: 0;
+    padding: .125rem;
+    display: inline-flex;
+  }
+
+  .direction-toggle-opt {
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-1);
+    height: 1.5rem;
+    padding-inline: var(--space-3);
+    border-radius: calc(var(--radius-md) - .125rem);
+    color: var(--muted-foreground);
+    font-size: var(--text-xs);
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+    background: none;
+    border: 0;
+    font-weight: 500;
+    display: inline-flex;
+  }
+
+  .direction-toggle-opt:hover {
+    color: var(--foreground);
+  }
+
+  .direction-toggle-opt:focus-visible {
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--ring) 50%, transparent);
+    outline: none;
+  }
+
+  .direction-toggle-opt[aria-pressed="true"], .direction-toggle-opt[data-state="active"] {
+    background: var(--background);
+    color: var(--foreground);
+    box-shadow: var(--shadow-xs);
+  }
+
+  [dir="rtl"] .select, [dir="rtl"] .native-select {
+    background-position: left var(--space-3) center;
+    padding-inline-start: 2.25rem;
+    padding-inline-end: var(--space-3);
+  }
+
   dialog.sheet {
     background: var(--background);
     color: var(--foreground);
@@ -3869,7 +3919,6 @@
     top: calc(100% + var(--space-2));
     min-width: min(20rem, 100vw - 2rem);
     padding: var(--space-2);
-    padding-right: var(--space-2-5, .625rem);
     background: var(--popover);
     color: var(--popover-foreground);
     border: 1px solid var(--border);
@@ -3878,6 +3927,7 @@
     width: max-content;
     animation: shadcss-nav-in var(--duration-base) var(--ease-out);
     margin: 0;
+    padding-inline-end: var(--space-2-5, .625rem);
     display: none;
     position: absolute;
     inset-inline-start: 0;
@@ -6469,6 +6519,57 @@
     height: 1.25rem;
     font-size: var(--text-sm);
     line-height: var(--leading-sm);
+  }
+
+  .form-item {
+    gap: var(--space-2);
+    display: grid;
+  }
+
+  .form-label {
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--foreground);
+    -webkit-user-select: none;
+    user-select: none;
+    font-weight: 500;
+    line-height: 1;
+    display: inline-flex;
+  }
+
+  .form-label[data-error="true"] {
+    color: var(--destructive);
+  }
+
+  .form-label > .input, .form-label > .textarea, .form-label > .select {
+    margin-block-start: var(--space-2);
+  }
+
+  .form-control {
+    display: block;
+  }
+
+  .form-description {
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+    margin: 0;
+  }
+
+  .form-message {
+    font-size: var(--text-sm);
+    color: var(--destructive);
+    align-items: center;
+    gap: var(--space-1);
+    margin: 0;
+    display: flex;
+  }
+
+  .form-message > svg {
+    pointer-events: none;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
   }
 
   .otp {

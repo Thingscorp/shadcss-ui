@@ -525,6 +525,25 @@
       "a11y": "Open via showModal(); native focus trap; add aria-labelledby"
     },
     {
+      "name": "direction",
+      "file": "src/components/direction.css",
+      "deps": [
+        "base/tokens",
+        "base/theme"
+      ],
+      "description": "Bidirectional (LTR/RTL) support: a segmented LTR/RTL toggle switch, plus explicit [dir=\"rtl\"] parity for the few holdouts. The whole framework already mirrors via logical properties, so setting dir on an ancestor rethemes everything.",
+      "markup": "<div class=\"direction-toggle\" role=\"group\" aria-label=\"Reading direction\">\n  <button class=\"direction-toggle-opt\" data-dir=\"ltr\" aria-pressed=\"true\" onclick=\"document.documentElement.dir=this.dataset.dir\">LTR</button>\n  <button class=\"direction-toggle-opt\" data-dir=\"rtl\" aria-pressed=\"false\" onclick=\"document.documentElement.dir=this.dataset.dir\">RTL</button>\n</div>",
+      "classes": [
+        "direction-toggle",
+        "direction-toggle-opt"
+      ],
+      "notes": "The flip is a one-liner: set document.documentElement.dir = 'ltr'|'rtl'. js: trigger (one native statement). All shadcss components use logical properties so they mirror automatically; this file adds the toggle UI and patches the native <select> chevron position under [dir=\"rtl\"].",
+      "status": "stable",
+      "js": "trigger",
+      "support": "baseline",
+      "a11y": "Use role=\"group\" + aria-label on the toggle; each option is a real <button> with aria-pressed reflecting the active direction"
+    },
+    {
       "name": "drawer",
       "file": "src/components/drawer.css",
       "deps": [
@@ -626,6 +645,29 @@
       "js": "none",
       "support": "baseline",
       "a11y": "Error shows via :user-invalid OR data-invalid/aria-invalid; wire aria-describedby"
+    },
+    {
+      "name": "form",
+      "file": "src/components/form.css",
+      "deps": [
+        "base/tokens",
+        "base/theme",
+        "components/label"
+      ],
+      "description": "shadcn naming alias for form layout: a vertical grid of label + control + description + error message. The FormItem grid, error-tinted label, muted description, and destructive message styles.",
+      "markup": "<div class=\"form-item\">\n  <label class=\"form-label\" for=\"email\">Email</label>\n  <input class=\"input form-control\" id=\"email\" aria-describedby=\"email-desc email-msg\">\n  <p class=\"form-description\" id=\"email-desc\">We'll never share your email.</p>\n  <p class=\"form-message\" id=\"email-msg\">Enter a valid email address.</p>\n</div>",
+      "classes": [
+        "form-item",
+        "form-label",
+        "form-control",
+        "form-description",
+        "form-message"
+      ],
+      "notes": "Layout + text styles only \u2014 validation state needs JS (or native :user-invalid). Set data-error=\"true\" on .form-label to tint it destructive. Wire aria-describedby yourself in plain HTML: control \u2190 description + message ids. For richer field layout see field.css.",
+      "status": "stable",
+      "js": "consumer",
+      "support": "baseline",
+      "a11y": "Associate the control with description+message via aria-describedby; mark invalid controls aria-invalid=\"true\"; keep .form-label a real <label for>"
     },
     {
       "name": "hover-card",

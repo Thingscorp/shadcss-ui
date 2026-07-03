@@ -71,7 +71,7 @@
     inset-inline-start: 0;
     min-width: min(20rem, calc(100vw - 2rem));
     padding: var(--space-2);
-    padding-right: var(--space-2-5, 0.625rem);
+    padding-inline-end: var(--space-2-5, 0.625rem);
     background: var(--popover);
     color: var(--popover-foreground);
     border: 1px solid var(--border);

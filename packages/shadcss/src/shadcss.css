@@ -47,6 +47,7 @@
 @import "./components/collapsible.css";
 @import "./components/tabs.css";
 @import "./components/dialog.css";
+@import "./components/direction.css";
 @import "./components/sheet.css";
 @import "./components/drawer.css";
 @import "./components/dropdown.css";
@@ -76,6 +77,7 @@
 @import "./components/sidebar.css";
 @import "./components/empty.css";
 @import "./components/field.css";
+@import "./components/form.css";
 @import "./components/input-otp.css";
 @import "./components/item.css";
 @import "./components/toggle.css";

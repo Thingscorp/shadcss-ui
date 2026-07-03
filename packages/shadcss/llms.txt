@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 63 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 65 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -151,6 +151,15 @@ Classes: dialog dialog-header dialog-title dialog-description dialog-body dialog
 A11y: Open via showModal(); native focus trap; add aria-labelledby
 Markup: <dialog class="dialog" id="X"><header class="dialog-header"><div class="dialog-title">T</div><div class="dialog-description">D</div></header><div class="dialog-body">…</div><footer class="dialog-footer"><form method="dialog"><button class="btn btn-ghost">Cancel</button></form><button class="btn">OK</button></footer></dialog>
 
+### direction — status:stable · js:trigger · support:baseline
+Bidirectional (LTR/RTL) support: a segmented LTR/RTL toggle switch, plus explicit [dir="rtl"] parity for the few holdouts. The whole framework already mirrors via logical properties, so setting dir on an ancestor rethemes everything.
+Classes: direction-toggle direction-toggle-opt
+A11y: Use role="group" + aria-label on the toggle; each option is a real <button> with aria-pressed reflecting the active direction
+Markup: <div class="direction-toggle" role="group" aria-label="Reading direction">
+  <button class="direction-toggle-opt" data-dir="ltr" aria-pressed="true" onclick="document.documentElement.dir=this.dataset.dir">LTR</button>
+  <button class="direction-toggle-opt" data-dir="rtl" aria-pressed="false" onclick="document.documentElement.dir=this.dataset.dir">RTL</button>
+</div>
+
 ### drawer — status:stable · js:trigger · support:dialog
 Side panel sliding from any edge. Built on <dialog>.
 Classes: drawer drawer-header drawer-title drawer-description drawer-body drawer-footer drawer-handle
@@ -174,6 +183,17 @@ Higher-level form field wrapper with label, description, and validation error.
 Classes: field field-label field-control field-description field-error field-group
 A11y: Error shows via :user-invalid OR data-invalid/aria-invalid; wire aria-describedby
 Markup: <div class="field" data-required="true"><label class="field-label" for="X">L</label><div class="field-control"><input class="input" id="X" required></div><p class="field-description">D</p><p class="field-error"><svg>…</svg>E</p></div>
+
+### form — status:stable · js:consumer · support:baseline
+shadcn naming alias for form layout: a vertical grid of label + control + description + error message. The FormItem grid, error-tinted label, muted description, and destructive message styles.
+Classes: form-item form-label form-control form-description form-message
+A11y: Associate the control with description+message via aria-describedby; mark invalid controls aria-invalid="true"; keep .form-label a real <label for>
+Markup: <div class="form-item">
+  <label class="form-label" for="email">Email</label>
+  <input class="input form-control" id="email" aria-describedby="email-desc email-msg">
+  <p class="form-description" id="email-desc">We'll never share your email.</p>
+  <p class="form-message" id="email-msg">Enter a valid email address.</p>
+</div>
 
 ### hover-card — status:stable · js:none · support:baseline
 Rich tooltip showing on hover. Contains header, body, footer.

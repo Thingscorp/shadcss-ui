@@ -1,0 +1,63 @@
+/* ==========================================================================
+   shadcss · components/form.css
+   A shadcn naming alias for form layout: a vertical grid of label + control
+   + description + error message. Mirrors shadcn's Form family (FormItem,
+   FormLabel, FormControl, FormDescription, FormMessage). The validation
+   state itself needs JS (or native :user-invalid) — shadcss provides the
+   layout grid and the error/muted text styles.
+
+   Pair with field.css (the richer layout) or use these names for shadcn
+   markup parity. aria-describedby wiring (control ← description + message)
+   is the author's job in plain HTML; see the a11y note.
+   ========================================================================== */
+
+@layer components {
+  .form-item {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .form-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  /* The control's invalid state bubbles to the label via data-error. */
+  .form-label[data-error="true"] { color: var(--destructive); }
+  .form-label > .input,
+  .form-label > .textarea,
+  .form-label > .select {
+    /* Allow a wrapping <label> that contains its control. */
+    margin-block-start: var(--space-2);
+  }
+
+  /* FormControl is a behavioural slot (aria wiring); no visual of its own. */
+  .form-control { display: block; }
+
+  .form-description {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted-foreground);
+  }
+
+  .form-message {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--destructive);
+    /* Align an inline alert icon if present. */
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+}
+
+/* --- parity: auto-size inline icons --- */
+@layer components {
+  .form-message > svg { width: 1rem; height: 1rem; flex-shrink: 0; pointer-events: none; }
+}
