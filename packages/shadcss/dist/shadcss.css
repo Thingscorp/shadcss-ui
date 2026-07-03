@@ -7370,6 +7370,121 @@
     text-underline-offset: 4px;
     text-decoration: underline;
   }
+
+  .blk-app {
+    width: 100%;
+    min-height: 100svh;
+    display: flex;
+  }
+
+  .blk-app--column {
+    flex-direction: column;
+  }
+
+  .blk-app__inset {
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+  }
+
+  .blk-app__header {
+    align-items: center;
+    gap: var(--space-2);
+    height: 4rem;
+    padding-inline: var(--space-4);
+    border-bottom: 1px solid var(--border);
+    background: var(--background);
+    flex-shrink: 0;
+    display: flex;
+  }
+
+  .blk-app__header--sm {
+    height: 3.5rem;
+  }
+
+  .blk-app__header--sticky {
+    z-index: 10;
+    padding: var(--space-4);
+    position: sticky;
+    inset-block-start: 0;
+  }
+
+  .blk-app__content {
+    gap: var(--space-4);
+    padding: var(--space-4);
+    flex-direction: column;
+    flex: 1;
+    display: flex;
+  }
+
+  .blk-app__trigger {
+    border-radius: var(--radius-md);
+    width: 2.25rem;
+    height: 2.25rem;
+    color: var(--foreground);
+    cursor: pointer;
+    background: none;
+    border: 0;
+    justify-content: center;
+    align-items: center;
+    margin-inline-start: -.25rem;
+    display: inline-flex;
+  }
+
+  .blk-app__trigger:hover {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  .blk-app__trigger > svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .blk-placeholder {
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-xl);
+    background: color-mix(in oklab, var(--muted) 50%, transparent);
+  }
+
+  .blk-placeholder--bar {
+    border-radius: var(--radius-lg);
+    background: color-mix(in oklab, var(--muted) 50%, transparent);
+    width: 100%;
+    height: 3rem;
+  }
+
+  .blk-placeholder--fill {
+    border-radius: var(--radius-xl);
+    background: color-mix(in oklab, var(--muted) 50%, transparent);
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  .blk-app__grid {
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    display: grid;
+  }
+
+  @media (width >= 48rem) {
+    .blk-app__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .blk-app__inset--field > .blk-app__content-wrap {
+    background: color-mix(in oklab, var(--muted) 35%, transparent);
+    padding: var(--space-4);
+  }
+
+  .blk-app__inset--field .blk-app__content {
+    background: var(--background);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
