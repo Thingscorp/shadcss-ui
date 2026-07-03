@@ -33,7 +33,12 @@ function resolveShadcnRadius(name) { switch (name) { case "radius-sm": return SH
 function resolveRadiusToken(v) { if (v == null) return null; if (v === "9999px") return 9999; if (v === "0") return 0; const vm = v.match(/^var\(--([\w-]+)\)$/); if (vm) return resolveShadcnRadius(vm[1]); return toPx(v); }
 
 function readBlock(css, selector) {
-  const re = new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?![\\w-])\\s*\\{", "g");
+  // Anchor the selector at a rule boundary (start-of-file, or after { } , ) so a
+  // standalone `.foo {` rule wins over a scoped/descendant `.bar .foo {`
+  // override that happens to appear earlier in the file. The descendant form is
+  // preceded by a selector + space, not a boundary char, so it won't match first.
+  const esc = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const re = new RegExp("(?:^|[{,}])\\s*" + esc + "(?![\\w-])\\s*\\{", "g");
   const m = re.exec(css); if (!m) return null;
   const start = m.index + m[0].length; const end = css.indexOf("}", start);
   return end === -1 ? null : css.slice(start, end);
@@ -102,6 +107,19 @@ const MAP = {
   sidebar: { file: "sidebar", sel: ".sidebar" }, field: { file: "field", sel: ".field" },
   calendar: { file: "calendar", sel: ".calendar" }, "navigation-menu": { file: "navigation-menu", sel: ".navigation-menu" },
   drawer: { file: "drawer", sel: "dialog.drawer" },
+  // --- components added in the shadcn-parity expansion ---
+  "native-select": { file: "native-select", sel: ".native-select" },
+  "button-group": { file: "button-group", sel: ".btn-group" },
+  "input-group": { file: "input-group", sel: ".input-group" },
+  attachment: { file: "attachment", sel: ".attachment" },
+  item: { file: "item", sel: ".item" },
+  bubble: { file: "bubble", sel: ".bubble" },
+  message: { file: "message", sel: ".message" },
+  marker: { file: "marker", sel: ".marker" },
+  combobox: { file: "combobox", sel: ".combobox-trigger" },
+  chart: { file: "chart", sel: ".chart-container" },
+  "message-scroller": { file: "message-scroller", sel: ".message-scroller" },
+  form: { file: "form", sel: ".form-item" },
 };
 
 // Slot aliases: map shadcn slot names to actual shadcss selectors.
@@ -140,6 +158,25 @@ const SLOT_ALIASES = {
   "sheet/sheet-overlay": "dialog.sheet::backdrop",
   // drawer — same pattern
   "drawer/drawer-content": "dialog.drawer",
+  // --- expansion components: slots whose shadcss class name differs from the
+  //     shadcn data-slot, or that map to a non-default selector. Slots not
+  //     listed fall through to "." + slot (the default). ---
+  // native-select — wrapper named -wrap, not -wrapper; icon is a decorative svg
+  "native-select/native-select-wrapper": ".native-select-wrap",
+  "native-select/native-select-icon": null,
+  "native-select/native-select-option": null,
+  "native-select/native-select-optgroup": null,
+  // button-group — no separator slot in shadcss (only a text label)
+  "button-group/button-group-separator": null,
+  // combobox — renamed input + presentational/value slots
+  "combobox/combobox-chip-input": ".combobox-chips-input",
+  // sidebar — badge is styled only as a descendant of menu-button
+  "sidebar/sidebar-menu-badge": ".sidebar-menu-button .sidebar-menu-badge",
+  "combobox/combobox-trigger-icon": null,
+  "combobox/combobox-value": null,
+  "combobox/combobox-collection": null,
+  // combobox reuses input-group's button slot — styled in input-group.css, not here
+  "combobox/input-group-button": null,
   "drawer/drawer-overlay": "dialog.drawer::backdrop",
   // popover — content IS the .popover element
   "popover/popover-content": ".popover",
@@ -278,10 +315,14 @@ function compareSlot(comp, slotName, sel, css, target) {
     colorRows.push([comp, slotName, "background", wantBg, have.bg]);
 }
 
+// Strip /* */ comments so rule-boundary anchoring in readBlock isn't fooled by
+// the comment that usually precedes a selector (e.g. `*/\n  .foo {`).
+const stripComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
+
 for (const [name, { file, sel }] of Object.entries(MAP)) {
   const fpath = path.join(SRC, "components", `${file}.css`);
   if (!existsSync(fpath)) continue;
-  const css = readFileSync(fpath, "utf8");
+  const css = stripComments(readFileSync(fpath, "utf8"));
   const sp = spec[name]; if (!sp) continue;
   if (sp.rootMetrics) compareSlot(name, "(root)", sel, css, sp.rootMetrics);
   for (const [slot, m] of Object.entries(sp.slots || {})) {
@@ -295,7 +336,7 @@ for (const [name, { file, sel }] of Object.entries(MAP)) {
     let cssForSlot = css;
     if (name === "menubar" && slotSel.startsWith(".dropdown-")) {
       const ddPath = path.join(SRC, "components", "dropdown.css");
-      if (existsSync(ddPath)) cssForSlot = readFileSync(ddPath, "utf8");
+      if (existsSync(ddPath)) cssForSlot = stripComments(readFileSync(ddPath, "utf8"));
     }
     compareSlot(name, slot, slotSel, cssForSlot, m);
   }

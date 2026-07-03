@@ -135,7 +135,7 @@ export function resolveClasses(classes) {
     // ---- shadow ----
     else if ((mm = base.match(/^shadow(?:-(.+))?$/)) && SHADOW.has(mm[1] ?? "DEFAULT" === "DEFAULT" ? (mm[1] ?? "sm") : mm[1])) set("shadow", mm[1] ?? "sm");
     // ---- colors ----
-    else if ((mm = base.match(/^bg-(.+)$/))) set("bg", colorRef(mm[1]));
+    else if ((mm = base.match(/^bg-(.+)$/)) && !/^bg-clip-/.test(base)) set("bg", colorRef(mm[1]));
     else if ((mm = base.match(/^text-(.+)$/))) set("text", colorRef(mm[1]));
     else if ((mm = base.match(/^border-(.+)$/))) set("borderColor", colorRef(mm[1]));
     // ---- display (light touch) ----

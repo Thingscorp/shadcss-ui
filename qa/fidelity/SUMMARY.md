@@ -117,3 +117,35 @@ rows are triaged: 2 parse artifacts (`text-center`/`left-*`), ~7 minor token
 choices (input transparent-bg nuance, sidebar muted labels, tabs inactive dim),
 and box-metric rows that are structural (shadcss has fewer sub-element classes)
 or height-driven padding — logged in gaps.csv, not material.
+
+## 0.2.2 — comparator covers the parity expansion (13 new components)
+
+The v2 comparator iterated a hardcoded `MAP` of shadcss selectors, so the 13
+components added in the shadcn-parity expansion (`native-select`, `button-group`,
+`input-group`, `attachment`, `item`, `bubble`, `message`, `marker`, `combobox`,
+`chart`, `message-scroller`, `direction`, `form`) were **silently skipped** —
+`deviations=0` was real for the 36 mapped components but those 13 were never
+compared. The `.refs/shadcn-ui` clone was also stale (predated `attachment`,
+`bubble`, `message`, `marker`, `message-scroller`), so the spec had only 56 of
+61 components.
+
+Fixes:
+1. Refreshed `.refs/shadcn-ui` to today's shadcn HEAD (`d0fae52`); spec now has
+   all **61** components.
+2. Added all 12 comparable new components to `MAP` (+ `direction` has no spec —
+   it's a Radix JS provider with no CSS surface) and mapped their shadcn
+   `data-slot`s to shadcss selectors (renamed ones via `SLOT_ALIASES`, e.g.
+   `native-select-wrap`, `combobox-chips-input`; native/presentational slots
+   nulled).
+3. Hardened the comparator: `readBlock` now anchors selectors at rule boundaries
+   and comments are stripped first, so a standalone `.foo {}` rule wins over a
+   scoped `.bar .foo {}` override (the `attachment-content` line-height false
+   positive was the wrong block being read). `bg-clip-*` no longer parses as a
+   background color.
+
+This re-surfaced real deviations, all now closed (comparator: **0 deviations,
+0 not-comparable** across 61 components):
+- line-heights: item-title 1.3→1.375, item-description 1.4→1.5, bubble-content 1.5→1.625
+- combobox paddings: item/label py 4→6, empty 24→8, chips px 8→10 / py 4→6 / gap 4→6
+- sidebar-menu-sub gap 2→4 (pre-existing, hidden before by the stale-block bug)
+- split grouped `.header,.footer{}` selectors in item/message so each slot resolves

@@ -200,7 +200,7 @@
     border-inline-start: 1px solid var(--sidebar-border);
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
+    gap: var(--space-1);
   }
   .sidebar-menu-sub-button {
     display: flex;
