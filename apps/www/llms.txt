@@ -599,7 +599,7 @@ Markup: <div class="blk-page blk-page--bg">
     <form>
       <div class="field-group">
         <div class="blk-headline">
-          <a class="blk-brand" href="#" style="flex-direction:column;gap:var(--space-2)"><span class="blk-brand__logo" style="width:2rem;height:2rem"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" rx="1" x="3" y="3"/><rect width="7" height="5" rx="1" x="3" y="16"/><rect width="7" height="9" rx="1" x="14" y="3"/><rect width="7" height="5" rx="1" x="14" y="16"/></svg></span></a>
+          <a class="blk-brand" href="#" style="flex-direction:column;gap:var(--space-2)"><span class="blk-brand__logo" style="width:2rem;height:2rem"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" rx="1" x="3" y="3"/><rect width="7" height="5" rx="1" x="3" y="16"/><rect width="7" height="9" rx="1" x="14" y="3"/><rect width="7" height="5" rx="1" x="14" y="16"/></svg></span><span class="sr-only">Acme Inc.</span></a>
           <h1>Welcome to Acme Inc.</h1>
           <p>Don't have an account? <a href="#">Sign up</a></p>
         </div>

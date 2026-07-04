@@ -29,6 +29,8 @@ const gates = [
   { name: "fidelity",         cmd: "node", args: ["scripts/fidelity/compare.mjs"] },
   { name: "token-resolution", cmd: "node", args: ["scripts/test-tokens.mjs"] },
   { name: "computed-style",   cmd: "node", args: ["scripts/test-computed.mjs"] },
+  { name: "blocks",           cmd: "node", args: ["scripts/test-blocks.mjs"] },
+  { name: "rtl",              cmd: "node", args: ["scripts/test-rtl.mjs"] },
 ];
 
 let failed = null;
