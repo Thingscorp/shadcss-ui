@@ -18,6 +18,7 @@
     "test:tokens": "node scripts/test-tokens.mjs",
     "test:computed": "node scripts/test-computed.mjs",
     "test:blocks": "node scripts/test-blocks.mjs",
+    "test:install": "node scripts/test-install.mjs",
     "test:rtl": "node scripts/test-rtl.mjs",
     "test": "node scripts/test.mjs",
     "deploy": "node scripts/deploy.mjs",
