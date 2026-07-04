@@ -86,7 +86,9 @@ function shadcssAt(css, selector) {
 }
 
 // name -> shadcss primary file + root selector (root only; sub-slots derive .{slot})
-const MAP = {
+// Exported so the computed-style runtime suite (test-computed.mjs) can resolve
+// the same component root selectors without duplicating this map.
+export const MAP = {
   button: { file: "button", sel: ".btn" }, badge: { file: "badge", sel: ".badge" },
   input: { file: "input", sel: ".input" }, textarea: { file: "textarea", sel: ".textarea" },
   card: { file: "card", sel: ".card" }, alert: { file: "alert", sel: ".alert" },
@@ -319,6 +321,10 @@ function compareSlot(comp, slotName, sel, css, target) {
 // the comment that usually precedes a selector (e.g. `*/\n  .foo {`).
 const stripComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
 
+// Run the comparison only when invoked directly, not when imported (e.g. by
+// test-computed.mjs, which only needs the MAP).
+const isMain = import.meta.url === `file://${process.argv[1]}`;
+if (isMain) {
 for (const [name, { file, sel }] of Object.entries(MAP)) {
   const fpath = path.join(SRC, "components", `${file}.css`);
   if (!existsSync(fpath)) continue;
@@ -360,3 +366,4 @@ const notFound = rows.slice(1).length - realBox;
 console.log(`\nreal_deviations=${lineHeightRows.length + colorRows.length + realBox}  (box ${realBox}, color ${colorRows.length}, line-height ${lineHeightRows.length}; ${notFound} slots not comparable)`);
 console.log(`deviations_total=${lineHeightRows.length + colorRows.length + realBox}`);
 console.log(`Wrote qa/fidelity/gaps.csv`);
+} // end if (isMain)

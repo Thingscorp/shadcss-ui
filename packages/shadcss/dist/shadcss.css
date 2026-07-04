@@ -4087,7 +4087,7 @@
     width: min(36rem, 90vw);
     color: var(--popover-foreground);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
     flex-direction: column;
     max-height: 24rem;

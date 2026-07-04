@@ -15,6 +15,9 @@
     "www": "npm run build -w packages/shadcss && npm run dev -w apps/www",
     "check": "node scripts/check-consistency.mjs && node scripts/check-markup.mjs",
     "check:a11y": "node scripts/check-a11y.mjs",
+    "test:tokens": "node scripts/test-tokens.mjs",
+    "test:computed": "node scripts/test-computed.mjs",
+    "test": "node scripts/test.mjs",
     "deploy": "node scripts/deploy.mjs",
     "release": "npm run build --workspace=packages/shadcss && npm publish --workspace=packages/shadcss"
   },
