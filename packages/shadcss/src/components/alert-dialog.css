@@ -26,7 +26,15 @@
     animation: shadcss-enter var(--duration-base) var(--ease-out);
     --tw-enter-opacity: 0;
     --tw-enter-scale: 0.96;
+    /* Exit via discrete transition (carries opacity+transform during close). */
+    transition:
+      opacity var(--duration-base) var(--ease-out),
+      transform var(--duration-base) var(--ease-out),
+      overlay var(--duration-base) allow-discrete,
+      display var(--duration-base) allow-discrete;
   }
+  dialog.alert-dialog:not([open]) { opacity: 0; transform: scale(0.96); }
+  @starting-style { dialog.alert-dialog { opacity: 0; transform: scale(0.96); } }
 
   dialog.alert-dialog::backdrop {
     background: color-mix(in oklab, black 50%, transparent);
@@ -34,7 +42,12 @@
     -webkit-backdrop-filter: blur(4px);
     animation: shadcss-enter var(--duration-base) var(--ease-out);
     --tw-enter-opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out),
+                overlay var(--duration-base) allow-discrete,
+                display var(--duration-base) allow-discrete;
   }
+  dialog.alert-dialog:not([open])::backdrop { opacity: 0; }
+  @starting-style { dialog.alert-dialog::backdrop { opacity: 0; } }
 
 
   .alert-dialog-header {

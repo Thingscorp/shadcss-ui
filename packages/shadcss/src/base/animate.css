@@ -70,17 +70,12 @@
   .zoom-in-90  { --tw-enter-scale: 0.9; }
   .zoom-in-95  { --tw-enter-scale: 0.95; }
   .zoom-out-95 { --tw-exit-scale: 0.95; }
-  .zoom-out-90 { --tw-exit-scale: 0.9; }
 
   /* ---- slide: translate (2 = 0.5rem = 8px, the only spacing shadcn uses) ---- */
   .slide-in-from-top-2     { --tw-enter-translate-y: -0.5rem; }
   .slide-in-from-bottom-2  { --tw-enter-translate-y:  0.5rem; }
   .slide-in-from-left-2    { --tw-enter-translate-x: -0.5rem; }
   .slide-in-from-right-2   { --tw-enter-translate-x:  0.5rem; }
-  .slide-out-to-top-2      { --tw-exit-translate-y:  -0.5rem; }
-  .slide-out-to-bottom-2   { --tw-exit-translate-y:   0.5rem; }
-  .slide-out-to-left-2     { --tw-exit-translate-x:  -0.5rem; }
-  .slide-out-to-right-2    { --tw-exit-translate-x:   0.5rem; }
 
   /* ---- standalone animations (Tailwind native) ---- */
   .animate-spin {
@@ -94,25 +89,32 @@
   @keyframes shadcss-pulse {
     50% { opacity: 0.5; }
   }
-}
 
-/* ---- accordion: height keyframes (radix sets --radix-accordion-content-height) ----
-   shadcss uses native <details>, so without JS there's no measured height var.
-   The keyframes are still emitted for parity; accordion.css uses grid-rows for
-   the actual no-JS expand. */
-@layer components {
+  /* ---- accordion: height keyframes ----
+     shadcn's accordion.tsx references accordion-down/up (via its animate theme
+     var). Shipped for class-string parity even though shadcss's own accordion
+     uses native <details> + grid-rows — a consumer copying shadcn accordion
+     markup gets a resolving class, not a silent no-op. */
   .accordion-down { animation: shadcss-accordion-down 0.2s var(--ease-out, ease-out); }
   .accordion-up   { animation: shadcss-accordion-up 0.2s var(--ease-out, ease-out); }
-  @keyframes shadcss-accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height, auto); } }
-  @keyframes shadcss-accordion-up   { from { height: var(--radix-accordion-content-height, auto); } to { height: 0; } }
+  @keyframes shadcss-accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height, var(--bits-accordion-content-height, auto)); } }
+  @keyframes shadcss-accordion-up   { from { height: var(--radix-accordion-content-height, var(--bits-accordion-content-height, auto)); } to { height: 0; } }
 }
 
-/* ---- reduced motion: zero out every animation/transition ----
-   Mirrors the tw-animate-css / Tailwind motion-reduce contract. */
+/* ---- reduced motion ----
+   A blanket guard is the correct a11y pattern here: it collapses every
+   animation/transition to ~instant while preserving the END state (opacity:1,
+   transform:none), so overlays still appear — they just don't animate in/out.
+   Tailwind's motion-reduce and the reduced-motion contract work this way.
+   Narrow selectors would miss overlays that animate via `animation: shadcss-enter`
+   directly rather than the .animate-in utility class. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-in, .animate-out,
-  .animate-spin, .animate-pulse,
-  .accordion-down, .accordion-up {
-    animation: none !important;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
   }
 }
