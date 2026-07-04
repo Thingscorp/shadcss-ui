@@ -2011,7 +2011,9 @@
     max-width: min(28rem, 90vw);
     height: fit-content;
     max-height: 85vh;
-    animation: shadcss-alert-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: .96;
     margin: auto;
     display: grid;
     overflow: hidden;
@@ -2019,20 +2021,9 @@
 
   dialog.alert-dialog::backdrop {
     -webkit-backdrop-filter: blur(4px);
-    animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
     background: oklab(0% none none / .5);
-  }
-
-  @keyframes shadcss-alert-in {
-    from {
-      opacity: 0;
-      transform: scale(.96);
-    }
-
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
   }
 
   .alert-dialog-header {
@@ -2489,20 +2480,11 @@
     box-shadow: var(--shadow-md);
     margin: 0;
     margin-top: var(--space-2);
-    animation: shadcss-popover-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: .97;
+    --tw-enter-translate-y: -4px;
     inset: auto auto auto 0;
-  }
-
-  @keyframes shadcss-popover-in {
-    from {
-      opacity: 0;
-      transform: translateY(-4px) scale(.97);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
   }
 
   .popover[data-side="top"] {
@@ -2587,23 +2569,13 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
-    animation: shadcss-hover-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-translate-y: .75rem;
     margin: 0;
     display: none;
     inset: auto auto auto 0;
     transform: translateY(.5rem);
-  }
-
-  @keyframes shadcss-hover-in {
-    from {
-      opacity: 0;
-      transform: translateY(.75rem);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(.5rem);
-    }
   }
 
   .hover-card:hover .hover-card-panel, .hover-card:focus-within .hover-card-panel {
@@ -3002,37 +2974,47 @@
     max-width: min(32rem, 90vw);
     height: fit-content;
     max-height: 85vh;
-    animation: shadcss-dialog-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base, .2s) var(--ease-out, ease);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: .95;
+    transition: opacity var(--duration-base, .2s) var(--ease-out, ease),
+                transform var(--duration-base, .2s) var(--ease-out, ease),
+                overlay var(--duration-base, .2s) allow-discrete,
+                display var(--duration-base, .2s) allow-discrete;
     margin: auto;
     display: grid;
     overflow: auto;
   }
 
+  @starting-style {
+    dialog.dialog {
+      opacity: 0;
+      transform: scale(.95);
+    }
+  }
+
+  dialog.dialog:not([open]) {
+    opacity: 0;
+    transform: scale(.95);
+  }
+
   dialog.dialog::backdrop {
     -webkit-backdrop-filter: blur(4px);
-    animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base, .2s) var(--ease-out, ease);
+    --tw-enter-opacity: 0;
+    transition: opacity var(--duration-base, .2s) var(--ease-out, ease),
+                overlay var(--duration-base, .2s) allow-discrete,
+                display var(--duration-base, .2s) allow-discrete;
     background: oklab(0% none none / .5);
   }
 
-  @keyframes shadcss-dialog-in {
-    from {
-      opacity: 0;
-      transform: translateY(8px) scale(.98);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
+  dialog.dialog:not([open])::backdrop {
+    opacity: 0;
   }
 
-  @keyframes shadcss-backdrop-in {
-    from {
+  @starting-style {
+    dialog.dialog::backdrop {
       opacity: 0;
-    }
-
-    to {
-      opacity: 1;
     }
   }
 
@@ -3165,17 +3147,19 @@
 
   dialog.sheet::backdrop {
     -webkit-backdrop-filter: blur(4px);
-    animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
     background: oklab(0% none none / .5);
   }
 
   dialog.sheet[data-side="right"], dialog.sheet:not([data-side]) {
-    animation: shadcss-sheet-right var(--duration-slow) var(--ease-out);
+    animation: shadcss-enter var(--duration-slow) var(--ease-out);
+    --tw-enter-opacity: 0;
     inset-inline: auto 0;
   }
 
   dialog.sheet[data-side="left"] {
-    animation: shadcss-sheet-left var(--duration-slow) var(--ease-out);
+    animation: shadcss-enter var(--duration-slow) var(--ease-out);
     inset-inline: 0 auto;
   }
 
@@ -3184,7 +3168,8 @@
     max-width: 100vw;
     height: auto;
     max-height: 90vh;
-    animation: shadcss-sheet-top var(--duration-slow) var(--ease-out);
+    animation: shadcss-enter var(--duration-slow) var(--ease-out);
+    --tw-enter-opacity: 0;
     margin-inline: 0;
     inset-block: 0 auto;
   }
@@ -3194,57 +3179,10 @@
     max-width: 100vw;
     height: auto;
     max-height: 90vh;
-    animation: shadcss-sheet-bottom var(--duration-slow) var(--ease-out);
+    animation: shadcss-enter var(--duration-slow) var(--ease-out);
+    --tw-enter-opacity: 0;
     margin-inline: 0;
     inset-block: auto 0;
-  }
-
-  @keyframes shadcss-sheet-right {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes shadcss-sheet-left {
-    from {
-      opacity: 0;
-      transform: translateX(-100%);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes shadcss-sheet-top {
-    from {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes shadcss-sheet-bottom {
-    from {
-      opacity: 0;
-      transform: translateY(100%);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
   .sheet-header {
@@ -3303,7 +3241,9 @@
     max-width: 24rem;
     height: 100vh;
     max-height: 100vh;
-    animation: shadcss-drawer-slide-in var(--duration-slow) var(--ease-out);
+    animation: shadcss-enter var(--duration-slow) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-translate-x: 100%;
     border: none;
     flex-direction: column;
     margin: 0;
@@ -3318,7 +3258,8 @@
 
   dialog.drawer::backdrop {
     -webkit-backdrop-filter: blur(2px);
-    animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
     background: oklab(0% none none / .5);
   }
 
@@ -3329,80 +3270,32 @@
   }
 
   dialog.drawer[data-side="left"] {
+    --tw-enter-translate-x: -100%;
     transform-origin: 0;
     margin-block: 0;
-    animation-name: shadcss-drawer-slide-in-left;
     inset-inline: 0 auto;
   }
 
   dialog.drawer[data-side="top"] {
+    --tw-enter-translate-y: -100%;
     transform-origin: top;
     width: 100vw;
     max-width: 100vw;
     height: auto;
     max-height: 80vh;
     margin-inline: 0;
-    animation-name: shadcss-drawer-slide-in-top;
     inset-block: 0 auto;
   }
 
   dialog.drawer[data-side="bottom"] {
+    --tw-enter-translate-y: 100%;
     transform-origin: bottom;
     width: 100vw;
     max-width: 100vw;
     height: auto;
     max-height: 80vh;
     margin-inline: 0;
-    animation-name: shadcss-drawer-slide-in-bottom;
     inset-block: auto 0;
-  }
-
-  @keyframes shadcss-drawer-slide-in {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes shadcss-drawer-slide-in-left {
-    from {
-      opacity: 0;
-      transform: translateX(-100%);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes shadcss-drawer-slide-in-top {
-    from {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes shadcss-drawer-slide-in-bottom {
-    from {
-      opacity: 0;
-      transform: translateY(100%);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
   .drawer-header {
@@ -3461,21 +3354,11 @@
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
     width: max-content;
-    animation: shadcss-dropdown-in var(--duration-fast) var(--ease-out);
+    animation: shadcss-enter var(--duration-fast) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: .95;
     margin: 0;
     inset: auto;
-  }
-
-  @keyframes shadcss-dropdown-in {
-    from {
-      opacity: 0;
-      transform: scale(.95);
-    }
-
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
   }
 
   .dropdown-menu[data-side="bottom-start"] {
@@ -3669,20 +3552,10 @@
     margin: 0;
     margin-top: var(--space-2);
     width: max-content;
-    animation: shadcss-menubar-in var(--duration-fast) var(--ease-out);
+    animation: shadcss-enter var(--duration-fast) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: .97;
     inset: auto auto auto 0;
-  }
-
-  @keyframes shadcss-menubar-in {
-    from {
-      opacity: 0;
-      transform: scale(.97);
-    }
-
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
   }
 
   .menubar-menu[data-side="bottom-end"] {
@@ -4047,7 +3920,9 @@
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
     width: max-content;
-    animation: shadcss-nav-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-translate-y: -4px;
     margin: 0;
     padding-inline-end: var(--space-2-5, .625rem);
     display: none;
@@ -4057,18 +3932,6 @@
 
   .navigation-menu-item:hover > .navigation-menu-content, .navigation-menu-item:focus-within > .navigation-menu-content {
     display: block;
-  }
-
-  @keyframes shadcss-nav-in {
-    from {
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
   .navigation-menu-link-list {
@@ -4159,20 +4022,10 @@
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
     width: max-content;
-    animation: shadcss-ctx-in var(--duration-fast) var(--ease-out);
+    animation: shadcss-enter var(--duration-fast) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: .95;
     margin: 0;
-  }
-
-  @keyframes shadcss-ctx-in {
-    from {
-      opacity: 0;
-      transform: scale(.95);
-    }
-
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
   }
 
   .context-menu .dropdown-label {

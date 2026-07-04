@@ -25,13 +25,11 @@
     margin: 0;
     inset: auto auto auto 0;
     transform: translateY(0.5rem);
-    animation: shadcss-hover-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-translate-y: 0.75rem;
   }
 
-  @keyframes shadcss-hover-in {
-    from { opacity: 0; transform: translateY(0.75rem); }
-    to   { opacity: 1; transform: translateY(0.5rem); }
-  }
 
   /* Reveal on hover (mouse) and focus-within (keyboard) — works on every
      pointer type. The panel is hidden by default (above) so it stays hidden

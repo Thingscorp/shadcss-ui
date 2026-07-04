@@ -23,20 +23,19 @@
     overflow: hidden;
     display: grid;
     gap: var(--space-4);
-    animation: shadcss-alert-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: 0.96;
   }
 
   dialog.alert-dialog::backdrop {
     background: color-mix(in oklab, black 50%, transparent);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
   }
 
-  @keyframes shadcss-alert-in {
-    from { opacity: 0; transform: scale(0.96); }
-    to   { opacity: 1; transform: scale(1); }
-  }
 
   .alert-dialog-header {
     display: grid;

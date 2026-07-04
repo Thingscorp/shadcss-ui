@@ -31,7 +31,8 @@
     background: color-mix(in oklab, black 50%, transparent);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
   }
 
   /* Default to the right edge when no data-side is set */
@@ -39,12 +40,13 @@
   dialog.sheet:not([data-side]) {
     inset-inline-start: auto;
     inset-inline-end: 0;
-    animation: shadcss-sheet-right var(--duration-slow) var(--ease-out);
+    animation: shadcss-enter var(--duration-slow) var(--ease-out);
+    --tw-enter-opacity: 0;
   }
   dialog.sheet[data-side="left"] {
     inset-inline-end: auto;
     inset-inline-start: 0;
-    animation: shadcss-sheet-left var(--duration-slow) var(--ease-out);
+    animation: shadcss-enter var(--duration-slow) var(--ease-out);
   }
   dialog.sheet[data-side="top"] {
     inset-block-end: auto;
@@ -54,7 +56,8 @@
     max-width: 100vw;
     height: auto;
     max-height: 90vh;
-    animation: shadcss-sheet-top var(--duration-slow) var(--ease-out);
+    animation: shadcss-enter var(--duration-slow) var(--ease-out);
+    --tw-enter-opacity: 0;
   }
   dialog.sheet[data-side="bottom"] {
     inset-block-start: auto;
@@ -64,25 +67,10 @@
     max-width: 100vw;
     height: auto;
     max-height: 90vh;
-    animation: shadcss-sheet-bottom var(--duration-slow) var(--ease-out);
+    animation: shadcss-enter var(--duration-slow) var(--ease-out);
+    --tw-enter-opacity: 0;
   }
 
-  @keyframes shadcss-sheet-right {
-    from { opacity: 0; transform: translateX(100%); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
-  @keyframes shadcss-sheet-left {
-    from { opacity: 0; transform: translateX(-100%); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
-  @keyframes shadcss-sheet-top {
-    from { opacity: 0; transform: translateY(-100%); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes shadcss-sheet-bottom {
-    from { opacity: 0; transform: translateY(100%); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
 
   .sheet-header {
     display: flex;

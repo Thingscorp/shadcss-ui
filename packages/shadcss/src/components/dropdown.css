@@ -28,13 +28,11 @@
     margin: 0;
     inset: auto;
     width: max-content;
-    animation: shadcss-dropdown-in var(--duration-fast) var(--ease-out);
+    animation: shadcss-enter var(--duration-fast) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: 0.95;
   }
 
-  @keyframes shadcss-dropdown-in {
-    from { opacity: 0; transform: scale(0.95); }
-    to   { opacity: 1; transform: scale(1); }
-  }
 
   /* Positioning — the menu renders in the top layer, so plain inset values
      are viewport-relative. These [data-side] rules are a dependency-free

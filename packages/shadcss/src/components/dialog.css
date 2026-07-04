@@ -25,24 +25,40 @@
     overflow: auto;
     display: grid;
     gap: var(--space-4);
-    animation: shadcss-dialog-in var(--duration-base) var(--ease-out);
+    /* Enter: animate-in fade-in-0 zoom-in-95 (shadcn data-state=open). */
+    animation: shadcss-enter var(--duration-base, 200ms) var(--ease-out, ease);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: 0.95;
+    /* Exit: animate-out on close. Native <dialog> drops display:none instantly,
+       so without @starting-style the exit can't render. Use transition-behavior:
+       allow-discrete + a discrete transition that runs during the close window. */
+    transition: opacity var(--duration-base, 200ms) var(--ease-out, ease),
+                transform var(--duration-base, 200ms) var(--ease-out, ease),
+                overlay var(--duration-base, 200ms) allow-discrete,
+                display var(--duration-base, 200ms) allow-discrete;
+    @starting-style {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+  /* Closed state: the target the discrete transition animates toward. */
+  dialog.dialog:not([open]) {
+    opacity: 0;
+    transform: scale(0.95);
   }
 
   dialog.dialog::backdrop {
     background: color-mix(in oklab, black 50%, transparent);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    animation: shadcss-backdrop-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base, 200ms) var(--ease-out, ease);
+    --tw-enter-opacity: 0;
+    transition: opacity var(--duration-base, 200ms) var(--ease-out, ease),
+                overlay var(--duration-base, 200ms) allow-discrete,
+                display var(--duration-base, 200ms) allow-discrete;
   }
-
-  @keyframes shadcss-dialog-in {
-    from { opacity: 0; transform: translateY(8px) scale(0.98); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  @keyframes shadcss-backdrop-in {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
+  dialog.dialog:not([open])::backdrop { opacity: 0; }
+  @starting-style { dialog.dialog::backdrop { opacity: 0; } }
 
   .dialog-header {
     display: flex;

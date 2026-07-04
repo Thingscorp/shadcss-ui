@@ -1,11 +1,11 @@
 # shadcss/ui
 
 > **Zero-runtime UI with the shadcn aesthetic — no React, no Tailwind, no Radix, no hydration.**
-> 65 HTML/CSS components and patterns for server-rendered, static, HTMX, Astro, and AI-generated apps. ~20.3 KB gzipped, zero dependencies, zero JS runtime. Complex widgets are clearly marked.
+> 65 HTML/CSS components and patterns for server-rendered, static, HTMX, Astro, and AI-generated apps. ~20.2 KB gzipped, zero dependencies, zero JS runtime. Complex widgets are clearly marked.
 
 [![live demo](https://img.shields.io/badge/demo-shadcss.vercel.app-black)](https://shadcss.vercel.app)
 [![npm](https://img.shields.io/npm/v/@russfranky/shadcss)](https://www.npmjs.com/package/@russfranky/shadcss)
-[![gzip size](https://img.shields.io/badge/gzipped-20.3%20KB-success)](./packages/shadcss/dist/shadcss.min.css)
+[![gzip size](https://img.shields.io/badge/gzipped-20.2%20KB-success)](./packages/shadcss/dist/shadcss.min.css)
 [![no js framework](https://img.shields.io/badge/JS-no%20framework-black)](#)
 [![components](https://img.shields.io/badge/components-65-blue)](./packages/shadcss#components-65)
 [![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE.md)

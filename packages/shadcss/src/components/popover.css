@@ -16,13 +16,12 @@
     margin: 0;
     inset: auto auto auto 0;
     margin-top: var(--space-2);
-    animation: shadcss-popover-in var(--duration-base) var(--ease-out);
+    animation: shadcss-enter var(--duration-base) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: 0.97;
+    --tw-enter-translate-y: -4px;
   }
 
-  @keyframes shadcss-popover-in {
-    from { opacity: 0; transform: translateY(-4px) scale(0.97); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
 
   /* Positioning variants. These are margin nudges relative to the top-layer
      default placement — a deliberate, dependency-free approximation. Pixel-

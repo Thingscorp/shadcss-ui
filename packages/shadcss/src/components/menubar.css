@@ -54,11 +54,9 @@
     inset: auto auto auto 0;
     margin-top: var(--space-2);
     width: max-content;
-    animation: shadcss-menubar-in var(--duration-fast) var(--ease-out);
-  }
-  @keyframes shadcss-menubar-in {
-    from { opacity: 0; transform: scale(0.97); }
-    to   { opacity: 1; transform: scale(1); }
+    animation: shadcss-enter var(--duration-fast) var(--ease-out);
+    --tw-enter-opacity: 0;
+    --tw-enter-scale: 0.97;
   }
 
   /* Side variants (fallback inset values, viewport-relative in the top
