@@ -31,6 +31,7 @@ const gates = [
   { name: "computed-style",   cmd: "node", args: ["scripts/test-computed.mjs"] },
   { name: "blocks",           cmd: "node", args: ["scripts/test-blocks.mjs"] },
   { name: "install",          cmd: "node", args: ["scripts/test-install.mjs"] },
+  { name: "animate",          cmd: "node", args: ["scripts/test-animate.mjs"] },
   { name: "rtl",              cmd: "node", args: ["scripts/test-rtl.mjs"] },
 ];
 
