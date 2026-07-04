@@ -107,7 +107,15 @@
    transform:none), so overlays still appear — they just don't animate in/out.
    Tailwind's motion-reduce and the reduced-motion contract work this way.
    Narrow selectors would miss overlays that animate via `animation: shadcss-enter`
-   directly rather than the .animate-in utility class. */
+   directly rather than the .animate-in utility class.
+
+   Known, accepted characteristic: a dialog using @starting-style + an enter
+   keyframe still settles over 1–3 frames (~13–25ms, frame-measured) before
+   reaching full opacity, because @starting-style inherently renders one frame
+   at the `from` state. This is sub-perceptible (a single-frame appear, not
+   imposed motion) and within the reduced-motion contract. Neutralizing it
+   under reduced motion is fragile and regresses the exit transitions, so it's
+   deliberately left as-is. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
