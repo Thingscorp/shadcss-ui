@@ -4,7 +4,7 @@
 // spec": for each component, the root element's concrete CSS metrics (height,
 // padding, radius, font, gap, border, shadow, focus-ring, colors) derived from
 // its Tailwind class strings. This is the authoritative source of truth we
-// diff shadcss against. Output: qa/fidelity/shadcn-spec.json
+// diff shadcss against. Output: scripts/fidelity/shadcn-spec.json
 // ==========================================================================
 
 import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
@@ -162,9 +162,9 @@ for (const file of files) {
   };
 }
 
-const outPath = path.join(ROOT, "qa/fidelity/shadcn-spec.json");
+const outPath = path.join(__dirname, "shadcn-spec.json");
 writeFileSync(outPath, JSON.stringify(spec, null, 2));
-console.log(`Extracted ${Object.keys(spec).length} components -> qa/fidelity/shadcn-spec.json`);
+console.log(`Extracted ${Object.keys(spec).length} components -> scripts/fidelity/shadcn-spec.json`);
 
 // quick sanity print for a few
 for (const c of ["button", "badge", "input", "card", "switch", "alert"]) {

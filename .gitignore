@@ -9,11 +9,13 @@ node_modules/
 packages/shadcss/HANDOFF.md
 packages/shadcss/qa/
 
+# Private QA findings/audit trail (defects, fidelity gaps, iteration notes).
+# Mirrors shadcn-ui/ui, which commits no qa/ directory at all.
+# The fidelity spec fixture lives at scripts/fidelity/shadcn-spec.json (tracked).
+qa/
+
 # Local shadcn/ui reference clone for fidelity comparison (never committed)
 .refs/
-
-# Binary fidelity screenshots (regenerable via scripts/fidelity/shoot.mjs)
-qa/fidelity/shots/
 
 # Built artifact copied into the showcase for the local dev preview
 apps/www/shadcss.min.css

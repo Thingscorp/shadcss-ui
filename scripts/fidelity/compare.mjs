@@ -5,7 +5,7 @@
 // colors/foreground tokens, and box metrics (height/padding/radius/font/gap/
 // border). v1 only diffed 8 numeric metrics on root elements, which is why
 // line-heights and the badge foreground convention slipped through.
-// Output: qa/fidelity/gaps.csv + console report.
+// Output: qa/fidelity/gaps.csv (gitignored — local QA report) + console report.
 // ==========================================================================
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
 const SRC = path.join(ROOT, "packages/shadcss/src");
-const spec = JSON.parse(readFileSync(path.join(ROOT, "qa/fidelity/shadcn-spec.json"), "utf8"));
+const spec = JSON.parse(readFileSync(path.join(__dirname, "shadcn-spec.json"), "utf8"));
 const tokensCss = readFileSync(path.join(SRC, "base/tokens.css"), "utf8");
 
 const REM = 16;

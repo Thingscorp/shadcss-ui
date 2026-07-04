@@ -19,7 +19,7 @@ import { MAP } from "./fidelity/compare.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
-const SPEC = JSON.parse(readFileSync(path.join(ROOT, "qa/fidelity/shadcn-spec.json"), "utf8"));
+const SPEC = JSON.parse(readFileSync(path.join(ROOT, "scripts/fidelity/shadcn-spec.json"), "utf8"));
 const REG = JSON.parse(readFileSync(path.join(ROOT, "packages/shadcss/registry.json"), "utf8"));
 const CSS = readFileSync(path.join(ROOT, "packages/shadcss/dist/shadcss.min.css"), "utf8");
 
