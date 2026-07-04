@@ -45,9 +45,12 @@ const cssFiles = walkCss(SRC);
 // name). A REFERENCE is `var(--name)` (no colon after the name). So `--name\s*:`,// matched anywhere, only ever appears at definition sites — including the
 // multi-per-line tokens.css style (`--text-sm: …;  --leading-sm: …`).
 const DECL_RE = /--([a-zA-Z0-9-]+)\s*:/g;
+// @property registrations are also definitions: `@property --x { ... initial-value }`.
+const PROPERTY_RE = /@property\s+--([a-zA-Z0-9-]+)/g;
 const defined = new Set();
 for (const f of cssFiles) {
   for (const m of read(f).matchAll(DECL_RE)) defined.add("--" + m[1]);
+  for (const m of read(f).matchAll(PROPERTY_RE)) defined.add("--" + m[1]);
 }
 
 // Find every var(--x[, fallback]) usage. var() may nest (var(--a, var(--b)))

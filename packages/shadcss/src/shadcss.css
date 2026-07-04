@@ -16,6 +16,7 @@
 @import "./base/reset.css";
 @import "./base/tokens.css";
 @import "./base/theme.css";
+@import "./base/animate.css";
 
 /* Components — each lives in its own file, opt in by removing an import */
 @import "./components/button.css";

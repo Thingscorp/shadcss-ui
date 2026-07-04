@@ -382,6 +382,144 @@
 }
 
 @layer components {
+  @keyframes shadcss-enter {
+    from {
+      opacity: var(--tw-enter-opacity);
+      transform: translate3d(var(--tw-enter-translate-x), var(--tw-enter-translate-y), 0)
+                 scale3d(var(--tw-enter-scale), var(--tw-enter-scale), var(--tw-enter-scale))
+                 rotate(var(--tw-enter-rotate));
+    }
+  }
+
+  @keyframes shadcss-exit {
+    to {
+      opacity: var(--tw-exit-opacity);
+      transform: translate3d(var(--tw-exit-translate-x), var(--tw-exit-translate-y), 0)
+                 scale3d(var(--tw-exit-scale), var(--tw-exit-scale), var(--tw-exit-scale))
+                 rotate(var(--tw-exit-rotate));
+    }
+  }
+
+  .animate-in {
+    animation-name: shadcss-enter;
+    animation-duration: var(--tw-animation-duration, .15s);
+    animation-timing-function: var(--tw-ease, ease);
+  }
+
+  .animate-out {
+    animation-name: shadcss-exit;
+    animation-duration: var(--tw-animation-duration, .15s);
+    animation-timing-function: var(--tw-ease, ease);
+  }
+
+  .fade-in-0 {
+    --tw-enter-opacity: 0;
+  }
+
+  .fade-out-0 {
+    --tw-exit-opacity: 0;
+  }
+
+  .zoom-in-90 {
+    --tw-enter-scale: .9;
+  }
+
+  .zoom-in-95 {
+    --tw-enter-scale: .95;
+  }
+
+  .zoom-out-95 {
+    --tw-exit-scale: .95;
+  }
+
+  .zoom-out-90 {
+    --tw-exit-scale: .9;
+  }
+
+  .slide-in-from-top-2 {
+    --tw-enter-translate-y: -.5rem;
+  }
+
+  .slide-in-from-bottom-2 {
+    --tw-enter-translate-y: .5rem;
+  }
+
+  .slide-in-from-left-2 {
+    --tw-enter-translate-x: -.5rem;
+  }
+
+  .slide-in-from-right-2 {
+    --tw-enter-translate-x: .5rem;
+  }
+
+  .slide-out-to-top-2 {
+    --tw-exit-translate-y: -.5rem;
+  }
+
+  .slide-out-to-bottom-2 {
+    --tw-exit-translate-y: .5rem;
+  }
+
+  .slide-out-to-left-2 {
+    --tw-exit-translate-x: -.5rem;
+  }
+
+  .slide-out-to-right-2 {
+    --tw-exit-translate-x: .5rem;
+  }
+
+  .animate-spin {
+    animation: 1s linear infinite shadcss-spin;
+  }
+
+  @keyframes shadcss-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-pulse {
+    animation: 2s cubic-bezier(.4, 0, .6, 1) infinite shadcss-pulse;
+  }
+
+  @keyframes shadcss-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: .5;
+    }
+  }
+
+  .accordion-down {
+    animation: shadcss-accordion-down .2s var(--ease-out, ease-out);
+  }
+
+  .accordion-up {
+    animation: shadcss-accordion-up .2s var(--ease-out, ease-out);
+  }
+
+  @keyframes shadcss-accordion-down {
+    from {
+      height: 0;
+    }
+
+    to {
+      height: var(--radix-accordion-content-height, auto);
+    }
+  }
+
+  @keyframes shadcss-accordion-up {
+    from {
+      height: var(--radix-accordion-content-height, auto);
+    }
+
+    to {
+      height: 0;
+    }
+  }
+
   .btn {
     justify-content: center;
     align-items: center;
@@ -527,12 +665,6 @@
     width: 1em;
     height: 1em;
     animation: .6s linear infinite shadcss-spin;
-  }
-
-  @keyframes shadcss-spin {
-    to {
-      transform: rotate(360deg);
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -2083,16 +2215,6 @@
     min-height: 1rem;
     animation: 2s cubic-bezier(.4, 0, .6, 1) infinite shadcss-pulse;
     display: block;
-  }
-
-  @keyframes shadcss-pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-
-    50% {
-      opacity: .5;
-    }
   }
 
   .skeleton-circle {
@@ -7727,8 +7849,6 @@
   :root:not([data-theme="light"]) {
     --lightningcss-light: ;
     --lightningcss-dark: initial;
-    --lightningcss-light: ;
-    --lightningcss-dark: initial;
     color-scheme: dark;
     --background: oklch(14.5% 0 0);
     --foreground: oklch(98.5% 0 0);
@@ -7769,7 +7889,75 @@
     --chart-4: oklch(62.7% .265 303.9);
     --chart-5: oklch(64.5% .246 16.439);
   }
+}
 
+@property --tw-enter-opacity {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-enter-scale {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-enter-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-enter-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-enter-rotate {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-exit-opacity {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-exit-scale {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-exit-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-exit-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-exit-rotate {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in, .animate-out, .animate-spin, .animate-pulse, .accordion-down, .accordion-up {
+    animation: none !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
   @layer components {
     :root:not([data-theme="light"]) .btn-destructive, :root:not([data-theme="light"]) .btn-danger, :root:not([data-theme="light"]) .btn-error {
       background: color-mix(in oklab, var(--destructive) 60%, transparent);

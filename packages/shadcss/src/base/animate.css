@@ -1,0 +1,118 @@
+/* ==========================================================================
+   shadcss · base/animate.css
+   The tw-animate-css utility layer, mirrored faithfully so the exact class
+   strings shadcn v4 uses (animate-in, fade-in-0, zoom-in-95, slide-in-from-*,
+   animate-spin/pulse, accordion-down/up) render identically in plain CSS.
+
+   Mechanism (same as tw-animate-css):
+     - @property custom props hold the enter/exit transform values
+     - TWO keyframes only: `enter` (animates FROM the --tw-enter-* values) and
+       `exit` (animates TO the --tw-exit-* values)
+     - utility classes just SET the props; `animate-in`/`animate-out` run the
+       keyframe. Composable: `class="animate-in fade-in-0 zoom-in-95"`.
+
+   Emitted surface = the bounded set shadcn v4 components actually reference
+   (audited across apps/v4/registry/new-york-v4/ui). No Tailwind @utility
+   machinery — concrete classes, resolved at build time.
+   ========================================================================== */
+
+/* ---- enter/exit value holders (inherit:false so they don't leak) ---- */
+@property --tw-enter-opacity { syntax: "<number>"; inherits: false; initial-value: 1; }
+@property --tw-enter-scale  { syntax: "*"; inherits: false; initial-value: 1; }
+@property --tw-enter-translate-x { syntax: "*"; inherits: false; initial-value: 0; }
+@property --tw-enter-translate-y { syntax: "*"; inherits: false; initial-value: 0; }
+@property --tw-enter-rotate { syntax: "*"; inherits: false; initial-value: 0; }
+@property --tw-exit-opacity  { syntax: "<number>"; inherits: false; initial-value: 1; }
+@property --tw-exit-scale    { syntax: "*"; inherits: false; initial-value: 1; }
+@property --tw-exit-translate-x { syntax: "*"; inherits: false; initial-value: 0; }
+@property --tw-exit-translate-y { syntax: "*"; inherits: false; initial-value: 0; }
+@property --tw-exit-rotate   { syntax: "*"; inherits: false; initial-value: 0; }
+
+@layer components {
+  /* The two envelope keyframes. transform composes translate+scale+rotate so a
+     single animation handles every utility combination. */
+  @keyframes shadcss-enter {
+    from {
+      opacity: var(--tw-enter-opacity);
+      transform: translate3d(var(--tw-enter-translate-x), var(--tw-enter-translate-y), 0)
+                 scale3d(var(--tw-enter-scale), var(--tw-enter-scale), var(--tw-enter-scale))
+                 rotate(var(--tw-enter-rotate));
+    }
+  }
+  @keyframes shadcss-exit {
+    to {
+      opacity: var(--tw-exit-opacity);
+      transform: translate3d(var(--tw-exit-translate-x), var(--tw-exit-translate-y), 0)
+                 scale3d(var(--tw-exit-scale), var(--tw-exit-scale), var(--tw-exit-scale))
+                 rotate(var(--tw-exit-rotate));
+    }
+  }
+
+  /* ---- envelopes: animate-in / animate-out ----
+     Duration/easing follow tw-animate-css defaults (150ms ease). shadcss
+     components override per-component where shadcn does. */
+  .animate-in {
+    animation-name: shadcss-enter;
+    animation-duration: var(--tw-animation-duration, 150ms);
+    animation-timing-function: var(--tw-ease, ease);
+  }
+  .animate-out {
+    animation-name: shadcss-exit;
+    animation-duration: var(--tw-animation-duration, 150ms);
+    animation-timing-function: var(--tw-ease, ease);
+  }
+
+  /* ---- fade: opacity ---- */
+  .fade-in-0  { --tw-enter-opacity: 0; }
+  .fade-out-0 { --tw-exit-opacity: 0; }
+
+  /* ---- zoom: scale ---- */
+  .zoom-in-90  { --tw-enter-scale: 0.9; }
+  .zoom-in-95  { --tw-enter-scale: 0.95; }
+  .zoom-out-95 { --tw-exit-scale: 0.95; }
+  .zoom-out-90 { --tw-exit-scale: 0.9; }
+
+  /* ---- slide: translate (2 = 0.5rem = 8px, the only spacing shadcn uses) ---- */
+  .slide-in-from-top-2     { --tw-enter-translate-y: -0.5rem; }
+  .slide-in-from-bottom-2  { --tw-enter-translate-y:  0.5rem; }
+  .slide-in-from-left-2    { --tw-enter-translate-x: -0.5rem; }
+  .slide-in-from-right-2   { --tw-enter-translate-x:  0.5rem; }
+  .slide-out-to-top-2      { --tw-exit-translate-y:  -0.5rem; }
+  .slide-out-to-bottom-2   { --tw-exit-translate-y:   0.5rem; }
+  .slide-out-to-left-2     { --tw-exit-translate-x:  -0.5rem; }
+  .slide-out-to-right-2    { --tw-exit-translate-x:   0.5rem; }
+
+  /* ---- standalone animations (Tailwind native) ---- */
+  .animate-spin {
+    animation: shadcss-spin 1s linear infinite;
+  }
+  @keyframes shadcss-spin { to { transform: rotate(360deg); } }
+
+  .animate-pulse {
+    animation: shadcss-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  @keyframes shadcss-pulse {
+    50% { opacity: 0.5; }
+  }
+}
+
+/* ---- accordion: height keyframes (radix sets --radix-accordion-content-height) ----
+   shadcss uses native <details>, so without JS there's no measured height var.
+   The keyframes are still emitted for parity; accordion.css uses grid-rows for
+   the actual no-JS expand. */
+@layer components {
+  .accordion-down { animation: shadcss-accordion-down 0.2s var(--ease-out, ease-out); }
+  .accordion-up   { animation: shadcss-accordion-up 0.2s var(--ease-out, ease-out); }
+  @keyframes shadcss-accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height, auto); } }
+  @keyframes shadcss-accordion-up   { from { height: var(--radix-accordion-content-height, auto); } to { height: 0; } }
+}
+
+/* ---- reduced motion: zero out every animation/transition ----
+   Mirrors the tw-animate-css / Tailwind motion-reduce contract. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-in, .animate-out,
+  .animate-spin, .animate-pulse,
+  .accordion-down, .accordion-up {
+    animation: none !important;
+  }
+}

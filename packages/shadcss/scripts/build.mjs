@@ -108,9 +108,9 @@ async function emitModular() {
   const distComponents = path.join(distDir, "components");
   await ensureDir(distComponents);
 
-  // base.min.css — prime layer order, then reset/tokens/theme.
+  // base.min.css — prime layer order, then reset/tokens/theme/animate.
   let baseCss = "@layer reset, theme, components;\n";
-  for (const f of ["base/reset.css", "base/tokens.css", "base/theme.css"])
+  for (const f of ["base/reset.css", "base/tokens.css", "base/theme.css", "base/animate.css"])
     baseCss += (await fs.readFile(path.join(srcDir, f), "utf8")) + "\n";
   const { code: baseMin } = transform({ filename: "base.css", code: Buffer.from(baseCss), minify: true, targets });
   await fs.writeFile(path.join(distDir, "base.min.css"), baseMin);
