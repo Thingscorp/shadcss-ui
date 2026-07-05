@@ -19,9 +19,11 @@
     "test:computed": "node scripts/test-computed.mjs",
     "test:blocks": "node scripts/test-blocks.mjs",
     "test:install": "node scripts/test-install.mjs",
+    "test:cli": "node scripts/test-cli.mjs",
     "test:animate": "node scripts/test-animate.mjs",
     "test:rtl": "node scripts/test-rtl.mjs",
     "test": "node scripts/test.mjs",
+    "gen:registry": "node scripts/gen-feature-registry.mjs",
     "deploy": "node scripts/deploy.mjs",
     "release": "npm run build --workspace=packages/shadcss && npm publish --workspace=packages/shadcss"
   },

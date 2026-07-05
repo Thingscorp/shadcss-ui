@@ -24,5 +24,8 @@ apps/www/shadcss.min.css
 apps/www/docs/
 apps/www/llms.txt
 
+# Generated feature registry (run npm run gen:registry to rebuild)
+feature-registry.csv
+
 # autoresearch experiment state
 .auto/

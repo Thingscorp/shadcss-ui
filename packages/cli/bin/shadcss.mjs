@@ -11,7 +11,7 @@
 // CDN by default; `--from <dir>` reads a local checkout instead.
 // ==========================================================================
 
-import { readFile, writeFile, mkdir, access } from "node:fs/promises";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
@@ -176,21 +176,17 @@ function lineDiff(a, b) {
   return out;
 }
 
-async function cmdDiff(src, name, opts) {
-  if (!name) die("usage: shadcss diff <component> [--dir ./shadcss]");
-  const reg = await loadRegistry(src);
-  const e = reg.components.find((c) => c.name === name);
-  if (!e) die(`unknown component "${name}".`);
-  const localPath = path.resolve(opts.dir || "shadcss", e.file.replace(/^src\//, ""));
+async function diffOne(src, entry, opts, reg) {
+  const localPath = path.resolve(opts.dir || "shadcss", entry.file.replace(/^src\//, ""));
   let local;
   try { local = await readFile(localPath, "utf8"); }
-  catch { die(`no local copy at ${path.relative(process.cwd(), localPath)} — run \`shadcss add ${name}\` first.`); }
-  const upstream = await src.read(e.file);
+  catch { return { skipped: true }; }
+  const upstream = await src.read(entry.file);
   if (local === upstream) {
-    console.log(C.green(`\n  ${name}: up to date with ${src.label}\n`));
-    return;
+    console.log(C.green(`  ${entry.name}: up to date`));
+    return { drift: 0 };
   }
-  console.log(C.bold(`\n  ${name}: your copy vs ${src.label}\n`));
+  console.log(C.bold(`\n  ${entry.name}: your copy vs ${src.label}\n`));
   let changes = 0;
   for (const [mark, line] of lineDiff(local, upstream)) {
     if (mark === "  ") continue;
@@ -199,6 +195,33 @@ async function cmdDiff(src, name, opts) {
     console.log("  " + colored);
   }
   console.log(C.dim(`\n  ${changes} changed line(s). (${C.red("-")} yours, ${C.green("+")} upstream)\n`));
+  return { drift: changes };
+}
+
+async function cmdDiff(src, name, opts) {
+  const reg = await loadRegistry(src);
+  if (name) {
+    const e = reg.components.find((c) => c.name === name);
+    if (!e) die(`unknown component "${name}".`);
+    const result = await diffOne(src, e, opts, reg);
+    if (result.skipped) die(`no local copy at ${path.relative(process.cwd(), path.resolve(opts.dir || "shadcss", e.file.replace(/^src\//, "")))} — run \`shadcss add ${name}\` first.`);
+    if (result.drift > 0) process.exit(1);
+    return;
+  }
+  // No name — diff all local copies
+  console.log(C.bold(`\n  Diffing all local copies against ${src.label}\n`));
+  let totalDrift = 0;
+  let checked = 0;
+  for (const e of reg.components) {
+    const result = await diffOne(src, e, opts, reg);
+    if (!result.skipped) {
+      checked++;
+      totalDrift += result.drift;
+    }
+  }
+  if (checked === 0) die(`no local copies found in ${opts.dir || "./shadcss"} — run \`shadcss add\` first.`);
+  console.log(C.dim(`\n  ${checked} component(s) checked, ${totalDrift} total drifted line(s).\n`));
+  if (totalDrift > 0) process.exit(1);
 }
 
 // consumer-facing markup foot-gun lint (mirrors the repo's check-markup guards)
@@ -238,7 +261,7 @@ const HELP = `
     list                       list all available components
     info <component>           show a component's classes, deps, and markup
     add <component...>         copy component CSS (+ its deps) into your project
-    diff <component>           show how your copy differs from upstream
+    diff [component]           show how your copy differs from upstream (all if omitted)
     check <file.html ...>      lint HTML for known a11y/markup foot-guns
 
   ${C.bold("Options")}
