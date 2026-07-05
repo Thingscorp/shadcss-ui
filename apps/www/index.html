@@ -99,7 +99,7 @@
       scroll-margin-top: 5rem;
     }
     .showcase-section > p {
-      color: hsl(var(--muted-foreground));
+      color: var(--muted-foreground);
       margin-bottom: var(--space-6);
       max-width: 65ch;
       line-height: 1.6;
@@ -111,7 +111,7 @@
       align-items: center;
       gap: var(--space-3);
       padding: var(--space-4);
-      border: 1px dashed hsl(var(--border));
+      border: 1px dashed var(--border);
       border-radius: var(--radius-md);
     }
     .demo-row + .demo-row { margin-top: var(--space-3); }
@@ -145,7 +145,7 @@
 
     .hero {
       padding: var(--space-16) 0;
-      border-bottom: 1px solid hsl(var(--border));
+      border-bottom: 1px solid var(--border);
       margin-bottom: var(--space-12);
     }
     .hero h1 {
@@ -156,14 +156,14 @@
       margin-bottom: var(--space-4);
     }
     .hero h1 span {
-      background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--info)));
+      background: linear-gradient(135deg, var(--primary), var(--info));
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     .hero p {
       font-size: var(--text-lg);
-      color: hsl(var(--muted-foreground));
+      color: var(--muted-foreground);
       max-width: 38rem;
       line-height: 1.6;
       margin-bottom: var(--space-6);
@@ -181,14 +181,14 @@
     }
     .hero-stat-label {
       font-size: var(--text-xs);
-      color: hsl(var(--muted-foreground));
+      color: var(--muted-foreground);
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
 
     .code-block {
-      background: hsl(var(--muted));
-      border: 1px solid hsl(var(--border));
+      background: var(--muted);
+      border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: var(--space-3) var(--space-4);
       font-family: var(--font-mono);
@@ -196,22 +196,22 @@
       line-height: 1.6;
       overflow-x: auto;
       white-space: pre;
-      color: hsl(var(--foreground));
+      color: var(--foreground);
       margin-top: var(--space-3);
     }
 
     .section-divider {
       height: 1px;
-      background: hsl(var(--border));
+      background: var(--border);
       margin: var(--space-12) 0;
     }
 
     footer {
       padding: var(--space-12) 0;
-      border-top: 1px solid hsl(var(--border));
+      border-top: 1px solid var(--border);
       margin-top: var(--space-12);
       text-align: center;
-      color: hsl(var(--muted-foreground));
+      color: var(--muted-foreground);
       font-size: var(--text-sm);
     }
 
@@ -615,15 +615,15 @@
           </div>
           <div class="card-content">
             <div style="display: flex; justify-content: space-between; font-size: var(--text-sm);">
-              <span style="color: hsl(var(--muted-foreground));">Deployed</span>
+              <span style="color: var(--muted-foreground);">Deployed</span>
               <span>2 min ago</span>
             </div>
             <div style="display: flex; justify-content: space-between; font-size: var(--text-sm); margin-top: var(--space-2);">
-              <span style="color: hsl(var(--muted-foreground));">Region</span>
+              <span style="color: var(--muted-foreground);">Region</span>
               <span>us-east-1</span>
             </div>
             <div style="display: flex; justify-content: space-between; font-size: var(--text-sm); margin-top: var(--space-2);">
-              <span style="color: hsl(var(--muted-foreground));">Build</span>
+              <span style="color: var(--muted-foreground);">Build</span>
               <span class="badge badge-outline">v1.2.3</span>
             </div>
           </div>
@@ -1389,10 +1389,10 @@
       <p>Scroll-snap carousel — scroll/swipe and Tab-then-arrow keyboard navigation work with zero JS; the prev/next arrow buttons use a one-line inline <code>scrollBy()</code> (or CSS <code>::scroll-button()</code> where supported). Aspect-ratio presets below.</p>
 
       <div class="demo-row" style="margin-bottom: var(--space-4);">
-        <div class="aspect-ratio aspect-square" style="width: 6rem; background: linear-gradient(135deg, hsl(var(--chart-1)), hsl(var(--chart-2)));"></div>
-        <div class="aspect-ratio aspect-video" style="width: 8rem; background: linear-gradient(135deg, hsl(var(--chart-3)), hsl(var(--chart-4)));"></div>
-        <div class="aspect-ratio aspect-photo" style="width: 8rem; background: linear-gradient(135deg, hsl(var(--chart-5)), hsl(var(--chart-1)));"></div>
-        <div class="aspect-ratio aspect-portrait" style="width: 5rem; background: linear-gradient(135deg, hsl(var(--chart-2)), hsl(var(--chart-3)));"></div>
+        <div class="aspect-ratio aspect-square" style="width: 6rem; background: linear-gradient(135deg, var(--chart-1), var(--chart-2));"></div>
+        <div class="aspect-ratio aspect-video" style="width: 8rem; background: linear-gradient(135deg, var(--chart-3), var(--chart-4));"></div>
+        <div class="aspect-ratio aspect-photo" style="width: 8rem; background: linear-gradient(135deg, var(--chart-5), var(--chart-1));"></div>
+        <div class="aspect-ratio aspect-portrait" style="width: 5rem; background: linear-gradient(135deg, var(--chart-2), var(--chart-3));"></div>
       </div>
 
       <div class="carousel">
@@ -1400,31 +1400,31 @@
           <div class="carousel-track">
             <div class="carousel-item" data-size="third">
               <div class="card card-interactive" style="height: 100%;">
-                <div class="aspect-ratio aspect-video" style="background: linear-gradient(135deg, hsl(var(--chart-1)), hsl(var(--chart-2))); border-radius: 0;"></div>
+                <div class="aspect-ratio aspect-video" style="background: linear-gradient(135deg, var(--chart-1), var(--chart-2)); border-radius: 0;"></div>
                 <div class="card-header"><div class="card-title">Card 1</div></div>
               </div>
             </div>
             <div class="carousel-item" data-size="third">
               <div class="card card-interactive" style="height: 100%;">
-                <div class="aspect-ratio aspect-video" style="background: linear-gradient(135deg, hsl(var(--chart-3)), hsl(var(--chart-4))); border-radius: 0;"></div>
+                <div class="aspect-ratio aspect-video" style="background: linear-gradient(135deg, var(--chart-3), var(--chart-4)); border-radius: 0;"></div>
                 <div class="card-header"><div class="card-title">Card 2</div></div>
               </div>
             </div>
             <div class="carousel-item" data-size="third">
               <div class="card card-interactive" style="height: 100%;">
-                <div class="aspect-ratio aspect-video" style="background: linear-gradient(135deg, hsl(var(--chart-5)), hsl(var(--chart-1))); border-radius: 0;"></div>
+                <div class="aspect-ratio aspect-video" style="background: linear-gradient(135deg, var(--chart-5), var(--chart-1)); border-radius: 0;"></div>
                 <div class="card-header"><div class="card-title">Card 3</div></div>
               </div>
             </div>
             <div class="carousel-item" data-size="third">
               <div class="card card-interactive" style="height: 100%;">
-                <div class="aspect-ratio aspect-video" style="background: linear-gradient(135deg, hsl(var(--chart-2)), hsl(var(--chart-3))); border-radius: 0;"></div>
+                <div class="aspect-ratio aspect-video" style="background: linear-gradient(135deg, var(--chart-2), var(--chart-3)); border-radius: 0;"></div>
                 <div class="card-header"><div class="card-title">Card 4</div></div>
               </div>
             </div>
             <div class="carousel-item" data-size="third">
               <div class="card card-interactive" style="height: 100%;">
-                <div class="aspect-ratio aspect-video" style="background: linear-gradient(135deg, hsl(var(--chart-4)), hsl(var(--chart-5))); border-radius: 0;"></div>
+                <div class="aspect-ratio aspect-video" style="background: linear-gradient(135deg, var(--chart-4), var(--chart-5)); border-radius: 0;"></div>
                 <div class="card-header"><div class="card-title">Card 5</div></div>
               </div>
             </div>
@@ -1440,7 +1440,7 @@
             </button>
           </div>
           <div class="carousel-dots" role="group" aria-label="Slide indicators">
-            <button class="carousel-dot" style="background: hsl(var(--primary));" aria-label="Slide 1" aria-current="true"></button>
+            <button class="carousel-dot" style="background: var(--primary);" aria-label="Slide 1" aria-current="true"></button>
             <button class="carousel-dot" aria-label="Slide 2"></button>
             <button class="carousel-dot" aria-label="Slide 3"></button>
           </div>
@@ -1615,7 +1615,7 @@
             <div class="card-description">7 patterns cover 95% of UI needs. Documented in <code>AI_GUIDE.md</code> with copy-paste examples.</div>
           </div>
           <div class="card-content">
-            <ul style="display: flex; flex-direction: column; gap: var(--space-2); font-size: var(--text-sm); color: hsl(var(--muted-foreground));">
+            <ul style="display: flex; flex-direction: column; gap: var(--space-2); font-size: var(--text-sm); color: var(--muted-foreground);">
               <li>1. Modal — <code>&lt;dialog&gt;</code> + <code>showModal()</code></li>
               <li>2. Dropdown — Popover API</li>
               <li>3. Accordion — native <code>&lt;details&gt;</code></li>
@@ -1634,12 +1634,12 @@
             <div class="card-description">Variants are classes. State uses ARIA. Tokens drive styling. No surprises for the model.</div>
           </div>
           <div class="card-content">
-            <ul style="display: flex; flex-direction: column; gap: var(--space-2); font-size: var(--text-sm); color: hsl(var(--muted-foreground));">
+            <ul style="display: flex; flex-direction: column; gap: var(--space-2); font-size: var(--text-sm); color: var(--muted-foreground);">
               <li>✅ <code>class="btn btn-outline btn-sm"</code></li>
               <li>❌ <code>data-variant="outline" data-size="sm"</code></li>
               <li>✅ <code>aria-current="page"</code></li>
               <li>✅ <code>aria-pressed="true"</code></li>
-              <li>✅ <code>hsl(var(--primary))</code></li>
+              <li>✅ <code>var(--primary)</code></li>
               <li>❌ <code>#000000</code></li>
             </ul>
           </div>
@@ -1653,7 +1653,7 @@
 <footer>
   <div class="container">
     <p>shadcss v0.2.1 · 65 components · 20.2 KB gzipped · 0 JS in the CSS bundle · MIT licensed</p>
-    <p style="color:hsl(var(--muted-foreground));font-size:var(--text-xs)">An independent project inspired by the visual style of shadcn/ui. Not affiliated with, endorsed by, or maintained by shadcn/ui.</p>
+    <p style="color:var(--muted-foreground);font-size:var(--text-xs)">An independent project inspired by the visual style of shadcn/ui. Not affiliated with, endorsed by, or maintained by shadcn/ui.</p>
   </div>
 </footer>
 
