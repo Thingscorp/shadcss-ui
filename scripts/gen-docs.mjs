@@ -111,17 +111,6 @@ pre.docs-code{background:var(--muted);border:1px solid var(--border);border-radi
 .docs-toc a[aria-current="true"]{color:var(--foreground);border-inline-start-color:var(--foreground)}
 `;
 
-// ---- nav grouping (mirrors shadcn's grouped sidebar) ----
-// Categorize components for the left nav. Falls back to "Components".
-function groupOf(name) {
-  const sets = {
-    "Getting Started": ["index", "__index", "retrofit", "__retrofit", "support", "__support"],
-    "Blocks": [],
-  };
-  for (const [g, names] of Object.entries(sets)) if (names.includes(name)) return g;
-  return "Components";
-}
-
 function leftNav(components, blocks, current) {
   const topLinks = `<div class="docs-nav-group">
     <a href="./index.html"${current === "__index" ? ' aria-current="page"' : ""}>Introduction</a>
@@ -251,7 +240,7 @@ ${SEARCH_JS}
 </html>`;
 }
 
-function componentPage(c, components) {
+function componentPage(c) {
   const meta = [badge("status", c.status || "stable"), badge("js", c.js || "none"), `<span class="badge badge-outline">support: ${esc(c.support || "baseline")}</span>`].join(" ");
   const classes = (c.classes || []).map((cl) => `<span class="badge badge-secondary">.${esc(cl)}</span>`).join(" ");
   const importLine = `@import "${PKG}/${c.file}";`;
@@ -340,7 +329,7 @@ function supportPage(reg) {
   return shell("Browser support & limits", body, COMPONENTS, "__support");
 }
 
-function retrofitPage(reg) {
+function retrofitPage() {
   const body = `
 <div class="docs-breadcrumb"><a href="./index.html">Docs</a><span>/</span>Retrofit</div>
 <h1 class="docs-h1">Retrofit an existing app</h1>
@@ -434,9 +423,9 @@ export function genDocs(repoRoot) {
   mkdirSync(out, { recursive: true });
   writeFileSync(path.join(out, "index.html"), indexPage(reg));
   writeFileSync(path.join(out, "support.html"), supportPage(reg));
-  writeFileSync(path.join(out, "retrofit.html"), retrofitPage(reg));
+  writeFileSync(path.join(out, "retrofit.html"), retrofitPage());
   writeFileSync(path.join(out, "blocks.html"), blocksIndex(reg));
-  for (const c of reg.components) writeFileSync(path.join(out, `${c.name}.html`), componentPage(c, reg.components));
+  for (const c of reg.components) writeFileSync(path.join(out, `${c.name}.html`), componentPage(c));
   if (reg.blocks && reg.blocks.length) {
     for (const b of reg.blocks) writeFileSync(path.join(out, `block-${b.name}.html`), blockPage(b));
   }
