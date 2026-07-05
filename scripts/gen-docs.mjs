@@ -303,7 +303,7 @@ function header(currentSection) {
   const navLinks = [
     { href: "../index.html", label: "Home", key: "home" },
     { href: "./index.html", label: "Docs", key: "docs" },
-    { href: "./index.html", label: "Components", key: "components" },
+    { href: "./components.html", label: "Components", key: "components" },
     { href: "./blocks.html", label: "Blocks", key: "blocks" },
     { href: "./support.html", label: "Support", key: "support" },
   ];
@@ -332,6 +332,7 @@ function leftNav(components, blocks, current) {
     <a href="./installation.html"${current === "__installation" ? ' aria-current="page"' : ""}>Installation</a>
     <a href="./theming.html"${current === "__theming" ? ' aria-current="page"' : ""}>Theming</a>
     <a href="./cli.html"${current === "__cli" ? ' aria-current="page"' : ""}>CLI</a>
+    <a href="./components.html"${current === "__components" ? ' aria-current="page"' : ""}>Components</a>
     <a href="./retrofit.html"${current === "__retrofit" ? ' aria-current="page"' : ""}>Retrofit an existing app</a>
     <a href="./support.html"${current === "__support" ? ' aria-current="page"' : ""}>Browser support &amp; limits</a>
     <a href="../index.html">Live demo →</a>
@@ -364,6 +365,7 @@ function cmdkPalette(components, blocks) {
     { href: "./installation.html", label: "Installation", type: "docs" },
     { href: "./theming.html", label: "Theming", type: "docs" },
     { href: "./cli.html", label: "CLI Reference", type: "docs" },
+    { href: "./components.html", label: "Components", type: "docs" },
     { href: "./retrofit.html", label: "Retrofit an existing app", type: "docs" },
     { href: "./support.html", label: "Browser support & limits", type: "docs" },
     { href: "./blocks.html", label: "Blocks overview", type: "docs" },
@@ -502,18 +504,67 @@ function indexPage(reg) {
 <p class="docs-lead">${reg.components.length} zero-runtime HTML + CSS components. ${esc(reg.description || "")} Open Source. Open Code.</p>
 <div class="docs-meta"><span class="badge badge-success">${reg.components.filter((c) => (c.js || "none") === "none").length} zero-JS</span> <span class="badge badge-info">${reg.components.filter((c) => c.js === "trigger").length} one-line trigger</span> <span class="badge badge-warning">${reg.components.filter((c) => c.js === "consumer").length} consumer-JS</span></div>
 
-<div class="docs-section"><h2>What is shadcss?</h2>
-<p>shadcss is a set of beautifully-designed components that you can customize, extend, and build on. It's the shadcn aesthetic reimagined for the modern web platform — pure HTML + CSS, no JavaScript framework required.</p>
-<p>Every component is a single CSS file that references shared design tokens. Copy them into your project, import what you need, and make them your own.</p>
+<div class="docs-section"><h2>Open Code</h2>
+<p>shadcss hands you the actual component code. You have full control to customize and extend the components to your needs. This means:</p>
+<ul>
+<li><strong>Full Transparency</strong> — You see exactly how each component is built.</li>
+<li><strong>Easy Customization</strong> — Modify any part of a component to fit your design and functionality requirements.</li>
+<li><strong>AI Integration</strong> — Access to the code makes it straightforward for LLMs to read, understand, and even improve your components.</li>
+</ul>
+<p>In a typical library, if you need to change a button's behavior, you have to override styles or wrap the component. With shadcss, you simply edit the component CSS directly.</p>
+</div>
+
+<div class="docs-section"><h2>Composition</h2>
+<p>Every component in shadcss shares a common, composable interface. If a component does not exist, you bring it in, make it composable, and adjust its style to match and work with the rest of the design system.</p>
+<p>A shared, composable interface means it's predictable for both your team and LLMs. You are not learning different APIs for every new component.</p>
+</div>
+
+<div class="docs-section"><h2>Distribution</h2>
+<p>shadcss is also a code distribution system. It defines a schema for components and a CLI to distribute them.</p>
+<ul>
+<li><strong>Schema</strong> — A flat-file structure (<code>registry.json</code>) that defines the components, their dependencies, and properties.</li>
+<li><strong>CLI</strong> — A command-line tool (<code>npx @russfranky/shadcss-cli</code>) to distribute and install components across projects.</li>
+</ul>
+<p>You can use the schema to distribute your components to other projects or have AI generate completely new components based on existing schema.</p>
+</div>
+
+<div class="docs-section"><h2>Beautiful Defaults</h2>
+<p>shadcss comes with a large collection of components that have carefully chosen default styles. They are designed to look good on their own and to work well together as a consistent system:</p>
+<ul>
+<li><strong>Good Out-of-the-Box</strong> — Your UI has a clean and minimal look without extra work.</li>
+<li><strong>Unified Design</strong> — Components naturally fit with one another. Each component is built to match the others, keeping your UI consistent.</li>
+<li><strong>Easily Customizable</strong> — If you want to change something, it's simple to override and extend the defaults.</li>
+</ul>
+</div>
+
+<div class="docs-section"><h2>AI-Ready</h2>
+<p>The design of shadcss makes it easy for AI tools to work with your code. Its open code and consistent API allow AI models to read, understand, and even generate new components.</p>
+<p>An AI model can learn how your components work and suggest improvements or even create new components that integrate with your existing design.</p>
 </div>
 
 <div class="docs-section"><h2>Getting Started</h2>
-<p>Read the <a href="./installation.html" style="color:var(--primary)">Installation guide</a> to add shadcss to your project, or browse the components below.</p>
+<p>Read the <a href="./installation.html" style="color:var(--primary)">Installation guide</a> to add shadcss to your project, or browse the <a href="./components.html" style="color:var(--primary)">components</a>.</p>
 </div>
-
-<div class="docs-section"><h2>Components (${reg.components.length})</h2><div class="docs-grid">${cards}</div></div>
 `;
   return shell("shadcss", body, COMPONENTS, "__index", "docs");
+}
+
+// ── Components listing page ────────────────────────────────────────────────
+function componentsPage(reg) {
+  const cards = reg.components.map((c) => `
+  <a class="docs-card" href="./${c.name}.html">
+    <div class="docs-card-title">${esc(c.name)}</div>
+    <div class="docs-card-desc">${esc(c.description || "")}</div>
+    <div style="margin-top:var(--space-2);display:flex;gap:.375rem;flex-wrap:wrap">${badge("js", c.js || "none")}</div>
+  </a>`).join("\n");
+  const body = `
+<div class="docs-breadcrumb"><a href="./index.html">Docs</a><span>/</span>Components</div>
+<h1 class="docs-h1">Components</h1>
+<p class="docs-lead">${reg.components.length} components available. Browse all components below.</p>
+<div class="docs-meta"><span class="badge badge-success">${reg.components.filter((c) => (c.js || "none") === "none").length} zero-JS</span> <span class="badge badge-info">${reg.components.filter((c) => c.js === "trigger").length} one-line trigger</span> <span class="badge badge-warning">${reg.components.filter((c) => c.js === "consumer").length} consumer-JS</span></div>
+<div class="docs-section"><h2>All Components</h2><div class="docs-grid">${cards}</div></div>
+`;
+  return shell("Components", body, COMPONENTS, "__components", "components");
 }
 
 // ── Installation page ──────────────────────────────────────────────────────
@@ -806,6 +857,7 @@ export function genDocs(repoRoot) {
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
   writeFileSync(path.join(out, "index.html"), indexPage(reg));
+  writeFileSync(path.join(out, "components.html"), componentsPage(reg));
   writeFileSync(path.join(out, "installation.html"), installationPage());
   writeFileSync(path.join(out, "theming.html"), themingPage());
   writeFileSync(path.join(out, "cli.html"), cliPage());
