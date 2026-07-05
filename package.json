@@ -22,6 +22,7 @@
     "test:cli": "node scripts/test-cli.mjs",
     "test:animate": "node scripts/test-animate.mjs",
     "test:rtl": "node scripts/test-rtl.mjs",
+    "test:js": "node scripts/test-js.mjs",
     "test": "node scripts/test.mjs",
     "gen:registry": "node scripts/gen-feature-registry.mjs",
     "deploy": "node scripts/deploy.mjs",

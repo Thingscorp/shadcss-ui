@@ -34,6 +34,7 @@ const gates = [
   { name: "cli",              cmd: "node", args: ["scripts/test-cli.mjs"] },
   { name: "animate",          cmd: "node", args: ["scripts/test-animate.mjs"] },
   { name: "rtl",              cmd: "node", args: ["scripts/test-rtl.mjs"] },
+  { name: "js",               cmd: "node", args: ["scripts/test-js.mjs"] },
 ];
 
 let failed = null;

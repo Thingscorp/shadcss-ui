@@ -177,10 +177,10 @@ for (const block of REG.blocks || []) {
 // ---- CLI COMMANDS ----
 const cliCases = [
   ["add", "As a developer, I run shadcss add <component> so that the component CSS is copied into my repo.", "Copies the component and its declared dependencies byte-for-byte from the registry into the target project.", GATES.install],
-  ["list", "As a developer, I run shadcss list so that I can see all available components.", "Enumerates the registry component names and exposes the component inventory to the developer.", "none"],
-  ["info", "As a developer, I run shadcss info <component> so that I see its file, dependency, class, and accessibility information.", "Prints the requested registry entry so the developer can inspect the implementation contract.", "none"],
-  ["diff", "As a developer, I run shadcss diff so that I see how my copied components drifted from upstream.", "Diffs local copies against the upstream source and surfaces drift clearly.", "none"],
-  ["check", "As a developer, I run shadcss check <file> so that my markup is linted for accessibility footguns.", "Runs static markup linting and reports structural or accessibility issues in the supplied file.", "none"],
+  ["list", "As a developer, I run shadcss list so that I can see all available components.", "Enumerates the registry component names and exposes the component inventory to the developer.", GATES.cli],
+  ["info", "As a developer, I run shadcss info <component> so that I see its file, dependency, class, and accessibility information.", "Prints the requested registry entry so the developer can inspect the implementation contract.", GATES.cli],
+  ["diff", "As a developer, I run shadcss diff [component] so that I see how my copied components drifted from upstream.", "Diffs local copies against the upstream source. With a component name, diffs one; without, diffs all local copies. Surfaces drift clearly and exits non-zero on any drift.", GATES.cli],
+  ["check", "As a developer, I run shadcss check <file> so that my markup is linted for accessibility footguns.", "Runs static markup linting and reports structural or accessibility issues in the supplied file.", GATES.cli],
 ];
 for (const [name, story, behaviour, gate] of cliCases) {
   rows.push(featureRow({
@@ -221,7 +221,7 @@ for (const [name, story, behaviour, gate] of pipeCases) {
 }
 
 // ---- TEST GATES (meta-features) ----
-for (const scriptName of ["test:tokens", "test:computed", "test:blocks", "test:install", "test:animate", "test:rtl", "check:a11y"]) {
+for (const scriptName of ["test:tokens", "test:computed", "test:blocks", "test:install", "test:cli", "test:animate", "test:rtl", "test:js", "check:a11y"]) {
   rows.push(featureRow({
     featureId: next(),
     featureName: scriptName,
@@ -233,6 +233,72 @@ for (const scriptName of ["test:tokens", "test:computed", "test:blocks", "test:i
     defectCount: "0",
     severity: "none",
     note: notesFor({ name: scriptName, status: "stable", js: "none", support: "baseline", notes: "The gate is implemented by the matching script under scripts/." }, "test-gate"),
+  }));
+}
+
+// ---- SHADCSS-JS PROGRESSIVE ENHANCEMENT ----
+const jsFeatures = [
+  ["shadcss-js: initMenus", "As a developer, I import @russfranky/shadcss-js/menu so that popover-API menus get keyboard navigation.", "Adds roving arrow-key focus, Home/End, type-ahead, Escape-to-close + focus return, and role=menu/menuitem + aria-haspopup to elements with data-sc-menu. Auto-inits on DOMContentLoaded.", "trigger"],
+  ["shadcss-js: initTabs", "As a developer, I import @russfranky/shadcss-js/tabs so that radio-based tabs get full ARIA tab semantics.", "Upgrades .tabs[data-sc-tabs] to role=tablist/tab/tabpanel with aria-selected sync, aria-controls/aria-labelledby wiring, and arrow-key/Home/End navigation. Auto-inits on DOMContentLoaded.", "trigger"],
+  ["shadcss-js: index (all enhancers)", "As a developer, I import @russfranky/shadcss-js so that all opt-in enhancers initialize.", "Re-exports initMenus and initTabs; importing the package initializes all enhancers on DOMContentLoaded.", "trigger"],
+];
+for (const [name, story, behaviour, jsType] of jsFeatures) {
+  rows.push(featureRow({
+    featureId: next(),
+    featureName: name,
+    userStory: story,
+    expectedBehaviour: behaviour,
+    edgeCase: "Enhancers must be idempotent (double-init safe via __scMenu/__scTabs guards). Must degrade gracefully if the target elements are absent — no errors on a page without menus or tabs.",
+    testCase: testCases(name, "component", "test:js (keyboard nav, ARIA, idempotency, degradation)"),
+    currentStatus: "covered",
+    defectCount: "0",
+    severity: "medium",
+    note: notesFor({ name, status: "stable", js: jsType, support: "baseline", notes: "Opt-in via data-sc-menu / data-sc-tabs attributes. Zero dependencies." }, "component"),
+  }));
+}
+
+// ---- BASE LAYERS ----
+const baseLayers = [
+  ["base/reset", "As a developer, the reset layer normalizes browser defaults so that components render consistently.", "Applies a modern CSS reset including box-sizing, margin reset, and the global closed-overlay guard (dialog:not([open]) and [popover]:not(:popover-open) set to display:none)."],
+  ["base/tokens", "As a developer, the tokens layer defines design tokens so that components reference consistent values.", "Defines all CSS custom properties (--space-*, --radius-*, --text-*, --color-*) used by every component. Components reference these with no fallbacks, so tokens must be imported first."],
+  ["base/theme", "As a developer, the theme layer provides light/dark/auto modes so that my app adapts to user preference.", "Defines [data-theme=dark] overrides and prefers-color-scheme media queries for all color tokens. Supports light, dark, and auto (system) modes."],
+  ["base/animate", "As a developer, the animate layer provides enter/exit animations so that overlays animate smoothly.", "Implements the tw-animate-css compatible utility classes (animate-in, fade-in-0, zoom-in-95, slide-in-*, etc.) using @property + keyframes + allow-discrete for overlay exit animations."],
+];
+for (const [name, story, behaviour] of baseLayers) {
+  rows.push(featureRow({
+    featureId: next(),
+    featureName: name,
+    userStory: story,
+    expectedBehaviour: behaviour,
+    edgeCase: "Base layers must be imported before any component. Missing tokens cause silent rendering failures (var() resolves to empty). The closed-overlay guard must not be removed or closed dialogs/popovers become visible.",
+    testCase: testCases(name, "component", `${GATES.tokens} + ${GATES.markup} + ${GATES.animate}`),
+    currentStatus: "covered",
+    defectCount: "0",
+    severity: "none",
+    note: notesFor({ name, status: "stable", js: "none", support: "baseline", notes: "Base layer imported via src/shadcss.css or dist/base.min.css." }, "component"),
+  }));
+}
+
+// ---- BUILD SUB-FEATURES ----
+const buildFeatures = [
+  ["llms.txt generation", "As an AI agent, I read llms.txt so that I can generate correct shadcss markup.", "Generates a machine-readable index of all components, classes, a11y contracts, and markup from registry.json. Written to packages/shadcss/llms.txt and apps/www/llms.txt on every build.", "none (generated)"],
+  ["modular dist emission", "As a developer, I import only the components I need so that my bundle stays minimal.", "Emits dist/base.min.css (reset + tokens + theme + animate) plus one minified file per component under dist/components/. Enables tree-shaking by letting consumers ship base + N components.", "none (generated)"],
+  ["fidelity comparison", "As a maintainer, I run the fidelity comparison so that shadcss styles match the shadcn spec.", "Parses shadcn component source CSS and compares key metrics (height, padding, radius, font-size, gap) against shadcss implementations. Surfaces deviations before they ship.", GATES.fidelity],
+  ["size analyzer", "As a maintainer, I run the size analyzer so that I can identify optimization opportunities.", "Reports per-component minified + gzipped bytes, base layer cost, and dead tokens (custom properties defined but never referenced by any var()). Evidence-driven optimization input.", "none (analysis)"],
+  ["showcase", "As a user, I browse the showcase so that I can see every component rendered live.", "A single-page HTML showcase (apps/www/index.html) rendering every component and block with the built bundle. Includes theme toggle and serves as the a11y gate target.", "none (rendered)"],
+];
+for (const [name, story, behaviour, gate] of buildFeatures) {
+  rows.push(featureRow({
+    featureId: next(),
+    featureName: name,
+    userStory: story,
+    expectedBehaviour: behaviour,
+    edgeCase: "Generated artifacts must stay in sync with registry.json. The showcase must render without console errors. Dead tokens identified by the analyzer may be candidates for pruning but require manual verification.",
+    testCase: testCases(name, "pipeline", gate),
+    currentStatus: gate === "none (generated)" || gate === "none (analysis)" || gate === "none (rendered)" ? "partial" : "covered",
+    defectCount: "0",
+    severity: gate.includes("none") ? "low" : "none",
+    note: notesFor({ name, status: "stable", js: "none", support: "baseline", notes: "Generated during build or run on-demand." }, "pipeline"),
   }));
 }
 
