@@ -94,6 +94,9 @@ a{color:inherit}
 .docs-left[data-open="true"]{display:block;position:fixed;inset-block-start:var(--docs-header);inset-inline-start:0;width:min(var(--docs-sidebar),80vw);height:calc(100vh - var(--docs-header));background:var(--background);z-index:40;box-shadow:var(--shadow-lg)}
 .docs-backdrop{display:none}
 .docs-left[data-open="true"] ~ .docs-backdrop{display:block;position:fixed;inset:var(--docs-header) 0 0 0;background:color-mix(in oklab,black 50%,transparent);z-index:35}
+.docs-footer{border-top:1px solid var(--border);padding:var(--space-8) var(--space-4);text-align:center;font-size:var(--text-sm);color:var(--muted-foreground)}
+.docs-footer a{color:var(--foreground);text-decoration:none;font-weight:500}
+.docs-footer a:hover{text-decoration:underline}
 .docs-nav-label{font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-foreground);padding:var(--space-3) var(--space-3) var(--space-1)}
 .docs-nav-group{display:flex;flex-direction:column;gap:1px;margin-bottom:var(--space-4)}
 .docs-nav a{display:block;padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);font-size:var(--text-sm);color:var(--muted-foreground);text-decoration:none;line-height:1.3;transition:all .12s}
@@ -445,6 +448,10 @@ ${anchored}
 ${toc}
 <div class="docs-backdrop"></div>
 </div>
+<footer class="docs-footer">
+  <p>shadcss · ${COMPONENTS.length} components · Open Source · MIT licensed</p>
+  <p style="margin-top:var(--space-1)"><a href="https://github.com/russfranky/shadcss-ui">GitHub</a> · <a href="./support.html">Browser support</a> · <a href="./cli.html">CLI</a></p>
+</footer>
 ${cmdkPalette(components, blocks)}
 ${THEME_JS}
 ${COPY_JS}
@@ -455,7 +462,7 @@ ${SEARCH_JS}
 }
 
 // ── Component page ─────────────────────────────────────────────────────────
-function componentPage(c) {
+function componentPage(c, idx) {
   const meta = [badge("status", c.status || "stable"), badge("js", c.js || "none"), `<span class="badge badge-outline">support: ${esc(c.support || "baseline")}</span>`].join(" ");
   const classes = (c.classes || []).map((cl) => `<span class="badge badge-secondary">.${esc(cl)}</span>`).join(" ");
   const importLine = `@import "${PKG}/${c.file}";`;
@@ -466,8 +473,15 @@ function componentPage(c) {
     ? `<div style="justify-content:center;color:var(--muted-foreground);font-size:var(--text-sm)">This overlay stays hidden until triggered — <a href="../index.html" style="color:var(--primary);font-weight:500">open it in the live demo →</a></div>`
     : (c.markup || "");
 
+  const prev = idx > 0 ? COMPONENTS[idx - 1] : null;
+  const next = idx < COMPONENTS.length - 1 ? COMPONENTS[idx + 1] : null;
+  const prevNext = `<div style="display:flex;justify-content:space-between;gap:var(--space-4);margin-top:var(--space-12);padding-top:var(--space-6);border-top:1px solid var(--border)">
+    ${prev ? `<a href="./${prev.name}.html" style="text-decoration:none;color:inherit;flex:1"><div style="font-size:var(--text-xs);color:var(--muted-foreground);margin-bottom:var(--space-1)">← Previous</div><div style="font-size:var(--text-sm);font-weight:500">${esc(prev.name)}</div></a>` : '<div style="flex:1"></div>'}
+    ${next ? `<a href="./${next.name}.html" style="text-decoration:none;color:inherit;flex:1;text-align:right"><div style="font-size:var(--text-xs);color:var(--muted-foreground);margin-bottom:var(--space-1)">Next →</div><div style="font-size:var(--text-sm);font-weight:500">${esc(next.name)}</div></a>` : '<div style="flex:1"></div>'}
+  </div>`;
+
   const body = `
-<div class="docs-breadcrumb"><a href="./index.html">Components</a><span>/</span>${esc(c.name)}</div>
+<div class="docs-breadcrumb"><a href="./components.html">Components</a><span>/</span>${esc(c.name)}</div>
 <h1 class="docs-h1">${esc(c.name)}</h1>
 <p class="docs-lead">${esc(c.description || "")}</p>
 <div class="docs-meta">${meta}</div>
@@ -486,6 +500,8 @@ ${a11y}
 <div class="docs-section"><h2>Classes</h2><div class="docs-classes">${classes}</div></div>
 
 <div class="docs-section"><h2>Dependencies</h2><div class="docs-classes">${(c.deps || []).map((d) => `<span class="badge badge-outline">${esc(d)}</span>`).join(" ") || '<span class="badge badge-outline">none</span>'}</div></div>
+
+${prevNext}
 `;
   return shell(c.name, body, COMPONENTS, c.name, "components");
 }
@@ -864,7 +880,7 @@ export function genDocs(repoRoot) {
   writeFileSync(path.join(out, "support.html"), supportPage(reg));
   writeFileSync(path.join(out, "retrofit.html"), retrofitPage());
   writeFileSync(path.join(out, "blocks.html"), blocksIndex(reg));
-  for (const c of reg.components) writeFileSync(path.join(out, `${c.name}.html`), componentPage(c));
+  for (const [i, c] of reg.components.entries()) writeFileSync(path.join(out, `${c.name}.html`), componentPage(c, i));
   if (reg.blocks && reg.blocks.length) {
     for (const b of reg.blocks) writeFileSync(path.join(out, `block-${b.name}.html`), blockPage(b));
   }
