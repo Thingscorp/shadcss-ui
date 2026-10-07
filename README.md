@@ -23,6 +23,16 @@ ships 0 JS; native `<dialog>`/Popover/toast need a one-line native trigger
 > Not affiliated with, endorsed by, or sponsored by shadcn/ui. Inspired by its
 > design language.
 
+## Quickstart
+
+Paste this into any HTML page and open it — the button renders in the shadcn
+style. No build step, no JavaScript.
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/@russfranky/shadcss@0.1.12/dist/shadcss.min.css">
+<button class="btn">Hello, shadcss</button>
+```
+
 ## Install
 
 ```html
@@ -67,6 +77,35 @@ shadcss is zero-runtime CSS by default. For the few interactions the platform ca
 ```
 
 Without them the components stay accessible native HTML (tabs are a real radiogroup); with them you get the full keyboard/ARIA pattern. See [`packages/shadcss-js`](./packages/shadcss-js).
+
+## Configuration
+
+No config files, no env vars — shadcss is CSS. Theming is done by overriding
+**design tokens** (CSS custom properties), never by editing components. All
+tokens live in
+[`packages/shadcss/src/base/tokens.css`](./packages/shadcss/src/base/tokens.css)
+(12 groups: surfaces, brand, status, borders, sidebar, chart, radii,
+typography, spacing, elevation, motion, z-index). Colors are full OKLCH
+values (0.2.0+), applied directly as `var(--token)`.
+
+```css
+:root {
+  --primary: oklch(0.5 0.15 250);      /* your brand color */
+  --primary-foreground: oklch(1 0 0);
+  --radius: 0.75rem;
+}
+```
+
+Dark mode ships built in — declarative or automatic:
+
+```html
+<html data-theme="dark">   <!-- force dark -->
+<html>                      <!-- follows prefers-color-scheme -->
+```
+
+Per-component CSS files in `packages/shadcss/dist/components/` are
+standalone — include only what you use to shrink the bundle (see
+"Import only what you use" in the [framework README](./packages/shadcss/README.md)).
 
 ## Why shadcss — the common shadcn/ui complaints, answered
 
@@ -150,6 +189,12 @@ npm run check:a11y                # axe-core on light AND dark themes
 - **AI guide** — [`packages/shadcss/AI_GUIDE.md`](./packages/shadcss/AI_GUIDE.md)
 - **Component registry** — [`packages/shadcss/registry.json`](./packages/shadcss/registry.json)
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md). PRs welcome — each component is one
+file in `packages/shadcss/src/components/`; use the design tokens, not raw
+values; run `npm run build` and `npm run check` before pushing.
+
 ## License
 
-MIT
+MIT — see [LICENSE.md](./LICENSE.md).
