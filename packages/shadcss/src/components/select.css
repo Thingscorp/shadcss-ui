@@ -44,6 +44,12 @@
 
   .select-sm { height: 2rem; padding: 0 var(--space-2); font-size: var(--text-xs); border-radius: var(--radius-sm); }
   .select-lg { height: 2.75rem; padding: 0 var(--space-4); font-size: var(--text-base); }
+  /* iOS Safari zooms on focus below 16px. .select and .select-sm stayed
+     14px and 12px at all widths, unlike .input, so force 16px on coarse
+     pointers. */
+  @media (pointer: coarse) {
+    .select, .select-sm { font-size: var(--text-base); }
+  }
 }
 
 /* --- parity: aria-invalid error state --- */

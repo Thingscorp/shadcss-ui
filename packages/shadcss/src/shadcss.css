@@ -84,6 +84,11 @@
 @import "./components/toggle.css";
 @import "./components/toggle-group.css";
 @import "./components/typography.css";
+@import "./components/stepper.css";
+@import "./components/number-field.css";
+@import "./components/tags-input.css";
+@import "./components/data-table.css";
+@import "./components/date-picker.css";
 
 /* Blocks — full-page section layouts that compose the components. */
 @import "./blocks.css";

@@ -1,0 +1,100 @@
+/* ==========================================================================
+   shadcss · components/date-picker.css
+   Date picker composition: a text input with a calendar trigger button,
+   opening a popover that holds a .calendar. This file is only the
+   composition chrome: the input, the trigger, and de-duplicating the
+   calendar border and shadow inside the popover. Month navigation,
+   date selection, and writing the chosen date back into the input are
+   consumer JS, exactly as documented for .calendar itself.
+   ========================================================================== */
+
+@layer components {
+  .date-picker {
+    display: inline-flex;
+    align-items: stretch;
+    width: 100%;
+    height: 2.25rem;
+    background: var(--background);
+    border: 1px solid var(--input);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
+    transition:
+      border-color var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+
+  .date-picker:focus-within {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  .date-picker:has(.date-picker-input:disabled) {
+    opacity: 0.5;
+  }
+
+  .date-picker-input {
+    flex: 1 1 0%;
+    min-width: 0;
+    height: 100%;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-base);
+    line-height: var(--leading-base);
+    color: var(--foreground);
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+
+  @media (min-width: 48rem) {
+    .date-picker-input { font-size: var(--text-sm); }
+  }
+
+  .date-picker-input::placeholder {
+    color: var(--muted-foreground);
+  }
+
+  .date-picker-input:disabled {
+    cursor: not-allowed;
+  }
+
+  .date-picker-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.25rem;
+    padding: 0;
+    color: var(--muted-foreground);
+    background: transparent;
+    border: none;
+    border-inline-start: 1px solid var(--input);
+    border-start-end-radius: var(--radius-md);
+    border-end-end-radius: var(--radius-md);
+    cursor: pointer;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .date-picker-trigger:hover:not(:disabled) {
+      background: var(--accent);
+      color: var(--foreground);
+    }
+  }
+
+  .date-picker-trigger:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: -2px;
+  }
+
+  .date-picker-trigger:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  /* A calendar inside a date-picker popover must not double the chrome:
+     the popover already supplies border, radius, and shadow. */
+  .date-picker-popover .calendar {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+}

@@ -503,6 +503,54 @@
       "a11y": "Right-click positioning needs oncontextmenu + showPopover(); add menu roles"
     },
     {
+      "name": "data-table",
+      "file": "src/components/data-table.css",
+      "deps": [
+        "base/tokens",
+        "components/table"
+      ],
+      "description": "Data table chrome on top of .table: toolbar with filter and actions, sortable header buttons, selected rows, pagination bar, empty state. Sorting, filtering, pagination, and selection logic are consumer JS.",
+      "markup": "<div class=\"data-table\"><div class=\"data-table-toolbar\"><input class=\"input data-table-filter\" placeholder=\"Filter\"><div class=\"data-table-actions\"><button class=\"btn btn-outline btn-sm\">Columns</button></div></div><div class=\"table-wrapper\"><table class=\"table\"><thead><tr><th aria-sort=\"ascending\"><button class=\"data-table-sort\" type=\"button\">Name<span class=\"data-table-sort-indicator\">^</span></button></th></tr></thead><tbody><tr data-selected=\"true\"><td>A</td></tr></tbody></table></div><div class=\"data-table-pagination\"><span class=\"data-table-page-info\">1 of 10 rows selected</span><div class=\"data-table-page-controls\"><button class=\"btn btn-outline btn-sm\">Previous</button><button class=\"btn btn-outline btn-sm\">Next</button></div></div></div>",
+      "classes": [
+        "data-table",
+        "data-table-toolbar",
+        "data-table-filter",
+        "data-table-actions",
+        "data-table-sort",
+        "data-table-sort-indicator",
+        "data-table-pagination",
+        "data-table-page-info",
+        "data-table-page-controls",
+        "data-table-empty"
+      ],
+      "status": "stable",
+      "js": "consumer",
+      "support": "baseline",
+      "a11y": "Sort buttons in th with aria-sort on th; label filter input and pagination buttons"
+    },
+    {
+      "name": "date-picker",
+      "file": "src/components/date-picker.css",
+      "deps": [
+        "base/tokens",
+        "components/input",
+        "components/popover",
+        "components/calendar"
+      ],
+      "description": "Date picker composition: text input with calendar trigger, opening a popover holding a .calendar. Only composition chrome; month navigation, selection, and writing back to the input are consumer JS, as documented for .calendar.",
+      "markup": "<div class=\"date-picker\"><input class=\"date-picker-input\" placeholder=\"Pick a date\"><button class=\"date-picker-trigger\" type=\"button\" popovertarget=\"dp-cal\" aria-label=\"Open calendar\">Cal</button></div><div class=\"popover date-picker-popover\" popover id=\"dp-cal\"><div class=\"calendar\">Calendar</div></div>",
+      "classes": [
+        "date-picker",
+        "date-picker-input",
+        "date-picker-trigger",
+        "date-picker-popover"
+      ],
+      "status": "stable",
+      "js": "consumer",
+      "support": "baseline",
+      "a11y": "Label the input and the trigger; calendar grid roles as documented for .calendar"
+    },
+    {
       "name": "dialog",
       "file": "src/components/dialog.css",
       "deps": [
@@ -924,6 +972,27 @@
       "a11y": "Native <select> \u2014 full keyboard + screen-reader support for free; pair with a <label>"
     },
     {
+      "name": "number-field",
+      "file": "src/components/number-field.css",
+      "deps": [
+        "base/tokens"
+      ],
+      "description": "Numeric input with increment and decrement controls. Core is a native <input type=number>, so step, min, max, and validation work with no library JS. The button controls are opt-in and need author JS (stepUp/stepDown).",
+      "markup": "<div class=\"number-field\"><input class=\"number-field-input\" type=\"number\" value=\"1\" min=\"0\" max=\"10\" step=\"1\"><div class=\"number-field-buttons\"><button class=\"number-field-button\" type=\"button\" aria-label=\"Increase\">+</button><button class=\"number-field-button\" type=\"button\" aria-label=\"Decrease\">-</button></div></div>",
+      "classes": [
+        "number-field",
+        "number-field-input",
+        "number-field-buttons",
+        "number-field-button",
+        "number-field-sm",
+        "number-field-lg"
+      ],
+      "status": "stable",
+      "js": "consumer",
+      "support": "baseline",
+      "a11y": "Native number input; label the input, label the buttons with aria-label"
+    },
+    {
       "name": "navigation-menu",
       "file": "src/components/navigation-menu.css",
       "deps": [
@@ -1285,6 +1354,28 @@
       "a11y": "Add role=status + aria-label=Loading"
     },
     {
+      "name": "stepper",
+      "file": "src/components/stepper.css",
+      "deps": [
+        "base/tokens"
+      ],
+      "description": "Multi-step progress indicator. Horizontal by default, vertical with data-orientation=vertical. State is author-set data-state on each step.",
+      "markup": "<ol class=\"stepper\"><li class=\"stepper-step\" data-state=\"complete\"><span class=\"stepper-indicator\">1</span><span class=\"stepper-content\"><span class=\"stepper-title\">Account</span><span class=\"stepper-description\">Done</span></span></li><li class=\"stepper-separator\" data-state=\"complete\"></li><li class=\"stepper-step\" data-state=\"current\"><span class=\"stepper-indicator\">2</span><span class=\"stepper-content\"><span class=\"stepper-title\">Profile</span></span></li></ol>",
+      "classes": [
+        "stepper",
+        "stepper-step",
+        "stepper-indicator",
+        "stepper-content",
+        "stepper-title",
+        "stepper-description",
+        "stepper-separator"
+      ],
+      "status": "stable",
+      "js": "none",
+      "support": "baseline",
+      "a11y": "ol landmark; aria-current=step on the current step"
+    },
+    {
       "name": "switch",
       "file": "src/components/switch.css",
       "deps": [
@@ -1343,6 +1434,25 @@
       "js": "none",
       "support": "has-selector",
       "a11y": "radio + :has() \u2014 exposes as an accessible radiogroup with no JS. For full ARIA tabs (role=tab/tablist/tabpanel + arrow-key nav) add @russfranky/shadcss-js/tabs and data-sc-tabs"
+    },
+    {
+      "name": "tags-input",
+      "file": "src/components/tags-input.css",
+      "deps": [
+        "base/tokens"
+      ],
+      "description": "Input with removable tag chips. Tags are author markup; removing a tag needs author JS. Container wrapping, focus ring, and disabled state are pure CSS.",
+      "markup": "<div class=\"tags-input\"><span class=\"tags-input-tag\">React<button class=\"tags-input-remove\" type=\"button\" aria-label=\"Remove React\">x</button></span><input class=\"tags-input-input\" placeholder=\"Add tag\"> </div>",
+      "classes": [
+        "tags-input",
+        "tags-input-tag",
+        "tags-input-remove",
+        "tags-input-input"
+      ],
+      "status": "stable",
+      "js": "consumer",
+      "support": "baseline",
+      "a11y": "Label the input; label each remove button with the tag name"
     },
     {
       "name": "textarea",

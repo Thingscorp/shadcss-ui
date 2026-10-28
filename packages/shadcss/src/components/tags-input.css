@@ -1,0 +1,109 @@
+/* ==========================================================================
+   shadcss · components/tags-input.css
+   Input with removable tag chips. Tags are author markup; removing a tag
+   needs a few lines of author JS (remove the chip element on click), like
+   other consumer-JS components in this library. The container itself,
+   wrapping, focus ring, and disabled state are pure CSS.
+   ========================================================================== */
+
+@layer components {
+  .tags-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    min-height: 2.25rem;
+    padding: var(--space-1) var(--space-3);
+    background: var(--background);
+    border: 1px solid var(--input);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
+    transition:
+      border-color var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+
+  .tags-input:focus-within {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  .tags-input:has(.tags-input-input:disabled) {
+    opacity: 0.5;
+  }
+
+  .tags-input-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-width: 0;
+    max-width: 100%;
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-sm);
+    line-height: var(--leading-sm);
+    color: var(--secondary-foreground);
+    background: var(--secondary);
+    border-radius: var(--radius-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .tags-input-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    color: var(--muted-foreground);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    line-height: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tags-input-remove:hover:not(:disabled) {
+      background: var(--accent);
+      color: var(--foreground);
+    }
+  }
+
+  .tags-input-remove:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 1px;
+  }
+
+  .tags-input-remove:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .tags-input-input {
+    flex: 1 1 8rem;
+    min-width: 8rem;
+    height: 1.75rem;
+    padding: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-base);
+    color: var(--foreground);
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+
+  @media (min-width: 48rem) {
+    .tags-input-input { font-size: var(--text-sm); }
+  }
+
+  .tags-input-input::placeholder {
+    color: var(--muted-foreground);
+  }
+
+  .tags-input-input:disabled {
+    cursor: not-allowed;
+  }
+}

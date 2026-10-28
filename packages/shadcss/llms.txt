@@ -1,6 +1,6 @@
 # shadcss
 
-> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 65 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
+> shadcn/ui's aesthetic as zero-runtime HTML + CSS. 70 components, no React/Radix/Tailwind, no JS framework, zero dependencies. Theme via CSS custom-property design tokens.
 
 Live demo: https://shadcss.vercel.app  ·  npm: @russfranky/shadcss  ·  CLI: npx @russfranky/shadcss-cli add <component>
 
@@ -145,6 +145,18 @@ Classes: context-menu
 A11y: Right-click positioning needs oncontextmenu + showPopover(); add menu roles
 Markup: <div oncontextmenu="event.preventDefault();document.getElementById('X').showPopover()">Right-click here</div><div class="context-menu" popover id="X" role="menu"><button class="dropdown-item" role="menuitem">Back</button><button class="dropdown-item" role="menuitemcheckbox" aria-checked="true" data-checked>Show bookmarks</button><div class="dropdown-separator" role="separator"></div><button class="dropdown-item" role="menuitem">Reload</button></div>
 
+### data-table — status:stable · js:consumer · support:baseline
+Data table chrome on top of .table: toolbar with filter and actions, sortable header buttons, selected rows, pagination bar, empty state. Sorting, filtering, pagination, and selection logic are consumer JS.
+Classes: data-table data-table-toolbar data-table-filter data-table-actions data-table-sort data-table-sort-indicator data-table-pagination data-table-page-info data-table-page-controls data-table-empty
+A11y: Sort buttons in th with aria-sort on th; label filter input and pagination buttons
+Markup: <div class="data-table"><div class="data-table-toolbar"><input class="input data-table-filter" placeholder="Filter"><div class="data-table-actions"><button class="btn btn-outline btn-sm">Columns</button></div></div><div class="table-wrapper"><table class="table"><thead><tr><th aria-sort="ascending"><button class="data-table-sort" type="button">Name<span class="data-table-sort-indicator">^</span></button></th></tr></thead><tbody><tr data-selected="true"><td>A</td></tr></tbody></table></div><div class="data-table-pagination"><span class="data-table-page-info">1 of 10 rows selected</span><div class="data-table-page-controls"><button class="btn btn-outline btn-sm">Previous</button><button class="btn btn-outline btn-sm">Next</button></div></div></div>
+
+### date-picker — status:stable · js:consumer · support:baseline
+Date picker composition: text input with calendar trigger, opening a popover holding a .calendar. Only composition chrome; month navigation, selection, and writing back to the input are consumer JS, as documented for .calendar.
+Classes: date-picker date-picker-input date-picker-trigger date-picker-popover
+A11y: Label the input and the trigger; calendar grid roles as documented for .calendar
+Markup: <div class="date-picker"><input class="date-picker-input" placeholder="Pick a date"><button class="date-picker-trigger" type="button" popovertarget="dp-cal" aria-label="Open calendar">Cal</button></div><div class="popover date-picker-popover" popover id="dp-cal"><div class="calendar">Calendar</div></div>
+
 ### dialog — status:stable · js:trigger · support:dialog
 Native <dialog> modal. Backdrop blur, slide-in animation.
 Classes: dialog dialog-header dialog-title dialog-description dialog-body dialog-footer dialog-close
@@ -276,6 +288,12 @@ Classes: native-select native-select-wrap native-select-sm
 A11y: Native <select> — full keyboard + screen-reader support for free; pair with a <label>
 Markup: <div class="native-select-wrap"><select class="native-select"><option>One</option><option>Two</option></select></div>
 
+### number-field — status:stable · js:consumer · support:baseline
+Numeric input with increment and decrement controls. Core is a native <input type=number>, so step, min, max, and validation work with no library JS. The button controls are opt-in and need author JS (stepUp/stepDown).
+Classes: number-field number-field-input number-field-buttons number-field-button number-field-sm number-field-lg
+A11y: Native number input; label the input, label the buttons with aria-label
+Markup: <div class="number-field"><input class="number-field-input" type="number" value="1" min="0" max="10" step="1"><div class="number-field-buttons"><button class="number-field-button" type="button" aria-label="Increase">+</button><button class="number-field-button" type="button" aria-label="Decrease">-</button></div></div>
+
 ### navigation-menu — status:stable · js:none · support:baseline
 Horizontal nav with dropdown panels of links.
 Classes: navigation-menu navigation-menu-list navigation-menu-item navigation-menu-trigger navigation-menu-content navigation-menu-link-list navigation-menu-link navigation-menu-link-icon navigation-menu-link-title navigation-menu-link-description
@@ -372,6 +390,12 @@ Classes: spinner spinner-sm spinner-lg spinner-xl spinner-primary spinner-destru
 A11y: Add role=status + aria-label=Loading
 Markup: <div class="spinner"></div>
 
+### stepper — status:stable · js:none · support:baseline
+Multi-step progress indicator. Horizontal by default, vertical with data-orientation=vertical. State is author-set data-state on each step.
+Classes: stepper stepper-step stepper-indicator stepper-content stepper-title stepper-description stepper-separator
+A11y: ol landmark; aria-current=step on the current step
+Markup: <ol class="stepper"><li class="stepper-step" data-state="complete"><span class="stepper-indicator">1</span><span class="stepper-content"><span class="stepper-title">Account</span><span class="stepper-description">Done</span></span></li><li class="stepper-separator" data-state="complete"></li><li class="stepper-step" data-state="current"><span class="stepper-indicator">2</span><span class="stepper-content"><span class="stepper-title">Profile</span></span></li></ol>
+
 ### switch — status:stable · js:none · support:baseline
 Toggle switch built on <input type=checkbox>.
 Classes: switch switch-sm switch-lg
@@ -389,6 +413,12 @@ Pure CSS tabs using radios + :has(). No JS.
 Classes: tabs tabs-list tabs-trigger tabs-panel
 A11y: radio + :has() — exposes as an accessible radiogroup with no JS. For full ARIA tabs (role=tab/tablist/tabpanel + arrow-key nav) add @russfranky/shadcss-js/tabs and data-sc-tabs
 Markup: <div class="tabs"><div class="tabs-list" role="radiogroup" aria-label="X tabs"><input type="radio" name="X" id="X-1" checked><label for="X-1" class="tabs-trigger">T1</label></div><div class="tabs-panel" data-tab="X-1">…</div></div>
+
+### tags-input — status:stable · js:consumer · support:baseline
+Input with removable tag chips. Tags are author markup; removing a tag needs author JS. Container wrapping, focus ring, and disabled state are pure CSS.
+Classes: tags-input tags-input-tag tags-input-remove tags-input-input
+A11y: Label the input; label each remove button with the tag name
+Markup: <div class="tags-input"><span class="tags-input-tag">React<button class="tags-input-remove" type="button" aria-label="Remove React">x</button></span><input class="tags-input-input" placeholder="Add tag"> </div>
 
 ### textarea — status:stable · js:none · support:baseline
 Multi-line text input.

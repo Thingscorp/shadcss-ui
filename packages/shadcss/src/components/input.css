@@ -55,6 +55,12 @@
 
   /* Sizes */
   .input-sm { height: 2rem; padding: 0 var(--space-2); font-size: var(--text-xs); border-radius: var(--radius-sm); }
+  /* iOS Safari zooms on focus below 16px and does not zoom back out.
+     .input already stays 16px below 48rem; .input-sm did not, so force it
+     on coarse pointers. */
+  @media (pointer: coarse) {
+    .input-sm { font-size: var(--text-base); }
+  }
   .input-lg { height: 2.75rem; padding: 0 var(--space-4); font-size: var(--text-base); }
 
   /* File input — keeps native file UX, just styles the wrapper */

@@ -34,12 +34,11 @@
   }
 
 
-  /* Positioning — the menu renders in the top layer, so plain inset values
-     are viewport-relative. These [data-side] rules are a dependency-free
-     approximation. Pixel-perfect anchoring to the trigger needs CSS anchor
-     positioning, which requires the AUTHOR to set `anchor-name` on the trigger
-     and `position-anchor` on the menu (popovertarget does NOT create an
-     implicit anchor); opt in per-instance. */
+  /* Positioning — the inset values below are the fallback for browsers
+     without CSS anchor positioning. In browsers that support it, the
+     @supports block at the end of this file anchors the menu to its
+     popovertarget invoker (position-anchor: auto uses the implicit anchor
+     set by the click that opened it), with flip fallbacks for edges. */
   .dropdown-menu[data-side="bottom-start"] {
     inset: auto auto auto 0;
     margin-top: var(--space-2);
@@ -153,6 +152,22 @@
     background: currentColor;
     opacity: 1;
   }
+}
+
+/* --- Anchor positioning: see popover.css, verified 2026-10-25 in Chrome 153. --- */
+@supports (position-anchor: auto) {
+  .dropdown-menu {
+    position: absolute;
+    inset: auto;
+    position-anchor: auto;
+    inset-block-start: anchor(bottom);
+    inset-inline-start: anchor(start);
+    position-try-fallbacks: flip-block, flip-inline;
+    margin: var(--space-2) 0 0 0;
+  }
+  .dropdown-menu[data-side="bottom-end"] { inset-inline-start: auto; inset-inline-end: anchor(end); }
+  .dropdown-menu[data-side="top-start"] { inset-block-start: auto; inset-block-end: anchor(top); margin: 0 0 var(--space-2) 0; }
+  .dropdown-menu[data-side="top-end"] { inset-block-start: auto; inset-block-end: anchor(top); inset-inline-start: auto; inset-inline-end: anchor(end); margin: 0 0 var(--space-2) 0; }
 }
 
 /* --- parity: disabled item + submenu surfaces --- */

@@ -1,0 +1,117 @@
+/* ==========================================================================
+   shadcss · components/number-field.css
+   Numeric input with increment and decrement controls. The core is a
+   native <input type="number">, so keyboard entry, step, min, max, and
+   validation work without any library JS. The .number-field-button
+   controls are opt-in and need a few lines of author JS (for example,
+   input.stepUp() / stepDown() on click); without that wiring they are
+   decorative, and the native number spinner remains the working control.
+   State: disabled and invalid are styled from the input itself.
+   ========================================================================== */
+
+@layer components {
+  .number-field {
+    display: inline-flex;
+    align-items: stretch;
+    width: 100%;
+    height: 2.25rem;
+    background: var(--background);
+    border: 1px solid var(--input);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
+    transition:
+      border-color var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+
+  .number-field:focus-within {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  .number-field:has(.number-field-input:disabled) {
+    opacity: 0.5;
+  }
+
+  .number-field:has(.number-field-input:invalid:not(:placeholder-shown)),
+  .number-field:has(.number-field-input:user-invalid) {
+    border-color: var(--destructive);
+  }
+
+  .number-field-input {
+    flex: 1 1 0%;
+    min-width: 0;
+    height: 100%;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-base);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--leading-base);
+    color: var(--foreground);
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+
+  @media (min-width: 48rem) {
+    .number-field-input { font-size: var(--text-sm); }
+  }
+
+  .number-field-input::placeholder {
+    color: var(--muted-foreground);
+  }
+
+  .number-field-input:disabled {
+    cursor: not-allowed;
+  }
+
+  .number-field-buttons {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    border-inline-start: 1px solid var(--input);
+  }
+
+  .number-field-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0%;
+    width: 1.75rem;
+    padding: 0;
+    color: var(--muted-foreground);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: var(--text-xs);
+    line-height: 1;
+  }
+
+  .number-field-button:first-child {
+    border-bottom: 1px solid var(--input);
+    border-start-end-radius: var(--radius-md);
+  }
+
+  .number-field-button:last-child {
+    border-end-end-radius: var(--radius-md);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .number-field-button:hover:not(:disabled) {
+      background: var(--accent);
+      color: var(--foreground);
+    }
+  }
+
+  .number-field-button:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: -2px;
+  }
+
+  .number-field-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .number-field-sm { height: 2rem; }
+  .number-field-lg { height: 2.75rem; }
+}

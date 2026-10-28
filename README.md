@@ -1,13 +1,13 @@
 # shadcss/ui
 
 > **Zero-runtime UI with the shadcn aesthetic — no React, no Tailwind, no Radix, no hydration.**
-> 65 HTML/CSS components and patterns for server-rendered, static, HTMX, Astro, and AI-generated apps. ~20.2 KB gzipped, zero dependencies, zero JS runtime. Complex widgets are clearly marked.
+> 70 HTML/CSS components and patterns for server-rendered, static, HTMX, Astro, and AI-generated apps. ~21.6 KB gzipped, zero dependencies, zero JS runtime. Complex widgets are clearly marked.
 
 [![live demo](https://img.shields.io/badge/demo-shadcss.vercel.app-black)](https://shadcss.vercel.app)
 [![npm](https://img.shields.io/npm/v/@russfranky/shadcss)](https://www.npmjs.com/package/@russfranky/shadcss)
-[![gzip size](https://img.shields.io/badge/gzipped-20.2%20KB-success)](./packages/shadcss/dist/shadcss.min.css)
+[![gzip size](https://img.shields.io/badge/gzipped-21.6%20KB-success)](./packages/shadcss/dist/shadcss.min.css)
 [![no js framework](https://img.shields.io/badge/JS-no%20framework-black)](#)
-[![components](https://img.shields.io/badge/components-65-blue)](./packages/shadcss#components-65)
+[![components](https://img.shields.io/badge/components-70-blue)](./packages/shadcss#components-70)
 [![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE.md)
 
 **▶ Live demo: [shadcss.vercel.app](https://shadcss.vercel.app)** · **📖 Docs: [/docs](https://shadcss.vercel.app/docs/)** · **🤖 [/llms.txt](https://shadcss.vercel.app/llms.txt)**
@@ -29,7 +29,7 @@ Paste this into any HTML page and open it — the button renders in the shadcn
 style. No build step, no JavaScript.
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@russfranky/shadcss@0.1.12/dist/shadcss.min.css">
+<link rel="stylesheet" href="https://unpkg.com/@russfranky/shadcss@0.2.1/dist/shadcss.min.css">
 <button class="btn">Hello, shadcss</button>
 ```
 
@@ -37,7 +37,7 @@ style. No build step, no JavaScript.
 
 ```html
 <!-- CDN — pin a version in production so a future major can't break you -->
-<link rel="stylesheet" href="https://unpkg.com/@russfranky/shadcss@0.1.12/dist/shadcss.min.css">
+<link rel="stylesheet" href="https://unpkg.com/@russfranky/shadcss@0.2.1/dist/shadcss.min.css">
 ```
 
 ```bash
@@ -61,7 +61,7 @@ npm install @russfranky/shadcss
 npx @russfranky/shadcss-cli add button card dialog   # copy components (+ deps) into ./shadcss
 npx @russfranky/shadcss-cli diff button              # see what changed upstream vs your copy
 npx @russfranky/shadcss-cli check ./index.html       # lint HTML for a11y/markup foot-guns
-npx @russfranky/shadcss-cli list                     # all 65 components
+npx @russfranky/shadcss-cli list                     # all 70 components
 ```
 
 `add` gives you shadcn-style ownership (the CSS lives in your repo); `diff` answers shadcn's #1 complaint by showing exactly what changed upstream so fixes don't silently pass you by. Zero dependencies, fetches from the CDN. See [`packages/cli`](./packages/cli).
@@ -133,7 +133,7 @@ shadcss-ui/
 │   └── www/              ← live component showcase + docs
 └── packages/
     └── shadcss/          ← the framework (published to npm as `shadcss`)
-        ├── src/          ← source CSS (base + 65 components)
+        ├── src/          ← source CSS (base + 70 components)
         ├── dist/         ← built bundles
         ├── registry.json ← machine-readable component spec
         └── AI_GUIDE.md   ← patterns for AI code generation

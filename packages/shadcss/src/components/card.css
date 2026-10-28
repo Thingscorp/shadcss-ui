@@ -48,7 +48,8 @@
     justify-self: end;
   }
 
-  .card-content { padding-inline: var(--space-6); padding-top: 0; }
+  .card-content { padding-inline: var(--space-6); padding-top: 0; overflow-wrap: anywhere; }
+  .card-title, .card-description { overflow-wrap: anywhere; }
   .card-content:has(+ .card-footer) { padding-bottom: var(--space-4); }
 
   .card-footer {

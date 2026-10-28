@@ -1,0 +1,104 @@
+/* ==========================================================================
+   shadcss · components/data-table.css
+   Data table chrome on top of .table: toolbar with a filter input and
+   actions, sortable header buttons, selected rows, a pagination bar, and
+   an empty state. Sorting, filtering, pagination, and row selection
+   logic are consumer JS; this file is the chrome those controls live in,
+   not the logic. A plain .table without this wrapper is still a table.
+   ========================================================================== */
+
+@layer components {
+  .data-table {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-width: 0;
+  }
+
+  .data-table-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+  }
+
+  .data-table-filter {
+    flex: 1 1 12rem;
+    min-width: 0;
+  }
+
+  .data-table-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-inline-start: auto;
+  }
+
+  .data-table-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    white-space: nowrap;
+  }
+
+  .data-table-sort:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  .data-table-sort-indicator {
+    color: var(--muted-foreground);
+    font-size: var(--text-xs);
+    line-height: 1;
+  }
+
+  .data-table th[aria-sort="ascending"] .data-table-sort-indicator,
+  .data-table th[aria-sort="descending"] .data-table-sort-indicator {
+    color: var(--foreground);
+  }
+
+  .data-table tbody tr[data-selected="true"] {
+    background: color-mix(in oklab, var(--muted) 70%, transparent);
+  }
+
+  .data-table tbody tr[data-selected="true"]:hover {
+    background: color-mix(in oklab, var(--muted) 70%, transparent);
+  }
+
+  .data-table-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+  }
+
+  .data-table-page-info {
+    color: var(--muted-foreground);
+    font-size: var(--text-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .data-table-page-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-inline-start: auto;
+  }
+
+  .data-table-empty {
+    padding: var(--space-8) var(--space-4);
+    color: var(--muted-foreground);
+    text-align: center;
+    font-size: var(--text-sm);
+  }
+}

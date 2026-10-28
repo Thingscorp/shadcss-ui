@@ -45,6 +45,8 @@
     border-radius: var(--radius-md);
     padding: var(--space-1);
     justify-self: start;
+    max-width: 100%;
+    overflow-x: auto;
   }
 
   .tabs-trigger {

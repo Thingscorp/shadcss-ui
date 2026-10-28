@@ -75,17 +75,24 @@
 
   .item-title {
     display: flex;
-    width: fit-content;
+    flex-wrap: wrap;
+    min-width: 0;
     align-items: center;
     gap: var(--space-2);
     font-weight: 500;
     line-height: 1.375;
   }
+  /* A long badge inside a narrow title must wrap, not push into actions.
+     Badge stays nowrap everywhere else. */
+  .item-title .badge { flex-shrink: 1; min-width: 0; white-space: normal; text-align: start; }
   .item-description {
     margin: 0;
     font-weight: 400;
     color: var(--muted-foreground);
     line-height: 1.5;
+    /* Let a Latin email or URL inside an RTL row keep its own direction,
+       so its start is not clipped by the clamp. First strong character wins. */
+    unicode-bidi: plaintext;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;

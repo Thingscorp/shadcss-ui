@@ -27,11 +27,14 @@ if (opens === closes) pass(`showcase <div> balance (${opens})`);
 else fail(`showcase <div> imbalance: ${opens} open vs ${closes} close`);
 
 // 2) anchor() must never appear in CSS without an anchor producer (iter-1 D2-001..)
+// A producer is anchor-name, or position-anchor: auto, which uses the
+// implicit anchor set by the popovertarget click that opened the panel.
+// That second form was verified 2026-10-25 in Chrome 153: button x = menu x.
 const compDir = "packages/shadcss/src/components";
 const stripComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
 for (const f of readdirSync(r(compDir)).filter((x) => x.endsWith(".css"))) {
   const css = stripComments(read(path.join(compDir, f)));
-  if (/\banchor\(/.test(css) && !/anchor-name\s*:/.test(css)) {
+  if (/\banchor\(/.test(css) && !/anchor-name\s*:/.test(css) && !/position-anchor\s*:\s*auto/.test(css)) {
     fail(`${compDir}/${f}: uses anchor() with no anchor-name producer (broken positioning, D2-001)`);
   }
 }
