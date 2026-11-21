@@ -4,7 +4,7 @@ Generated color themes for shadcss, produced by Thingscorp/skills (skills/materi
 
 ## Use
 
-Copy `example-theme.css` into your project and load it after the shadcss base styles. It sets the 19 standard theme variables (`--background`, `--primary`, `--accent`, and their `--foreground` pairs, plus `--border`, `--input`, `--ring`) for `:root` (light) and `.dark`.
+Copy `example-theme.css` into your project and load it after the shadcss base styles. It sets the 19 standard theme variables (`--background`, `--primary`, `--accent`, and their `-foreground` pairs, plus `--border`, `--input`, `--ring`) for `:root` (light) and `.dark`.
 
 The example is generated from seed `#6750A4`, unedited.
 
