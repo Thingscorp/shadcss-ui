@@ -14,7 +14,7 @@ The example is generated from seed `#6750A4`, unedited.
 git clone https://github.com/Thingscorp/skills
 cd skills/skills/material-color-system
 npm install
-node integrations/shadcss/generate-theme.mjs --source '#6750A4' --out my-theme.css
+node integrations/shadcss/generate-theme.mjs --source '#6750A4' > my-theme.css
 ```
 
 Every foreground/background pair in a generated theme is a designed pair from the kit, contrast-verified by the kit's eval harness (all text pairs at or above WCAG 4.5:1 across its seed set).
