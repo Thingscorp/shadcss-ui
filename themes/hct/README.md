@@ -1,6 +1,6 @@
 # HCT themes for shadcss
 
-Generated color themes for shadcss, produced by [Thingscorp/hct-color-kit](https://github.com/Thingscorp/hct-color-kit). The generator does not live in this repo: shadcss stays zero-runtime, and this folder carries only generated CSS plus this mapping note.
+Generated color themes for shadcss, produced by Thingscorp/skills (skills/material-color-system). The generator does not live in this repo: shadcss stays zero-runtime, and this folder carries only generated CSS plus this mapping note.
 
 ## Use
 
